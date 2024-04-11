@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 03:17:06 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:08:49 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSE_H
+# define PARSE_H
 
 # include "../lib/libft/libft.h"
 # include <stdio.h>
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 # define AND_IF		"&&"
 # define AMPS_AND	"&"
@@ -93,7 +94,13 @@ void		ft_printstr(char **str_split);
 int			strsplit_count(char **str_split);
 void		ft_freesplit(char **str);
 
+bool		ft_checkshfile(char *str);
+bool		ft_checkiffile(char	*str);
+void		ft_openshfile(char *str_input);
 void		parse_input(char *str);
+bool		check_fd(char *str);
+int			get_fd(char *argv);
+bool		ft_check_args(char **str_split);
 
 t_astnodes	*ft_parsetokens(t_tokens **tokens);
 t_astnodes	*parse_command(t_tokens **tokens);
@@ -139,6 +146,7 @@ void		printout(char **out);
 char		**str_token(char **str);
 char		**ft_handletokens(char **outdp, char *str);
 
+char		*ft_token_value(char *str_token);
 t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token);
 t_tokens	*tokenize_input(char **str_token);
 void		print_tokens(t_tokens *head);

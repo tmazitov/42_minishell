@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 21:19:26 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:29:27 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 char	**ft_splittoken(char *str)
 {
@@ -75,7 +75,7 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 	else
 	{
 		ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
-		ft_freesplit(out);
+		free_pointer(out);
 		return (NULL);
 	}
 	str_temp = ft_assignstring(str, start, *index);
@@ -120,30 +120,4 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 	count++;
 	out[count] = NULL;
 	return (out);
-}
-
-int	ft_strlen_dp(char **s)
-{
-	int	count;
-
-	count = 0;
-	while (s[count])
-	{
-		count++;
-	}
-	return (count);
-}
-
-void	free_pointer(char **s)
-{
-	int	count;
-	int	len;
-
-	len = ft_strlen_dp(s);
-	count = 0;
-	while (count < len)
-	{
-		free(s[count]);
-		count++;
-	}
 }

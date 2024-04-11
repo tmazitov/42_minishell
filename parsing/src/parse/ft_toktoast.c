@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/09 19:12:18 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:59:19 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 t_astnodes	*ft_parsetokens(t_tokens **tokens)
 {

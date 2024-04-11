@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 02:31:58 by emaravil         ###   ########.fr       */
+/*   Created: 2024/04/11 18:48:59 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/11 18:52:07 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	main(void)
-{
-	char		*str;
-
-	while (1)
-	{
-		str = readline("minishell$ ");
-		if (ft_strlen(str) > 0)
-		{
-			add_history(str);
-			parse_input(str);
-		}
-	}
-	return (0);
-}
+#include "../../includes/parse.h"
 
 void	parse_input(char *str)
 {
@@ -34,6 +18,8 @@ void	parse_input(char *str)
 	t_tokens	*token_input;
 	t_astnodes	*root;
 
+	if (!str)
+		return ;
 	str_split = ft_splittoken(str);
 	if (!str_split)
 		return ;
@@ -47,31 +33,5 @@ void	parse_input(char *str)
 		print_ast(root, 0);
 		ft_printf("--------------------------------------------\n");
 	}
-	free(str);
 	free_pointer(str_split);
-}
-
-void	ft_freesplit(char **str)
-{
-	int	len;
-	int	index;
-
-	len = strsplit_size(str);
-	index = 0;
-	while (index < len)
-	{
-		free(str[index]);
-		index++;
-	}
-	free(str);
-}
-
-int	strsplit_size(char **str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
 }

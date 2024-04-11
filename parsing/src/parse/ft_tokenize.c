@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/08 01:05:51 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:27:33 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 char	*ft_checkoperator(char *c)
 {
@@ -28,8 +28,7 @@ char	*ft_checkoperator(char *c)
 			len += 2;
 		}
 		else if ((c[index] == '|') || (c[index] == '(') || \
-			(c[index] == ')') || (c[index] == '(') || (c[index] == '&') || \
-			(c[index] == ';'))
+			(c[index] == ')'))
 			len += 2;
 		index++;
 	}

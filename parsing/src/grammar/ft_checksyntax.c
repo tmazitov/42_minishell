@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 02:00:13 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:36:07 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 bool	ft_checksyntax(t_tokens *tokens)
 {
@@ -91,26 +91,27 @@ bool	ft_checkparenthesis(t_tokens *tokens)
 		return (true);
 }
 
-int	ft_checkcbrackets(char *str)
+bool	ft_checkparam(t_tokens *tokens)
 {
 	int	index;
-	int	count;
 
-	index = 0;
-	count = 0;
-	while (str[index])
+	while ((tokens) != NULL)
 	{
-		if (str[index] == '{')
-			count++;
-		if (str[index] == '}')
-			count--;
-		index++;
+		index = 0;
+		while ((tokens)->value[index] != '\0')
+		{
+			if ((tokens)->value[index] == '$')
+			{
+				if ((tokens)->value[index + 1] != '\0' && \
+					(ft_isalpha((tokens)->value[index + 1]) == 0))
+				{
+					ft_printf("bash: syntex error, wrong parameter name\n");
+					return (false);
+				}
+			}
+			index++;
+		}
+		tokens = tokens->next;
 	}
-	if (count != 0)
-	{
-		ft_printf("bash: syntex error, uneven number of brackets\n");
-		return (0);
-	}
-	else
-		return (1);
+	return (true);
 }

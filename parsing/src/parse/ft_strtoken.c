@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 02:37:35 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:28:55 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 char	**str_token(char **str_input)
 {
@@ -68,18 +68,25 @@ t_tokens	*tokenize_input(char **str_token)
 		if (!token)
 			handle_errors("Memory allocation of tokens failed\n");
 		token->type = WORD;
-		token->next = NULL;
 		if (ft_strncmp(*str_token, "|", 1) == 0)
 			token->type = PIPE;
 		else if ((ft_strchr(*str_token, '>') > 0) || \
 			(ft_strchr(*str_token, '<') > 0))
 			token->type = REDIR;
-		token->value = malloc(sizeof(char) * (ft_strlen(*str_token)) + 1);
-		ft_strlcpy(token->value, *str_token, ft_strlen(*str_token) + 1);
+		token->value = ft_token_value(*str_token);
 		head = ft_sethead_token(head, tail, token);
 		str_token++;
 	}
 	return (head);
+}
+
+char	*ft_token_value(char *str_token)
+{
+	char	*token_val;
+
+	token_val = malloc(sizeof(char) * (ft_strlen(str_token)) + 1);
+	ft_strlcpy(token_val, str_token, ft_strlen(str_token) + 1);
+	return (token_val);
 }
 
 t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token)
@@ -87,6 +94,7 @@ t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token)
 	t_tokens	*s;
 
 	s = head;
+	token->next = NULL;
 	if (!head)
 	{
 		head = token;
@@ -101,36 +109,4 @@ t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token)
 	}
 	s->next = token;
 	return (head);
-}
-
-void	print_tokens(t_tokens *head)
-{
-	t_tokens	*token;
-
-	token = head;
-	ft_printf("o---------------------o---------------------o\n");
-	ft_printf("|        VALUE        |         TYPE        |\n");
-	ft_printf("o---------------------o---------------------o\n");
-	while (token != NULL)
-	{
-		ft_printf("| %19s | %19s |\n", token->value, enum_word(token->type));
-		token = token->next;
-	}
-	ft_printf("o---------------------o---------------------o\n");
-}
-
-char	*enum_word(t_tokentype tokentype)
-{
-	if (tokentype == WORD)
-		return ("WORD");
-	else if (tokentype == REDIR)
-		return ("REDIR");
-	else if (tokentype == PIPE)
-		return ("PIPE");
-	else if (tokentype == SEMICOLON)
-		return ("SEMICOLON");
-	else if (tokentype == END)
-		return ("END");
-	else
-		return ("");
 }

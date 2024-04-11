@@ -6,11 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:58:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/05 03:59:06 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:58:53 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parse.h"
 
 int	ft_checknextchar(char *c, int index)
 {
