@@ -1,0 +1,5 @@
+*.o
+*.a
+*/minishell
+*.h.gch
+.vscode

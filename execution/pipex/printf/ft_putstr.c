@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 19:38:35 by emaravil         ###   ########.fr       */
+/*   Created: 2023/07/12 12:46:17 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/07/17 15:29:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./parsing/includes/parse.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	ft_putstr(char *s)
 {
-	char	*str;
+	int	result;
 
-	while (1)
-	{
-		str = readline("minishell$ ");
-		if (ft_strlen(str) > 0)
-		{
-			add_history(str);
-			if (ft_checkshfile(str))
-				ft_openshfile(str);
-			free(str);
-		}
-	}
-	return (0);
+	result = 0;
+	if (!s)
+		return (ft_putstr("(null)"));
+	while (*s)
+		result += ft_putchar(*s++);
+	return (result);
 }

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putunbr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 19:38:35 by emaravil         ###   ########.fr       */
+/*   Created: 2023/07/16 18:45:51 by tmazitov          #+#    #+#             */
+/*   Updated: 2023/08/02 15:50:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./parsing/includes/parse.h"
+#include "ft_printf.h"
 
-int	main(void)
+int	ft_putunbr(unsigned int num)
 {
-	char	*str;
+	int	result;
 
-	while (1)
-	{
-		str = readline("minishell$ ");
-		if (ft_strlen(str) > 0)
-		{
-			add_history(str);
-			if (ft_checkshfile(str))
-				ft_openshfile(str);
-			free(str);
-		}
-	}
-	return (0);
+	result = 0;
+	if (num / 10 > 0)
+		result += ft_putunbr(num / 10);
+	result += ft_putchar('0' + num % 10);
+	return (result);
 }
