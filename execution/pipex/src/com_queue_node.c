@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 10:27:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:13:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_com_node	*make_node(char *command_line, char *env_path)
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);
-	command_parts = ft_split(command_line, ' ');
+	command_parts = ftt_split(command_line, ' ');
 	if (!command_parts)
 	{
 		free_node(node);

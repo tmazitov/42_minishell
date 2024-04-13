@@ -6,45 +6,18 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/11 16:01:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:05:41 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
-/// @brief Execute each one command from the AST tree
-/// @param tree AST tree of commands 
-/// @param envp Environment parameters
-/// @return Status code of the last one executed command.
-/// @return If tree is NULL or empty the status code will be -1.
-int	execute(t_astnodes *tree, char **envp)
-{
-	t_com_queue	*commands;
-	int			status;
-	int			command_count;
-
-	if (!tree)
-		return (NULL);
-	commands = make_ast_q(tree, envp);
-	if (!commands)
-		return (-1);
-	if (make_queue_relationship(commands) != 0)
-		return (free_queue(commands), -1);
-	if (run_commands(commands, envp) != 0)
-		return (free_queue(commands), -1);
-	free_queue_relationship(commands);
-	command_count = ast_tree_node_count(tree);
-	status = wait_commands(commands, command_count);
-	free_queue(commands);
-	return (status);
-}
 
 /// @brief Run executable commands one by one
 /// @param commands Commands queue
 /// @param envp Environment parameters
 /// @return If each one command executed successfully return 0.
 /// @return If create of child proccess in failed return -1.
-int	run_commands(t_com_queue *commands, char **envp)
+static int	run_commands(t_com_queue *commands, char **envp)
 {
 	t_com_node	*command;
 
@@ -62,7 +35,7 @@ int	run_commands(t_com_queue *commands, char **envp)
 /// @param commands Commands queue
 /// @param count Length of the command queue
 /// @return Status code of the last one executed command.
-int	wait_commands(t_com_queue *commands, int count)
+static int	wait_commands(t_com_queue *commands, int count)
 {
 	t_com_node	*command;
 	int			counter;
@@ -86,4 +59,34 @@ int	wait_commands(t_com_queue *commands, int count)
 	status = command->proc_status;
 	return (status);
 }
+
+
+/// @brief Execute each one command from the AST tree
+/// @param tree AST tree of commands 
+/// @param envp Environment parameters
+/// @return Status code of the last one executed command.
+/// @return If tree is NULL or empty the status code will be -1.
+int	execute(t_astnodes *tree, char **envp)
+{
+	t_com_queue	*commands;
+	int			status;
+	int			command_count;
+
+	if (!tree)
+		return (-1);
+	commands = make_ast_q(tree, envp);
+	if (!commands)
+		return (-1);
+	if (make_queue_relationship(commands) != 0)
+		return (free_queue(commands), -1);
+	if (run_commands(commands, envp) != 0)
+		return (free_queue(commands), -1);
+	free_queue_relationship(commands);
+	command_count = ast_tree_node_count(tree);
+	status = wait_commands(commands, command_count);
+	free_queue(commands);
+	return (status);
+}
+
+
 

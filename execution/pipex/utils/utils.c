@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 18:04:22 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/04 17:29:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:14:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ftt_strlen(const char *str)
 {
 	int	counter;
 
@@ -34,15 +34,15 @@ void	panic(char *message, int status)
 	exit(status);
 }
 
-char	*ft_strjoin(char const *str1, char const *str2)
+char	*ftt_strjoin(char const *str1, char const *str2)
 {
 	char	*result;
 	int		counter;
 
 	counter = 0;
-	if (!str1 || !str2 || (ft_strlen(str1) + ft_strlen(str2) >= INT_MAX))
+	if (!str1 || !str2 || (ftt_strlen(str1) + ftt_strlen(str2) >= INT_MAX))
 		return (NULL);
-	result = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
+	result = malloc(sizeof(char) * (ftt_strlen(str1) + ftt_strlen(str2) + 1));
 	if (!result)
 		return (NULL);
 	while (*str1)
@@ -53,7 +53,7 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	return (result);
 }
 
-char	*ft_strdup(const char *str)
+char	*ftt_strdup(const char *str)
 {
 	int		i;
 	int		len;
@@ -75,7 +75,7 @@ char	*ft_strdup(const char *str)
 	return (new_str);
 }
 
-char	*ft_substr(char const *str, unsigned int start, size_t len)
+char	*ftt_substr(char const *str, unsigned int start, size_t len)
 {
 	char	*sub_str;
 	size_t	counter;
@@ -84,7 +84,7 @@ char	*ft_substr(char const *str, unsigned int start, size_t len)
 
 	if (!str)
 		return (NULL);
-	str_len = ft_strlen(str);
+	str_len = ftt_strlen(str);
 	if (start + len <= str_len)
 		sub_len = len;
 	else if (str_len - 1 < start)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 19:04:40 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 16:29:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:13:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*free_split(char **split_result)
 	return (NULL);
 }
 
-char	**ft_split(char const *str, char ch)
+char	**ftt_split(char const *str, char ch)
 {
 	int		wrd_ctn;
 	int		ctn;
@@ -78,7 +78,7 @@ char	**ft_split(char const *str, char ch)
 		ctn = next_str_len(str + str_ctn, ch);
 		if (ctn == 0)
 			continue ;
-		result[wrd_ctn] = ft_substr(str, str_ctn, ctn);
+		result[wrd_ctn] = ftt_substr(str, str_ctn, ctn);
 		if (!result[wrd_ctn++])
 			return (free_split(result));
 		str_ctn += ctn;

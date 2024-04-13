@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:43:52 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 16:13:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:14:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_strncmp(const char *str1, const char *str2, size_t num)
 
 int	check_heredoc(char *input_path)
 {
-	return (ft_strncmp(input_path, "here_doc", ft_strlen(input_path)) == 0);
+	return (ft_strncmp(input_path, "here_doc", ftt_strlen(input_path)) == 0);
 }
 
 static int	fill_heredoc(t_log_chan *chan, char	*limiter)
@@ -44,11 +44,11 @@ static int	fill_heredoc(t_log_chan *chan, char	*limiter)
 	char	*buffer;
 
 	buffer = NULL;
-	while (!buffer || ft_strncmp(buffer, limiter, ft_strlen(buffer) - 1))
+	while (!buffer || ft_strncmp(buffer, limiter, ftt_strlen(buffer) - 1))
 	{
 		if (buffer)
 		{
-			write(chan->side[1], buffer, ft_strlen(buffer));
+			write(chan->side[1], buffer, ftt_strlen(buffer));
 			free(buffer);
 		}
 		ft_printf("pipe heredoc> ");

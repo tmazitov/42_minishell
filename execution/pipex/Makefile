@@ -6,13 +6,14 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2023/09/12 10:28:36 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/04/13 14:56:00 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #SETUP
-NAME		=	pipex
-CC			=	gcc
+NAME		=	pipex.a
+CC			=	cc
+LB			=	ar rcs
 FLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
 
@@ -72,15 +73,15 @@ BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 %.o: %.c $(HEADER) Makefile
 	@${CC} ${FLAGS} -c $< -o $@
 
-$(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
-	@$(CC) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS) -o $(NAME)
-	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
+# $(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
+# 	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
+# 	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 all: $(NAME)
 
-bonus: $(UTILS_OBJ) $(GNL_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(PRINTF_OBJS) $(BONUS_OBJS)
-	@$(CC) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(BONUS_OBJS) -o $(NAME)
-	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
+$(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(PRINTF_OBJS) $(BONUS_OBJS)
+	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(BONUS_OBJS)
+	@echo -e "$(GREEN)$(NAME) bonus created!$(DEFAULT)"
 
 clean:
 	@$(RM) $(UTILS_OBJ)

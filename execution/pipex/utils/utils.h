@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 20:10:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/04 17:27:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:10:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	panic(char *message, int status);
 void	*free_split(char **split_result);
 char	*find_path(char **envp);
 char	*find_command_path(char *command_name, char *env_path);
-char	**ft_split(char const *str, char ch);
-char	*ft_strjoin(char const *str1, char const *str2);
-char	*ft_substr(char const *str, unsigned int start, size_t len);
-size_t	ft_strlen(const char *str);
-char	*ft_strnstr(const char *big, const char *little, size_t len);
+char	**ftt_split(char const *str, char ch);
+char	*ftt_strjoin(char const *str1, char const *str2);
+char	*ftt_substr(char const *str, unsigned int start, size_t len);
+size_t	ftt_strlen(const char *str);
+char	*ftt_strnstr(const char *big, const char *little, size_t len);
 #endif // !UTILS_H

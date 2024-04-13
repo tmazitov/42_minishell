@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:54:17 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 10:38:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:15:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static char	*check_path(char *path, char *command_name)
 	separator = make_separator();
 	if (!separator)
 		return (NULL);
-	directory = ft_strjoin(path, separator);
+	directory = ftt_strjoin(path, separator);
 	if (!directory)
 		return (free_null(separator));
-	command_path = ft_strjoin(directory, command_name);
+	command_path = ftt_strjoin(directory, command_name);
 	free(directory);
 	free(separator);
 	if (!command_path)
@@ -67,7 +67,7 @@ char	*find_command_path(char *command_name, char *env_path)
 	if (ft_strchr(command_name, '/'))
 		return (command_name);
 	counter = 0;
-	env_path_dirs = ft_split(env_path, ':');
+	env_path_dirs = ftt_split(env_path, ':');
 	while (env_path_dirs[counter])
 	{
 		result = check_path(env_path_dirs[counter], command_name);
@@ -88,7 +88,7 @@ char	*find_path(char **envp)
 		return (NULL);
 	while (*envp)
 	{
-		if (ft_strnstr(*envp, "PATH", 4))
+		if (ftt_strnstr(*envp, "PATH", 4))
 			return (*envp + 5);
 		envp++;
 	}

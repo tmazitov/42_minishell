@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 19:08:49 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:24:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void		ft_freesplit(char **str);
 bool		ft_checkshfile(char *str);
 bool		ft_checkiffile(char	*str);
 void		ft_openshfile(char *str_input);
-void		parse_input(char *str);
+t_astnodes	*parse_input(char *str);
 bool		check_fd(char *str);
 int			get_fd(char *argv);
 bool		ft_check_args(char **str_split);
