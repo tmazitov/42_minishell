@@ -6,11 +6,22 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:13:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:55:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+static void	init_node(t_com_node *node)
+{
+	node->next = NULL;
+	node->prev = NULL;
+	node->in_chan = NULL;
+	node->out_chan = NULL;
+	node->out_relay = NULL;
+	node->proc_id = -1;
+	node->proc_status = 0;
+}
 
 t_com_node	*make_node(char *command_line, char *env_path)
 {
@@ -22,6 +33,7 @@ t_com_node	*make_node(char *command_line, char *env_path)
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);
+	init_node(node);
 	command_parts = ftt_split(command_line, ' ');
 	if (!command_parts)
 	{
@@ -30,13 +42,7 @@ t_com_node	*make_node(char *command_line, char *env_path)
 	}
 	node->name = command_parts[0];
 	node->args = command_parts;
-	node->next = NULL;
-	node->prev = NULL;
 	node->path = find_command_path(command_parts[0], env_path);
-	node->in_chan = NULL;
-	node->out_chan = NULL;
-	node->proc_id = -1;
-	node->proc_status = 0;
 	return (node);
 }
 
@@ -62,6 +68,8 @@ void	*free_node(t_com_node *node)
 		free(node->path);
 	if (node->args)
 		free_split(node->args);
+	if (node->out_relay)
+		free_log_chan(node->out_relay);
 	node->next = NULL;
 	node->prev = NULL;
 	free(node);

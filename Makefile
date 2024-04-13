@@ -1,8 +1,8 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-#-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+#
 MINISHELL_SRCS	=	minishell.c \
 					parsing/src/parse/ft_parse.c \
 					parsing/src/parse/ft_tokenize.c \
@@ -16,6 +16,9 @@ MINISHELL_SRCS	=	minishell.c \
 					parsing/src/open_sh/ft_open_sh.c \
 					execution/execution.c \
 					execution/ast_command_q.c \
+					execution/ast_command_relay.c \
+					execution/ast_command_input.c \
+					execution/ast_command_output.c \
 
 
 MINISHELL_OBJS = $(MINISHELL_SRCS:.c=.o)

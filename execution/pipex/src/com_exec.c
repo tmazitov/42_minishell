@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 16:28:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:49:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,32 @@
 
 static void	printer(t_com_node *command)
 {
-	int			counter;
-
 	printf("%s\t| in : %p\t| out : %p\t| ", command->name, command->in_chan, command->out_chan);
-	counter = 0;
-	while (command->args[counter])
-		printf("%s ", command->args[counter++]);
-	printf("\t\n");
+	if (command->out_relay)
+		printf("> : %d\t", command->out_relay->side_count);
+	printf("\n");
 }
 
 static void duper(t_com_node *command)
 {
 	t_log_chan	*input;
-	t_log_chan	*output;
+	t_log_chan	*out_pipe;
+	t_log_chan	*out_relay;
+	int			counter;
 
 	input = command->in_chan;
-	output = command->out_chan;
+	out_pipe = command->out_chan;
 	if (input)
 		dup2(input->side[0], STDIN_FILENO);
-	if (output)
-		dup2(output->side[1], STDOUT_FILENO);
+	if (out_pipe)
+		dup2(out_pipe->side[1], STDOUT_FILENO);
+	counter = 0;
+	out_relay = command->out_relay;
+	while (out_relay && out_relay->side_count > counter)
+	{
+		dup2(out_relay->side[counter], STDOUT_FILENO);
+		counter++;
+	}
 }
 static void	closer(t_com_node *command)
 {
