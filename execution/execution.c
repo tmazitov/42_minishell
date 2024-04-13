@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:05:41 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:25:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static int	run_commands(t_com_queue *commands, char **envp)
 {
 	t_com_node	*command;
 
-	command = get_node(commands);
+	command = get_first(commands);
 	while (command)
 	{
 		run_command_proc(command, envp, commands);
 		if (command->proc_id == -1)
 			return (-1);
-		command = get_node(commands);
+		command = command->next;
 	}
 	return (0);
 }

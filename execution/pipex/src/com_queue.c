@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:16:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 10:30:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:18:28 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	make_queue_relationship(t_com_queue *queue)
 		return (1);
 	chan = NULL;
 	command = get_first(queue);
+	if (!command || (!command->next && !command->prev))
+		return (0);
 	while (command)
 	{
 		if (command->prev)

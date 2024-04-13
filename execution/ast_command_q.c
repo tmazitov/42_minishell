@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:07:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:22:35 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	ast_q_add_command(t_com_queue *q, t_astnodes *node, char *path)
 		new_node = add_node(q, node->value, path);
 		if (!new_node)
 			return (-1);
+		q->nodes = new_node;
 	}
 	return (0);
 }

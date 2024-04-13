@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/11 10:37:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:59:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	*free_queue_relationship(t_com_queue *q)
 			break ;
 		command = command->next;
 	}
-	free_log_chan(command->out_chan);
+	if (command)
+		free_log_chan(command->out_chan);
 	return (NULL);
 }

@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
+#-fsanitize=address
 MINISHELL_SRCS	=	minishell.c \
 					parsing/src/parse/ft_parse.c \
 					parsing/src/parse/ft_tokenize.c \
