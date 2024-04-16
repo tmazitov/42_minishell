@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/13 14:56:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:51:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		str = readline("minishell$ ");
+		str = readline("\033[1;32mminishell$\033[0m ");
 		if (ft_strlen(str) > 0)
 		{
 			add_history(str);
