@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 18:05:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:43:50 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ int			ast_tree_node_count(t_astnodes *node);
 
 // Execution functions
 
-int	execute(t_astnodes *tree, char **envp);
+int			execute(t_astnodes *tree, char **envp);
 
-// Redirection relay
+// Command io redirection
 
-t_log_chan	*make_relay_chan(int fd);
-t_log_chan	*relay_chan_add(t_log_chan *chan, int fd);
+int			make_com_output(char **com_payload);
 
-int			add_com_output(t_com_node *node, char *output_path);
+// Utils
+
+char		*filter_spaces(char *str);
 
 #endif // !EXECUTION_H

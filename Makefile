@@ -16,7 +16,7 @@ MINISHELL_SRCS	=	minishell.c \
 					parsing/src/open_sh/ft_open_sh.c \
 					execution/execution.c \
 					execution/ast_command_q.c \
-					execution/ast_command_relay.c \
+					execution/ast_command_utils.c \
 					execution/ast_command_input.c \
 					execution/ast_command_output.c \
 

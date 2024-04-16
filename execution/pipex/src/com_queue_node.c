@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 18:55:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:27:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	init_node(t_com_node *node)
 	node->prev = NULL;
 	node->in_chan = NULL;
 	node->out_chan = NULL;
-	node->out_relay = NULL;
+	node->out_file = -1;
+	node->in_file = -1;
 	node->proc_id = -1;
 	node->proc_status = 0;
 }
@@ -68,8 +69,6 @@ void	*free_node(t_com_node *node)
 		free(node->path);
 	if (node->args)
 		free_split(node->args);
-	if (node->out_relay)
-		free_log_chan(node->out_relay);
 	node->next = NULL;
 	node->prev = NULL;
 	free(node);

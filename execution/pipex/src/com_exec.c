@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 18:49:38 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:35:18 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,24 @@
 static void	printer(t_com_node *command)
 {
 	printf("%s\t| in : %p\t| out : %p\t| ", command->name, command->in_chan, command->out_chan);
-	if (command->out_relay)
-		printf("> : %d\t", command->out_relay->side_count);
 	printf("\n");
 }
 
 static void duper(t_com_node *command)
 {
 	t_log_chan	*input;
-	t_log_chan	*out_pipe;
-	t_log_chan	*out_relay;
-	int			counter;
+	t_log_chan	*output;
 
 	input = command->in_chan;
-	out_pipe = command->out_chan;
-	if (input)
+	output = command->out_chan;
+	if (command->in_file != -1)
+		dup2(command->in_file, STDIN_FILENO);
+	else if (input && input->side[0] != -1)
 		dup2(input->side[0], STDIN_FILENO);
-	if (out_pipe)
-		dup2(out_pipe->side[1], STDOUT_FILENO);
-	counter = 0;
-	out_relay = command->out_relay;
-	while (out_relay && out_relay->side_count > counter)
-	{
-		dup2(out_relay->side[counter], STDOUT_FILENO);
-		counter++;
-	}
+	if (command->out_file != -1)
+		dup2(command->out_file, STDOUT_FILENO);
+	else if (output && output->side[1] != -1)
+		dup2(output->side[1], STDOUT_FILENO);
 }
 static void	closer(t_com_node *command)
 {

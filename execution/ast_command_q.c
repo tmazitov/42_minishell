@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 18:22:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:32:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,28 @@ t_com_queue	*make_ast_q(t_astnodes *tree, char **envp)
 static int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
 {
 	t_com_node	*new_node;
+	int			output_fd;
 	char		*command_payload;
-	char		**command_parts;
-	int			counter;
-
-	command_parts = ft_split(node->value, '>');
-	if (!command_parts)
+	
+	command_payload = ft_substr(node->value, 0, ft_strlen(node->value));
+	if (!command_payload)
 		return (-1);
-	command_payload = command_parts[0];
+	output_fd = -1;
+	if (ft_strchr(command_payload, '>'))
+	{
+		output_fd = make_com_output(&command_payload);
+		if (output_fd <= 0)
+			return (free(command_payload), -1);
+	}
 	new_node = add_node(q, command_payload, path);
 	if (!new_node)
 		return (-1);
-	counter = 1;
-	while (command_parts[counter])
-	{
-		if (add_com_output(new_node, command_parts[counter]))
-			return (free_node(new_node), free_split(command_parts), -1);
-		counter++;
-	}
-	free_split(command_parts);
+	if (output_fd != -1)
+		new_node->out_file = output_fd;
 	q->nodes = new_node;
 	return (0);
 }
+
 
 int	ast_q_add_command(t_com_queue *q, t_astnodes *node, char *path)
 {

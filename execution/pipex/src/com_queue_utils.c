@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:59:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:33:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ void	*free_queue_relationship(t_com_queue *q)
 	command = get_first(q);
 	while (command)
 	{
+		if (command->in_file)
+			close(command->in_file);
+		if (command->out_file)
+			close(command->out_file);
 		free_log_chan(command->in_chan);
 		if (!command->next)
 			break ;
