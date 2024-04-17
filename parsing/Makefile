@@ -10,6 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
+UNAME		=	$(shell uname)
 NAME		=	parse.a
 FLAGS		=	-Wall -Werror -Wextra
 CC			= 	cc
@@ -44,13 +45,18 @@ all: $(PARSE_OBJS) $(LIBFT_LIB) $(NAME)
 $(LIBFT_LIB):
 	@$(MAKE_LIBR) $(LIBFT_DIR)
 
+ifeq ($(UNAME), Linux)
 $(NAME): $(PARSE_OBJS)
 	@mkdir -p extracted_objs
 	@ar x $(LIBFT_LIB) --output=extracted_objs
 	@$(LB) $(NAME) $(PARSE_OBJS) extracted_objs/*.o
 	@$(RM) extracted_objs
 	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
-
+else ifeq ($(UNAME), Darwin)
+$(NAME): $(LIBFT_LIB) $(PARSE_OBJS)
+	@libtool -static -o $@ $^
+	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+endif
 
 clean:
 	@$(RM) $(PARSE_OBJS)
@@ -59,9 +65,9 @@ clean:
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@echo "$(RED) parse: LIBRARY AND OBJECTS DELETED!$(DEFAULT)"
+	@echo "$(RED) parse: LIBRARY FILE DELETED!$(DEFAULT)"
 	@$(RM) $(LIBFT_LIB)
-	@echo "$(RED) libft: LIBRARY AND OBJECTS DELETED!$(DEFAULT)"
+	@echo "$(RED) libft: LIBRARY FILE DELETED!$(DEFAULT)"
 
 re: fclean all
 

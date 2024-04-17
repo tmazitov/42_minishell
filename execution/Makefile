@@ -10,6 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
+UNAME		=	$(shell uname)
 NAME		=	execution.a
 CFLAGS		=	-Wall -Werror -Wextra
 CC			= 	cc
@@ -36,15 +37,18 @@ all: $(PIPEX_LIB) $(NAME)
 $(PIPEX_LIB):
 	@$(MAKE_LIBR) $(PIPEX_DIR)
 
+ifeq ($(UNAME), Linux)
 $(NAME): $(EXEC_OBJS)
 	@mkdir -p extracted_objs
 	@ar x $(PIPEX_LIB) --output=extracted_objs
 	@$(LB) $(NAME) $(EXEC_OBJS) extracted_objs/*o
 	@$(RM) extracted_objs
 	@echo	"$(GREEN) $(NAME):: LIBRARY CREATED!$(DEFAULT)"
-
-%.o: %.c $(HEADER) Makefile
-	@$(CC) $(CFLAGS) -L/pipex -lpipex -c $< -o $@
+else ifeq ($(UNAME), Darwin)
+$(NAME): $(PIPEX_LIB) $(EXEC_OBJS)
+	@libtool -static -o $@ $^
+	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+endif
 
 clean:
 	@$(RM) $(EXEC_OBJS)
@@ -53,9 +57,9 @@ clean:
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@echo "$(RED) execution: LIBRARY AND OBJECTS DELETED!$(DEFAULT)"
+	@echo "$(RED) execution: LIBRARY FILE DELETED!$(DEFAULT)"
 	@$(RM) $(PIPEX_LIB)
-	@echo "$(RED) pipex: LIBRARY AND OBJECTS DELETED!$(DEFAULT)"
+	@echo "$(RED) pipex: LIBRARY FILE DELETED!$(DEFAULT)"
 
 re: fclean all
 
