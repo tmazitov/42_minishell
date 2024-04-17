@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_handle_errors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2024/03/19 16:40:34 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:24:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
-
-#endif // MINISHELL_H
+void	handle_errors(char *error_msg)
+{
+	write(STDERR_FILENO, "Error: ", 7);
+	write(STDERR_FILENO, error_msg, ft_strlen(error_msg));
+	write(STDERR_FILENO, "\n", 1);
+	exit(EXIT_FAILURE);
+}

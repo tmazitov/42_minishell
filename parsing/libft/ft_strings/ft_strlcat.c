@@ -1,19 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2023/12/19 16:57:11 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:22:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	char		*d;
+	const char	*s;
+	size_t		n;
+	size_t		dlen;
 
-#endif // MINISHELL_H
+	d = dst;
+	s = src;
+	n = dstsize;
+	while (n-- && *d)
+		d++;
+	dlen = d - dst;
+	n = dstsize - dlen;
+	if (n == 0)
+		return (dlen + ft_strlen(s));
+	while (*s)
+	{
+		if (n != 1)
+		{
+			*d++ = *s;
+			n--;
+		}
+		s++;
+	}
+	*d = '\0';
+	return (dlen + (s - src));
+}

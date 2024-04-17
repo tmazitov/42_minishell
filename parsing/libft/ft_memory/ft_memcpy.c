@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2023/12/21 14:18:18 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:23:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
+void	*ft_memcpy(void *dst, const void *src, size_t len)
+{
+	unsigned char	*d;
+	unsigned char	*s;
 
-#endif // MINISHELL_H
+	d = dst;
+	s = (unsigned char *)src;
+	if (!d && !s)
+		return (NULL);
+	while (len--)
+		*d++ = *s++;
+	return (dst);
+}

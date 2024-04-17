@@ -1,66 +1,56 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/18 12:14:47 by emaravil          #+#    #+#              #
+#    Updated: 2024/04/17 03:37:45 by marvin           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-#
-MINISHELL_SRCS	=	minishell.c \
-					parsing/src/parse/ft_parse.c \
-					parsing/src/parse/ft_tokenize.c \
-					parsing/src/parse/ft_toktoast.c \
-					parsing/src/parse/ft_strtoken.c \
-					parsing/src/parse/ft_splittoken.c \
-					parsing/src/parse/ft_parse_utils.c \
-					parsing/src/parse/ft_checknextchar.c \
-					parsing/src/grammar/ft_checksyntax.c \
-					parsing/src/grammar/ft_checkgrammar.c \
-					parsing/src/open_sh/ft_open_sh.c \
-					execution/execution.c \
-					execution/ast_command_q.c \
-					execution/ast_command_utils.c \
-					execution/ast_command_input.c \
-					execution/ast_command_output.c \
+NAME			= 	minishell
+CC				= 	cc
+FLAGS			= 	-Wall -Wextra -Werror -fsanitize=address
+RM				= 	rm -rf
+LB				= 	ar rcs
 
+MINISHELL_SRCS	=	minishell.c
+MINISHELL_OBJS 	=	$(MINISHELL_SRCS:.c=.o)
+HEADER			= 	minishell.h
 
-MINISHELL_OBJS = $(MINISHELL_SRCS:.c=.o)
-# VPATH = parsing:src:includes:lib:parsing/lib/libft:parsing/src/parse:parsing/src/token:parsing/src/grammar:parsing/src/open_sh
+PARSE = parse.a
+PARSE_DIR = ./parsing
+PARSE_LIB = $(PARSE_DIR)/$(PARSE)
 
-LIBFT = libft.a
-LIBFT_DIR = ./parsing/lib/libft
-LIBFT_LIB = $(LIBFT_DIR)/$(LIBFT)
-LIBR = $(LIBFT_LIB)
-
-PIPEX = pipex.a
-PIPEX_DIR = ./execution/pipex
-PIPEX_LIB = $(PIPEX_DIR)/$(PIPEX)
+EXEC = execution.a
+EXEC_DIR = ./execution
+EXEC_LIB = $(EXEC_DIR)/$(EXEC)
 
 MAKE_LIBR = make --no-print-directory -C
 
-RM = rm -rf
-
-LB = ar rcs
-
-all: $(LIBFT_LIB) $(PIPEX_LIB) $(MINISHELL) $(NAME)
-
+all: $(PARSE_LIB) $(EXEC_LIB) $(NAME)
 
 $(NAME): $(MINISHELL_OBJS)
-	$(CC) $(CFLAGS) $(LIBFT_LIB) $(PIPEX_LIB) $(MINISHELL_OBJS) -o $(NAME) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) -lreadline
 
-# Make libft archive
-$(LIBFT_LIB):
-	$(MAKE_LIBR) $(LIBFT_DIR)
+# Make parse archive
+$(PARSE_LIB):
+	@$(MAKE_LIBR) $(PARSE_DIR)
 
-# Make pipex archive
-$(PIPEX_LIB):
-	$(MAKE_LIBR) $(PIPEX_DIR)
+# Make execution archive
+$(EXEC_LIB):
+	@$(MAKE_LIBR) $(EXEC_DIR)
 
 clean:
-	$(RM) $(MINISHELL_OBJS)
-	$(MAKE_LIBR) $(LIBFT_DIR) fclean
-	$(MAKE_LIBR) $(PIPEX_DIR) fclean
+	@$(RM) $(MINISHELL_OBJS)
+	@$(MAKE_LIBR) $(PARSE_DIR) clean
+	@$(MAKE_LIBR) $(EXEC_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
-	$(MAKE_LIBR) $(LIBFT_DIR) fclean
-	$(MAKE_LIBR) $(PIPEX_DIR) fclean
+	@$(RM) $(NAME)
+	@$(MAKE_LIBR) $(PARSE_DIR) fclean
+	@$(MAKE_LIBR) $(EXEC_DIR) fclean
 
 re: fclean all

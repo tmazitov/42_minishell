@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_sh.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 19:36:09 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/17 02:20:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ bool	ft_checkshfile(char *str)
 
 	cmd = "minishell";
 	str_split = ft_split(str, ' ');
+	if (ft_strncmp(cmd, str_split[0], ft_strlen(cmd)) != 0)
+		return (free_pointer(str_split), false);
 	if (!ft_check_args(str_split))
 	{
 		parse_input(str);

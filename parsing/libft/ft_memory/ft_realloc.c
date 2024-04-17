@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2024/03/31 03:46:43 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:24:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
+void	*ft_realloc(void *ptr, size_t len)
+{
+	void	*new_ptr;
+	size_t	old_size;
 
-#endif // MINISHELL_H
+	if (ptr == NULL)
+		return (malloc(len));
+	if (len == 0)
+	{
+		free (ptr);
+		return (NULL);
+	}
+	new_ptr = malloc(len);
+	if (!new_ptr)
+		return (NULL);
+	old_size = sizeof(ptr);
+	ft_memcpy(new_ptr, ptr, old_size);
+	free(ptr);
+	return (new_ptr);
+}

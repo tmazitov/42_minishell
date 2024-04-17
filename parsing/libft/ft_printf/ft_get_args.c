@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_get_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2024/01/10 21:35:56 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:21:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../ft_printf.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
+long long	ft_get_args(t_print *tab, char format)
+{
+	long long	n;
 
-#endif // MINISHELL_H
+	if (format == 'd' || format == 'i')
+		n = va_arg(tab->args, int);
+	else if (format == 'u')
+		n = va_arg(tab->args, unsigned int);
+	else if (format == 'x' || format == 'X')
+		n = va_arg(tab->args, unsigned int);
+	else
+		return (0);
+	return (n);
+}

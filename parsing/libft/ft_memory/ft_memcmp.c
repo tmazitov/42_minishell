@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2023/12/21 14:23:24 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:23:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
+int	ft_memcmp(const void *s1, const void *s2, size_t len)
+{
+	const unsigned char	*p1 = s1;
+	const unsigned char	*p2 = s2;
 
-#endif // MINISHELL_H
+	if (len != 0)
+		while (len--)
+			if (*p1++ != *p2++)
+				return (*--p1 - *--p2);
+	return (0);
+}

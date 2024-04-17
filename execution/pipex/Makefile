@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/13 14:56:00 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/04/17 07:17:19 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ RM			=	rm -rf
 CHAN_SRCS	=	chan/chan.c \
 				chan/close.c \
 				chan/free.c \
-				chan/payload.c  
+				chan/payload.c
 CHAN_OBJ	=	$(CHAN_SRCS:.c=.o)
 
 GNL_SRCS	=	get_next_line/get_next_line.c \
@@ -33,15 +33,14 @@ SRC_SRCS	=	src/com_exec.c \
 				src/com_queue_utils.c \
 				src/com_queue.c \
 				src/input.c \
-				src/output.c 
-				
+				src/output.c
 SRC_OBJ		=	$(SRC_SRCS:.c=.o)
 
 UTILS_SRCS	=	utils/utils.c \
 				utils/find_command.c \
 				utils/ft_split.c \
-				utils/ft_strnstr.c 
-				
+				utils/ft_strnstr.c
+
 UTILS_OBJ	=	$(UTILS_SRCS:.c=.o)
 
 PRINTF_SRCS	= 	printf/ft_printf.c \
@@ -50,7 +49,6 @@ PRINTF_SRCS	= 	printf/ft_printf.c \
 				printf/ft_putstr.c \
 				printf/ft_putnbr.c \
 				printf/ft_putunbr.c
-
 PRINTF_OBJS =	$(PRINTF_SRCS:.c=.o)
 
 HEADER		=	src/pipex.h \
@@ -58,7 +56,7 @@ HEADER		=	src/pipex.h \
 				utils/utils.h \
 				bonus/main_bonus.h \
 				printf/ft_printf.h \
-				get_next_line/get_next_line.h 
+				get_next_line/get_next_line.h
 
 MAND_SRCS	=	mandatory/mandatory.c
 MAND_OBJS	=	$(MAND_SRCS:.c=.o)
@@ -67,7 +65,6 @@ BONUS_SRCS	=	bonus/heredoc_bonus.c \
 				bonus/output_bonus.c \
 				bonus/main_bonus.c
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
-
 
 #COMMANDS
 %.o: %.c $(HEADER) Makefile
@@ -79,9 +76,9 @@ BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(PRINTF_OBJS) $(BONUS_OBJS)
-	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(BONUS_OBJS)
-	@echo -e "$(GREEN)$(NAME) bonus created!$(DEFAULT)"
+$(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(PRINTF_OBJS)
+	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) 
+	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
 
 clean:
 	@$(RM) $(UTILS_OBJ)
@@ -89,13 +86,12 @@ clean:
 	@$(RM) $(CHAN_OBJ)
 	@$(RM) $(SRC_OBJ)
 	@$(RM) $(PRINTF_OBJS)
-	@$(RM) $(BONUS_OBJS)
 	@$(RM) $(MAND_OBJS)
-	@echo -e "$(YELLOW)object files deleted!$(DEFAULT)"
+	@echo "$(YELLOW) pipex: OBJECT FILES DELETED!$(DEFAULT)"
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@echo -e "$(RED)all deleted!$(DEFAULT)"
+	@echo "$(RED) pipex: LIBRARY AND OBJECTS DELETED!$(DEFAULT)"
 
 re: fclean all
 

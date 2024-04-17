@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_checkerror_malloc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 05:34:38 by marvin           ###   ########.fr       */
+/*   Created: 2024/01/10 13:54:30 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/17 03:23:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../ft_printf.h"
 
-#include "./execution/includes/execution.h"
-#include "./parsing/includes/parse.h"
-
-#endif // MINISHELL_H
+int	ft_checkerror_malloc(t_print *tab, char *error_malloc)
+{
+	if (!error_malloc)
+	{
+		tab->error = -1;
+		return (-1);
+	}
+	return (1);
+}

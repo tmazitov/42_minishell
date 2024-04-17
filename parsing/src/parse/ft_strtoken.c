@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtoken.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 18:28:55 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/17 02:12:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 char	**str_token(char **str_input)
 {
-	int				len;
 	char			**out;
 	int				count;
 
 	out = (char **)malloc(sizeof(char *) * 1);
 	out[0] = NULL;
-	len = ft_strlen_dp(str_input);
 	count = 0;
 	while (str_input[count] != NULL)
 	{
@@ -70,8 +68,8 @@ t_tokens	*tokenize_input(char **str_token)
 		token->type = WORD;
 		if (ft_strncmp(*str_token, "|", 1) == 0)
 			token->type = PIPE;
-		else if ((ft_strchr(*str_token, '>') > 0) || \
-			(ft_strchr(*str_token, '<') > 0))
+		else if ((ft_strchr(*str_token, '>') != 0) || \
+			(ft_strchr(*str_token, '<') != 0))
 			token->type = REDIR;
 		token->value = ft_token_value(*str_token);
 		head = ft_sethead_token(head, tail, token);
@@ -94,11 +92,11 @@ t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token)
 	t_tokens	*s;
 
 	s = head;
+	(void)tail;
 	token->next = NULL;
 	if (!head)
 	{
 		head = token;
-		tail = token;
 		return (head);
 	}
 	while (s != NULL)
