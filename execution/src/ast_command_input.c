@@ -3,29 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:04:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 04:51:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/18 19:44:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
 
-// int	add_com_input(t_com_node *node, char *input_path)
-// {
-// 	int input_fd;
+static int	fd_by_last_input(char **new_payload)
+{
+	int 	input_fd;
+	int		len;
+	char	*path;
+	char	*path_start;
+
+	if (!new_payload || !*new_payload)
+		return (-1);
+	input_fd = -1;
+	while (ft_strchr(*new_payload, '<'))
+	{
+		if (input_fd != -1)
+			close(input_fd);
+		path_start = *new_payload;
+		path_start += 1;
+		while (*path_start == ' ')
+			path_start += 1;
+		len = 0;
+		while (path_start[len] && path_start[len] != ' ' && path_start[len] != '<')
+			len++;
+		path = ft_substr(path_start, 0, len);
+		if (!path)
+			return (-1);
+		input_fd = open(path, O_RDONLY, 0777);
+		free(path);
+		if (input_fd <= 0)
+			return (-1);
+		path_start += len;
+		while (*path_start == ' ')
+			path_start += 1;
+		*new_payload =  path_start;
+	}
+	return (input_fd);
+}
+/// @brief Open each one infile and return a file descriptor of the last one.
+/// @param com_payload pointer to the user input
+/// @return File descriptor of the last input file
+int	make_com_input(char **com_payload)
+{
+	char		*new_payload;
+	int			input_fd;
 	
-// 	if (!node)
-// 		return (-1);
-// 	input_fd = open(input_path, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-// 	if (input_fd <= 0)
-// 		return (-1);
-// 	if (!node->out_relay)
-// 		node->out_relay = make_relay_chan(input_fd);
-// 	else
-// 		node->out_relay = relay_chan_add(node->out_relay, input_fd);
-// 	if (!node->out_chan)
-// 		return (-1);
-// 	return (0);
-// }
+	if (!*com_payload || !ft_strchr(*com_payload, '<'))
+		return (-1);
+	new_payload = *com_payload;
+	input_fd = fd_by_last_input(&new_payload);
+	if (input_fd <= 0)
+		return (-1);
+	new_payload = ft_substr(new_payload, 0, ft_strlen(new_payload));
+	if (!new_payload)
+		return (-1);
+	free(*com_payload);
+	*com_payload = new_payload;
+	return (input_fd);
+}

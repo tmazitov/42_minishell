@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_q.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 04:51:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/18 17:52:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,7 @@ t_com_queue	*make_ast_q(t_astnodes *tree, char **envp)
 	return (commands);
 }
 
-static int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
-{
-	t_com_node	*new_node;
-	int			output_fd;
-	char		*command_payload;
-	
-	command_payload = ft_substr(node->value, 0, ft_strlen(node->value));
-	if (!command_payload)
-		return (-1);
-	output_fd = -1;
-	if (ft_strchr(command_payload, '>'))
-	{
-		output_fd = make_com_output(&command_payload);
-		if (output_fd <= 0)
-			return (free(command_payload), -1);
-	}
-	new_node = add_node(q, command_payload, path);
-	if (!new_node)
-		return (-1);
-	if (output_fd != -1)
-		new_node->out_file = output_fd;
-	q->nodes = new_node;
-	return (0);
-}
+
 
 
 int	ast_q_add_command(t_com_queue *q, t_astnodes *node, char *path)
