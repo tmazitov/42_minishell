@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/16 18:32:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:35:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_com_node
 	struct s_com_node	*prev;
 	t_log_chan			*in_chan;
 	t_log_chan			*out_chan;
+	t_log_chan			*heredoc;
 	int					out_file;
 	int					in_file;
 	int					proc_id;

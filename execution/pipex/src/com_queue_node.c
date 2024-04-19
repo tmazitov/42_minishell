@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/16 18:27:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:36:05 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	init_node(t_com_node *node)
 	node->in_file = -1;
 	node->proc_id = -1;
 	node->proc_status = 0;
+	node->heredoc = NULL;
 }
 
 t_com_node	*make_node(char *command_line, char *env_path)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:04:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/18 19:44:22 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:34:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	fd_by_last_input(char **new_payload)
 	if (!new_payload || !*new_payload)
 		return (-1);
 	input_fd = -1;
-	while (ft_strchr(*new_payload, '<'))
+	while (ft_strnstr(*new_payload, "< ", ft_strlen(*new_payload)))
 	{
 		if (input_fd != -1)
 			close(input_fd);
@@ -43,7 +43,8 @@ static int	fd_by_last_input(char **new_payload)
 		path_start += len;
 		while (*path_start == ' ')
 			path_start += 1;
-		*new_payload =  path_start;
+		*new_payload = path_start;
+		printf("new_payload : '%s'\n", *new_payload);
 	}
 	return (input_fd);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/16 18:35:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:05:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static void duper(t_com_node *command)
 
 	input = command->in_chan;
 	output = command->out_chan;
-	if (command->in_file != -1)
+	if (command->heredoc)
+		dup2(command->heredoc->side[0], STDIN_FILENO);
+	else if (command->in_file != -1)
 		dup2(command->in_file, STDIN_FILENO);
 	else if (input && input->side[0] != -1)
 		dup2(input->side[0], STDIN_FILENO);
