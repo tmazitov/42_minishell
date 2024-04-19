@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:04:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/19 14:34:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:23:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	fd_by_last_input(char **new_payload)
 	if (!new_payload || !*new_payload)
 		return (-1);
 	input_fd = -1;
-	while (ft_strnstr(*new_payload, "< ", ft_strlen(*new_payload)))
+	while (ftt_strnstr(*new_payload, "< ", ft_strlen(*new_payload)))
 	{
 		if (input_fd != -1)
 			close(input_fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 20:10:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:10:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:20:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,4 @@ char	*ftt_strjoin(char const *str1, char const *str2);
 char	*ftt_substr(char const *str, unsigned int start, size_t len);
 size_t	ftt_strlen(const char *str);
 char	*ftt_strnstr(const char *big, const char *little, size_t len);
-#endif // !UTILS_H
+#endif // UTILS_H

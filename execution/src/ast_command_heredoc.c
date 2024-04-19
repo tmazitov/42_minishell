@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_heredoc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:51:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/19 16:02:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:25:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
+
+static int	fill_heredoc(t_log_chan *chan, char	*limiter);
+static char	*make_limiter(char *temp);
+static t_log_chan	*chan_by_last_heredoc(char **payload);
 
 static int	fill_heredoc(t_log_chan *chan, char	*limiter)
 {
@@ -38,7 +42,7 @@ static int	fill_heredoc(t_log_chan *chan, char	*limiter)
 static char	*make_limiter(char *temp)
 {
 	int			len;
-	
+
 	len = 0;
 	while(temp[len] && temp[len] != ' ')
 		len++;
@@ -52,11 +56,11 @@ static t_log_chan	*chan_by_last_heredoc(char **payload)
 	t_log_chan	*chan;
 
 	chan = NULL;
-	while (ft_strnstr(*payload, "<<", ft_strlen(*payload)))
+	while (ftt_strnstr(*payload, "<<", ftt_strlen(*payload)))
 	{
 		if (chan)
 			chan = free_log_chan(chan);
-		if (!(temp = ft_strnstr(*payload, "<<", ft_strlen(*payload)) + 3))
+		if (!(temp = ftt_strnstr(*payload, "<<", ftt_strlen(*payload)) + 3))
 			return (NULL);
 		if (!(limiter = make_limiter(temp)))
 			return (NULL);
@@ -82,9 +86,9 @@ t_log_chan *make_heredoc(char **com_payload)
 	char		*new_payload;
 	char		*command;
 	int			len;
-	
+
 	if (!*com_payload ||
-		!ft_strnstr(*com_payload, "<<", ft_strlen(*com_payload)))
+		!ftt_strnstr(*com_payload, "<<", ft_strlen(*com_payload)))
 		return (NULL);
 	new_payload = *com_payload;
 	chan = chan_by_last_heredoc(&new_payload);
@@ -106,7 +110,7 @@ t_log_chan *make_heredoc(char **com_payload)
 		return (free_log_chan(chan));
 	printf("command '%s'\n", command);
 	if (*new_payload != '\0')
-		new_payload = ft_strjoin(command, new_payload);
+		new_payload = ftt_strjoin(command, new_payload);
 	else
 		new_payload = command; 
 	if (!new_payload)

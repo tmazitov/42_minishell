@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/19 15:43:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:04:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,7 @@ t_log_chan 	*make_heredoc(char **com_payload);
 
 char		*filter_spaces(char *str);
 
+// Heredoc
+
+t_log_chan *make_heredoc(char **com_payload);
 #endif // !EXECUTION_H

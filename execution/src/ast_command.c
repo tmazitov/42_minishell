@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/19 15:47:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/20 03:22:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
+
+static int	make_input_redir(char **payload);
+static int	make_output_redir(char **payload);
+static t_log_chan	*make_input_heredoc(char **payload);
+static t_com_redir make_redirection(char **payload);
 
 /// @brief Make the input fd if payload contain at least one <.
 /// @brief Also remove all data from payload about input redirection such as '<' and input file paths
@@ -43,9 +48,9 @@ static int	make_output_redir(char **payload)
 static t_log_chan	*make_input_heredoc(char **payload)
 {
 	t_log_chan	*heredoc;
-	
+
 	heredoc = NULL;
-	if (ft_strnstr(*payload, "<<", ft_strlen(*payload)))
+	if (ftt_strnstr(*payload, "<<", ftt_strlen(*payload)))
 		heredoc = make_heredoc(payload);
 	return (heredoc);
 }
@@ -56,10 +61,10 @@ static t_com_redir make_redirection(char **payload)
 	int			is_heredoc;
 	int			is_input_file;
 	int			is_output_file;
-	
+
 	redirection.status = 0;
-	is_output_file = ft_strchr(*payload, '>') != NULL; 
-	is_heredoc = ft_strnstr(*payload, "<<", ft_strlen(*payload)) != NULL;
+	is_output_file = ft_strchr(*payload, '>') != NULL;
+	is_heredoc = ftt_strnstr(*payload, "<<", ftt_strlen(*payload)) != NULL;
 	redirection.output_file = make_output_redir(payload);
 	redirection.status = is_output_file && redirection.output_file < 0;
 	if (redirection.status != 0)
@@ -68,7 +73,7 @@ static t_com_redir make_redirection(char **payload)
 	redirection.status = is_heredoc && redirection.heredoc == NULL;
 	if (redirection.status != 0)
 		return (free(*payload), redirection);
-	is_input_file = ft_strchr(*payload, '<') != NULL; 
+	is_input_file = ft_strchr(*payload, '<') != NULL;
 	redirection.input_file = make_input_redir(payload);
 	redirection.status = is_input_file && redirection.input_file < 0;
 	if (redirection.status != 0)
