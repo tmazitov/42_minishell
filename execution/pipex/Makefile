@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/17 07:17:19 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/19 04:07:31 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ BONUS_SRCS	=	bonus/heredoc_bonus.c \
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 #COMMANDS
-%.o: %.c $(HEADER) Makefile
-	@${CC} ${FLAGS} -c $< -o $@
+# %.o: %.c $(HEADER) Makefile
+# 	@${CC} ${FLAGS} -c $< -o $@
 
 # $(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
 # 	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)

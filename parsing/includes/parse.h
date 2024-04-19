@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/17 03:36:07 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/19 03:53:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@
 # define LPARAN		"("
 # define RPARAN		")"
 # define D_SIGN		"$"
-
-typedef enum nodetype
-{
-	s_cmnd,
-	c_cmnd,
-	ppln,
-	rdrn,
-	io_file,
-	io_here,
-	argmnt,
-	errmsg,
-}	t_nodetype;
 
 typedef enum tokentype
 {
@@ -81,74 +69,64 @@ typedef struct splitvalutes
 	int		token_count;
 }	t_splitvalues;
 
-typedef struct ast_node
-{
-	t_nodetype			ntype;
-	char				*value;
-	char				*errmsg;
-	struct ast_node		**child;
-	size_t				num_child;
-}	t_astnode;
+// ############################## OPEN SH #################################
 
-void		ft_printstr(char **str_split);
-int			strsplit_count(char **str_split);
-void		ft_freesplit(char **str);
-
+bool		ft_check_args(char **str_split);
 bool		ft_checkshfile(char *str);
 bool		ft_checkiffile(char	*str);
-void		ft_openshfile(char *str_input);
-t_astnodes	*parse_input(char *str);
 bool		check_fd(char *str);
-int			get_fd(char *argv);
-bool		ft_check_args(char **str_split);
+void		ft_openshfile(char *str_input);
+
+// ############################### PARSE ##################################
+
+t_astnodes	*parse_input(char *str);
+
+int			ft_checknextchar(char *c, int index);
+int			ft_checknextcharb(char *c, int index);
+int			ft_checknextcharc(char *c, int index);
+
+int			ft_strlen_dp(char **s);
+void		free_pointer(char **s);
+void		print_tokens(t_tokens *head);
+char		*enum_word(t_tokentype tokentype);
+int			ft_checkcbrackets(char *str);
+
+char		**ft_splittoken(char *str);
+char		**ft_handlestring(char **in, char *str, \
+			int *index, int token_count);
+char		**ft_handlequotes(char **in, char *str, \
+			int *index, int token_count);
+char		*ft_assignstring(char *str, int start, int end);
+char		**ft_realloc_dp(char **s, char *input, int len);
+
+char		*ft_checkoperator(char *c);
+char		*ft_tokenize(char *out, char *c, int len);
+bool		ft_checkpid(char *c, int index, int offset);
+int			ft_handleredir(char *out, char *c, int index, int offset);
+int			ft_handleoper(char *out, char *c, int index, int offset);
+
+char		**str_token(char **str);
+char		**ft_handletokens(char **outdp, char *str);
+t_tokens	*tokenize_input(char **str_token);
+char		*ft_token_value(char *str_token);
+t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token);
 
 t_astnodes	*ft_parsetokens(t_tokens **tokens);
 t_astnodes	*parse_command(t_tokens **tokens);
 char		*merge_string(char *s1, char *s2);
 void		print_ast(t_astnodes *rootnode, int depth);
 
+// ############################# GRAMMAR #################################
+
 bool		ft_shellgrammar(t_tokens *tokens);
-bool		ft_checkstart(t_tokens *tokens);
-bool		ft_checkparam(t_tokens *tokens);
-bool		ft_checksyntax(t_tokens *tokens);
-bool		ft_checkparenthesis(t_tokens *tokens);
 bool		ft_completecommand(t_tokens *tokens);
 bool		ft_checkpipe(t_tokens *tokens);
 bool		ft_ioredir(t_tokens *token_start, t_tokens *token_end);
+bool		ft_checkstart(t_tokens *tokens);
 
-void		free_ast(t_astnode *root);
-void		skip_whitespace(const char **cmnd);
-int			strsplit_size(char **str);
-char		*ft_checkoperator(char *c);
-char		*ft_tokenize(char *out, char *c, int len);
-bool		ft_checkpid(char *c, int index, int offset);
-int			ft_checknextchar(char *c, int index);
-int			ft_checknextcharb(char *c, int index);
-int			ft_checknextcharc(char *c, int index);
-int			ft_handleredir(char *out, char *c, int index, int offset);
-int			ft_handleoper(char *out, char *c, int index, int offset);
+bool		ft_checkparam(t_tokens *tokens);
+bool		ft_checksyntax(t_tokens *tokens);
+bool		ft_checkparenthesis(t_tokens *tokens);
 int			ft_checksquotes(char *str);
 int			ft_checkdquotes(char *str);
-int			ft_checkcbrackets(char *str);
-char		**ft_splittoken(char *str);
-char		*ft_assignstring(char *str, int start, int end);
-char		**ft_realloc_dp(char **s, char *input, int len);
-int			ft_strlen_dp(char **s);
-void		free_pointer(char **s);
-char		**ft_handlestring(char **in, char *str, \
-			int *index, int token_count);
-char		**ft_handlequotes(char **in, char *str, \
-			int *index, int token_count);
-int			get_indexquotes(char *str, int index);
-int			get_indexstring(char *str, int index);
-
-void		printout(char **out);
-char		**str_token(char **str);
-char		**ft_handletokens(char **outdp, char *str);
-
-char		*ft_token_value(char *str_token);
-t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token);
-t_tokens	*tokenize_input(char **str_token);
-void		print_tokens(t_tokens *head);
-char		*enum_word(t_tokentype tokentype);
 #endif

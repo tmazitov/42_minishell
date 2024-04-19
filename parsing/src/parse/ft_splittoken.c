@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splittoken.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 18:29:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 00:47:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+/// @brief split input string into tokens. This function does not split spaces in between single and double quotes
+/// @brief functions included: ft_handlestring, ft_handlequotes, ft_assignstring, ft_realloc_dp
+/// @param str input pointer string
+/// @return double pointer of tokens.
 char	**ft_splittoken(char *str)
 {
 	t_splitvalues	spval;
@@ -41,6 +45,12 @@ char	**ft_splittoken(char *str)
 	return (out);
 }
 
+/// @brief handles unqouted strings excluding spaces then reallocates memory of the double pointer
+/// @param in the old double pointer
+/// @param str string input from readline/function
+/// @param index index in str where a string starts. The string starts right after a space.
+/// @param token_count the new size of the new double pointer
+/// @return new double pointer
 char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
@@ -57,6 +67,12 @@ char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 	return (out);
 }
 
+/// @brief handles single and double quotes from the input string/pointer. checks if the number of quotes is even.
+/// @param in the old double pointer
+/// @param str string input from readline/function
+/// @param index index in str where quote starts
+/// @param token_count the new size of the new double pointer
+/// @return new double pointer
 char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
@@ -83,6 +99,11 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 	return (out);
 }
 
+/// @brief create new pointer from input string specifying the start and end index
+/// @param str input string
+/// @param start start index from input string
+/// @param end end index from input string. end index is not included.
+/// @return new string pointer
 char	*ft_assignstring(char *str, int start, int end)
 {
 	int		count;
@@ -102,6 +123,11 @@ char	*ft_assignstring(char *str, int start, int end)
 	return (out);
 }
 
+/// @brief reallocate memory of a double pointer, adding a pointer at the end index of the double pointer.
+/// @param s old double pointer
+/// @param input pointer that is going to be added to the double pointer
+/// @param len length of the new double pointer
+/// @return return new double pointer
 char	**ft_realloc_dp(char **s, char *input, int len)
 {
 	char	**out;

@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 18:27:33 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 01:14:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+/// @brief checks operator character (<,>,|,(,),) from the input string and 
+/// @brief add a space to before and after of the character.
+/// @brief counts the new length including the total spaces added.
+/// @example echo string>>output.txt becomes echo string >> output.txt
+/// @param c input string
+/// @return new string as shown in the example.
 char	*ft_checkoperator(char *c)
 {
 	int		index;
@@ -39,14 +45,16 @@ char	*ft_checkoperator(char *c)
 	free(c);
 	return (out);
 }
-/// @brief tokenize the input (detect metacharacters)
-/// @param out - output string with metacharacters separated with spaces
-/// @param i - index of out
-/// @param o - offset of out from c
-/// @param c - input string from readline
-/// @param len length of output with spaces included (from metacharacters)
-/// @return 
 
+/// @brief checks operator character (<,>,|,(,),) from the input string, 
+/// @brief add a space to before and after of the character and then copy the 
+/// @brief rest of the characters in the string.
+/// @param out the new allocated memory for the new pointer/string.
+/// @param c old pointer/string
+/// @param len length of the new pointer/string.
+/// @enum i -> 
+/// @enum o -> offset to the old string from the new string based on the added spaces.
+/// @return new pointer/string
 char	*ft_tokenize(char *out, char *c, int len)
 {
 	int	i;
@@ -75,6 +83,12 @@ char	*ft_tokenize(char *out, char *c, int len)
 	return (out);
 }
 
+/// @brief check pid before the redir operator and add it to the new token before adding
+/// @brief a space to before and after of the operator. pid should be a number
+/// @param c input string
+/// @param index index from input string
+/// @param offset offset to the old string from the new string based on the added spaces.
+/// @return true if pid exist before redir, false if not
 bool	ft_checkpid(char *c, int index, int offset)
 {
 	if ((index - offset) > 0)
@@ -103,6 +117,12 @@ bool	ft_checkpid(char *c, int index, int offset)
 	return (false);
 }
 
+/// @brief adds space to before and after of the operator
+/// @param out the new pointer/string with spaces added to before and after the operator
+/// @param c the old pointer/string
+/// @param index index of the operator from the old pointer/string
+/// @param offset offset to the old string from the new string based on the added spaces
+/// @return end index of the new pointer/string
 int	ft_handleoper(char *out, char *c, int index, int offset)
 {
 	out[index] = ' ';
@@ -115,6 +135,12 @@ int	ft_handleoper(char *out, char *c, int index, int offset)
 	return (index);
 }
 
+/// @brief handle redir operator and check the next character if also a redir operator
+/// @param out the new pointer/string where spaces are added to before and after of the redir operator.
+/// @param c the old pointer/string
+/// @param index where the redir starts (including the pid)
+/// @param offset offset to the old string from the new string based on the added spaces
+/// @return end index of the new pointer/string
 int	ft_handleredir(char *out, char *c, int index, int offset)
 {
 	int	redir_type;

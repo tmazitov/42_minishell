@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toktoast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 17:59:19 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:39:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+
+/// @brief create an AST from the t_tokens (token list) with recursive descent parsing.
+/// @brief The recursive descent happens at the next command (or the right side) from the PIPE
+/// @param tokens t_tokens list
+/// @return abstract syntax tree
 t_astnodes	*ft_parsetokens(t_tokens **tokens)
 {
 	t_astnodes	*command;
@@ -35,6 +40,9 @@ t_astnodes	*ft_parsetokens(t_tokens **tokens)
 		return (command);
 }
 
+/// @brief merge strings from the left side of the current PIPE and set the node->value equal to the merged string/
+/// @param tokens token list
+/// @return abstract syntax tree node
 t_astnodes	*parse_command(t_tokens **tokens)
 {
 	t_astnodes	*node;
@@ -61,6 +69,10 @@ t_astnodes	*parse_command(t_tokens **tokens)
 	return (node);
 }
 
+/// @brief merge two strings into one
+/// @param s1 string 1
+/// @param s2 string 2
+/// @return merged string
 char	*merge_string(char *s1, char *s2)
 {
 	size_t	len1;

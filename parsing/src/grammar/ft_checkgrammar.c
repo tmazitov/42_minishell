@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkgrammar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 18:35:51 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:35:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+/// @brief checks for complete command
+/// @param tokens token list
+/// @return true if complete command, false if not
 bool	ft_shellgrammar(t_tokens *tokens)
 {
 	if (!tokens)
@@ -21,6 +24,9 @@ bool	ft_shellgrammar(t_tokens *tokens)
 	return (true);
 }
 
+/// @brief checks for the context free grammar of REDIR and PIPE
+/// @param tokens token list
+/// @return true if complete command, false if not
 bool	ft_completecommand(t_tokens *tokens)
 {
 	t_tokens	*token_start;
@@ -49,6 +55,9 @@ bool	ft_completecommand(t_tokens *tokens)
 	return (true);
 }
 
+/// @brief check PIPE arguments if next is NULL or PIPE
+/// @param tokens token PIPE
+/// @return true if next is not NULL or not a PIPE
 bool	ft_checkpipe(t_tokens *tokens)
 {
 	if (tokens->next == NULL || tokens->next->type == PIPE)
@@ -60,6 +69,11 @@ bool	ft_checkpipe(t_tokens *tokens)
 	return (true);
 }
 
+
+/// @brief checks the arguments of REDIR, next should not be a NULL and it should be a WORD
+/// @param token_start starting token where to check
+/// @param token_end ending token where to check
+/// @return true if the arguments of REDIR is not NULL and type WORD
 bool	ft_ioredir(t_tokens *token_start, t_tokens *token_end)
 {
 	t_tokens	*tokens;
@@ -87,6 +101,9 @@ bool	ft_ioredir(t_tokens *token_start, t_tokens *token_end)
 	return (true);
 }
 
+/// @brief check the starting word if a WORD or a REDIR
+/// @param tokens token list
+/// @return true if starting word is a WORD or a REDIR
 bool	ft_checkstart(t_tokens *tokens)
 {
 	if ((tokens)->type != WORD && tokens->type != REDIR)

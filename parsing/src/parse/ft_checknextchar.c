@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checknextchar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:58:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 17:58:53 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 03:24:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+/// @brief checks the next character if redir operator
+/// @param c input string
+/// @param index index of the operator character
+/// @return return the number from the start index to the end of the redir operator
 int	ft_checknextchar(char *c, int index)
 {
 	if (ft_strncmp(&c[index], DLESSDASH, 3) == 0)

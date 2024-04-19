@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/17 02:20:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/19 03:29:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ bool	ft_check_args(char **str_split)
 		return (true);
 }
 
+/// @brief check if the argument is a file
+/// @param str filepath and filename
+/// @return true if file, false otherwise
 bool	ft_checkiffile(char	*str)
 {
 	char	*extnsn;
@@ -32,7 +35,9 @@ bool	ft_checkiffile(char	*str)
 	else
 		return (true);
 }
-
+/// @brief check filedirectory if valid or exists
+/// @param str filepath
+/// @return true if file exists, false if not
 bool	check_fd(char *str)
 {
 	int		fd;
@@ -48,6 +53,10 @@ bool	check_fd(char *str)
 	return (true);
 }
 
+/// @brief check if the first command is "minishell". This means that the user wants to open an sh file.
+/// @brief checs the second argument if it is a valid sh file, or if the file exists
+/// @param str string command from readline
+/// @return true if trying to open sh file, false if not
 bool	ft_checkshfile(char *str)
 {
 	char	*cmd;
@@ -68,6 +77,8 @@ bool	ft_checkshfile(char *str)
 		return (free_pointer(str_split), true);
 }
 
+/// @brief open sh file and read the contents. then parse each line of command
+/// @param str_input command input with "minishell" and "filepath/filename"
 void	ft_openshfile(char *str_input)
 {
 	char	*str_line;
@@ -85,13 +96,3 @@ void	ft_openshfile(char *str_input)
 	}
 	free_pointer(str_split);
 }
-
-// int	get_fd(char *argv)
-// {
-// 	char	*filedirectory;
-// 	int		fd;
-
-// 	filedirectory = argv;
-// 	fd = open(filedirectory, O_RDONLY);
-// 	return (fd);
-// }

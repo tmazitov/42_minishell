@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:27:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/11 18:41:54 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/19 01:33:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
+/// @brief count the size of the double pointer
+/// @param s double pointer
+/// @return length
 int	ft_strlen_dp(char **s)
 {
 	int	count;
@@ -24,6 +27,8 @@ int	ft_strlen_dp(char **s)
 	return (count);
 }
 
+/// @brief free ft_split double pointer/string
+/// @param s double pointer
 void	free_pointer(char **s)
 {
 	int	count;
