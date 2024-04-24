@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:43:52 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:14:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:31:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_bonus.h"
 
+
+/// @brief compares string 1 and string 2 if equal. 
+/// @param str1 input string 1
+/// @param str2 input string 2
+/// @param num size to compare
+/// @return return the difference of char, 0 if equal, gt 0 if not equal
 static int	ft_strncmp(const char *str1, const char *str2, size_t num)
 {
 	size_t	counter;

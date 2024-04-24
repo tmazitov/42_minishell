@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:29:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/24 17:08:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ bool	ft_checkshfile(char *str)
 	char	**str_split;
 
 	cmd = "minishell";
+	if (!*str || !str)
+		return (false);
 	str_split = ft_split(str, ' ');
+	if (!str_split)
+		return (false);
 	if (ft_strncmp(cmd, str_split[0], ft_strlen(cmd)) != 0)
 		return (free_pointer(str_split), false);
 	if (!ft_check_args(str_split))

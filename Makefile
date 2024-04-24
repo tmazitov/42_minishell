@@ -15,25 +15,41 @@ CC				= 	cc
 FLAGS			= 	-Wall -Wextra -Werror -fsanitize=address
 RM				= 	rm -rf
 LB				= 	ar rcs
+LDFLAGS			=	-L./libft -lft
 
 MINISHELL_SRCS	=	minishell.c
 MINISHELL_OBJS 	=	$(MINISHELL_SRCS:.c=.o)
 HEADER			= 	minishell.h
 
-PARSE = parse.a
-PARSE_DIR = ./parsing
-PARSE_LIB = $(PARSE_DIR)/$(PARSE)
+PARSE			=	parse.a
+PARSE_DIR		=	./parsing
+PARSE_LIB		=	$(PARSE_DIR)/$(PARSE)
 
-EXEC = execution.a
-EXEC_DIR = ./execution
-EXEC_LIB = $(EXEC_DIR)/$(EXEC)
+BUILTINS		=	builtins.a
+BUILTINS_DIR	=	./builtins
+BUILTINS_LIB	=	$(BUILTINS_DIR)/$(BUILTINS)
 
-MAKE_LIBR = make --no-print-directory -C
+EXEC			=	execution.a
+EXEC_DIR		=	./execution
+EXEC_LIB		=	$(EXEC_DIR)/$(EXEC)
 
-all: $(PARSE_LIB) $(EXEC_LIB) $(NAME)
+LIBFT			=	libft.a
+LIBFT_DIR		=	./libft
+LIBFT_LIB		=	$(LIBFT_DIR)/$(LIBFT)
+
+MAKE_LIBR		= 	make --no-print-directory -C
+
+all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
 $(NAME): $(MINISHELL_OBJS)
-	@$(CC) $(CFLAGS) -o $(NAME) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) -lreadline
+	@$(CC) $(CFLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) -o $(NAME) $(LDFLAGS) -lreadline
+
+# Make libft archive
+$(BUILTINS_LIB):
+	@$(MAKE_LIBR) $(BUILTINS_DIR)
+
+$(LIBFT_LIB):
+	@$(MAKE_LIBR) $(LIBFT_DIR)
 
 # Make parse archive
 $(PARSE_LIB):
@@ -45,11 +61,15 @@ $(EXEC_LIB):
 
 clean:
 	@$(RM) $(MINISHELL_OBJS)
+	@$(MAKE_LIBR) $(BUILTINS_DIR) clean
+	@$(MAKE_LIBR) $(LIBFT_DIR) clean
 	@$(MAKE_LIBR) $(PARSE_DIR) clean
 	@$(MAKE_LIBR) $(EXEC_DIR) clean
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(MAKE_LIBR) $(BUILTINS_DIR) fclean
+	@$(MAKE_LIBR) $(LIBFT_DIR) fclean
 	@$(MAKE_LIBR) $(PARSE_DIR) fclean
 	@$(MAKE_LIBR) $(EXEC_DIR) fclean
 

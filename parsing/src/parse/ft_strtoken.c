@@ -6,16 +6,16 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 01:32:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/24 16:28:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
-/// @brief checks for the operators, adds spaces to before and after every operator 
+/// @brief checks for the operators, adds spaces to before and after every operator
 /// @brief at every token (quoted tokens are not included)
 /// @param str_input the old double pointer containing the tokens
-/// @return 
+/// @return
 char	**str_token(char **str_input)
 {
 	char			**out;

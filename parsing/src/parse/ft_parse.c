@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:51:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/24 17:12:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ t_astnodes	*parse_input(char *str)
 	t_tokens	*token_input;
 	t_astnodes	*root;
 
-	if (!str)
+	if (!str || !*str)
 		return (NULL);
+	ft_printf("parse_input\n");
 	str_split = ft_splittoken(str);
 	if (!str_split)
 		return (NULL);

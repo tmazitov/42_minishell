@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-UNAME		=	$(shell uname)
+# UNAME		=	$(shell uname)
 NAME		=	parse.a
 FLAGS		=	-Wall -Werror -Wextra
 CC			= 	cc
@@ -31,43 +31,48 @@ PARSE_OBJS	=	$(PARSE_SRCS:.c=.o)
 
 HEADER		=	includes/parse.h
 
-LIBFT 		=	libft.a
-LIBFT_DIR 	=	./libft
-LIBFT_LIB 	=	$(LIBFT_DIR)/$(LIBFT)
+# LIBFT 		=	libft.a
+# LIBFT_DIR 	=	../libft
+# LIBFT_LIB 	=	$(LIBFT_DIR)/$(LIBFT)
 
 MAKE_LIBR 	=	make --no-print-directory -C
 
 %.o: %.c $(HEADER) Makefile
 	@${CC} ${FLAGS} -c $< -o $@
 
-all: $(PARSE_OBJS) $(LIBFT_LIB) $(NAME)
+# all: $(PARSE_OBJS) $(LIBFT_LIB) $(NAME)
+all: $(PARSE_OBJS) $(NAME)
 
-$(LIBFT_LIB):
-	@$(MAKE_LIBR) $(LIBFT_DIR)
+# $(LIBFT_LIB):
+# 	@$(MAKE_LIBR) $(LIBFT_DIR)
 
-ifeq ($(UNAME), Linux)
 $(NAME): $(PARSE_OBJS)
-	@mkdir -p extracted_objs
-	@ar x $(LIBFT_LIB) --output=extracted_objs
-	@$(LB) $(NAME) $(PARSE_OBJS) extracted_objs/*.o
-	@$(RM) extracted_objs
-	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
-else ifeq ($(UNAME), Darwin)
-$(NAME): $(LIBFT_LIB) $(PARSE_OBJS)
-	@libtool -static -o $@ $^
-	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
-endif
+	@$(LB) $(NAME) $(PARSE_OBJS)
+	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+
+# ifeq ($(UNAME), Linux)
+# $(NAME): $(PARSE_OBJS)
+# 	@mkdir -p extracted_objs
+# 	@ar x $(LIBFT_LIB) --output=extracted_objs
+# 	@$(LB) $(NAME) $(PARSE_OBJS) extracted_objs/*.o
+# 	@$(RM) extracted_objs
+# 	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+# else ifeq ($(UNAME), Darwin)
+# $(NAME): $(LIBFT_LIB) $(PARSE_OBJS)
+# 	@libtool -static -o $@ $^
+# 	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+# endif
 
 clean:
 	@$(RM) $(PARSE_OBJS)
 	@echo "$(YELLOW) parse: OBJECT FILES DELETED!$(DEFAULT)"
-	@$(MAKE_LIBR) $(LIBFT_DIR) clean
+# @$(MAKE_LIBR) $(LIBFT_DIR) clean
 
 fclean:	clean
 	@$(RM) $(NAME)
 	@echo "$(RED) parse: LIBRARY FILE DELETED!$(DEFAULT)"
-	@$(RM) $(LIBFT_LIB)
-	@echo "$(RED) libft: LIBRARY FILE DELETED!$(DEFAULT)"
+# @$(RM) $(LIBFT_LIB)
+# @echo "$(RED) libft: LIBRARY FILE DELETED!$(DEFAULT)"
 
 re: fclean all
 

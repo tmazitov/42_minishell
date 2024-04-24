@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:53:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/24 15:11:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "../libft/libft.h"
+# include "../../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
