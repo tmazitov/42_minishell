@@ -24,6 +24,7 @@ EXEC_SRCS	=	./src/execution.c \
 				./src/ast_command_input.c \
 				./src/ast_command_output.c \
 				./src/ast_command_heredoc.c 
+				
 EXEC_OBJS	=	$(EXEC_SRCS:.c=.o)
 
 HEADER		=	./includes/execution.h
@@ -32,22 +33,30 @@ PIPEX = pipex.a
 PIPEX_DIR = ./pipex
 PIPEX_LIB = $(PIPEX_DIR)/$(PIPEX)
 
+SIGNALS = signals.a
+SIGNALS_DIR = ./signals
+SIGNALS_LIB = $(SIGNALS_DIR)/$(SIGNALS)
+
 MAKE_LIBR 	=	make --no-print-directory -C
 
-all: $(PIPEX_LIB) $(NAME)
+all: $(PIPEX_LIB) $(SIGNALS_LIB) $(NAME)
 
 $(PIPEX_LIB):
 	@$(MAKE_LIBR) $(PIPEX_DIR)
 
+$(SIGNALS_LIB):
+	@$(MAKE_LIBR) $(SIGNALS_DIR)
+
 ifeq ($(UNAME), Linux)
 $(NAME): $(EXEC_OBJS)
 	@mkdir -p extracted_objs
+	@ar x $(SIGNALS_LIB) --output=extracted_objs
 	@ar x $(PIPEX_LIB) --output=extracted_objs
 	@$(LB) $(NAME) $(EXEC_OBJS) extracted_objs/*o
 	@$(RM) extracted_objs
 	@echo	"$(GREEN) $(NAME):: LIBRARY CREATED!$(DEFAULT)"
 else ifeq ($(UNAME), Darwin)
-$(NAME): $(PIPEX_LIB) $(EXEC_OBJS)
+$(NAME): $(PIPEX_LIB) $(SIGNALS_LIB) $(EXEC_OBJS)
 	@libtool -static -o $@ $^
 	@echo	"$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
 endif
@@ -61,6 +70,8 @@ fclean:	clean
 	@$(RM) $(NAME)
 	@echo "$(RED) execution: LIBRARY FILE DELETED!$(DEFAULT)"
 	@$(RM) $(PIPEX_LIB)
+	@echo "$(RED) pipex: LIBRARY FILE DELETED!$(DEFAULT)"
+	@$(RM) $(SIGNALS_LIB)
 	@echo "$(RED) pipex: LIBRARY FILE DELETED!$(DEFAULT)"
 
 re: fclean all

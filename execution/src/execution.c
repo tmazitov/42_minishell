@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/23 13:02:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:21:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	execute(t_astnodes *tree, char **envp)
 	command_count = ast_tree_node_count(tree);
 	status = wait_commands(commands, command_count);
 	free_queue(commands);
+	status_code(SET, status);
 	return (status);
 }
 

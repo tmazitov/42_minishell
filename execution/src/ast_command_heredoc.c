@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_heredoc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:51:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/20 03:25:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/25 17:13:36 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ static int	fill_heredoc(t_log_chan *chan, char	*limiter)
 	char	*buffer;
 
 	buffer = NULL;
+	setup_read_interrupter();
 	printf("heredoc limiter '%s'\n", limiter);
-	while (!buffer || ft_strncmp(buffer, limiter, ftt_strlen(buffer) - 1))
+	while (!buffer || ft_strncmp(buffer, limiter, ftt_strlen(buffer)))
 	{
 		if (buffer)
 		{
@@ -54,6 +55,8 @@ static t_log_chan	*chan_by_last_heredoc(char **payload)
 	char		*temp;
 	char		*limiter;
 	t_log_chan	*chan;
+
+	signal(SIGINT, sigint_handler);
 
 	chan = NULL;
 	while (ftt_strnstr(*payload, "<<", ftt_strlen(*payload)))
@@ -94,9 +97,7 @@ t_log_chan *make_heredoc(char **com_payload)
 	chan = chan_by_last_heredoc(&new_payload);
 	if (!chan)
 		return (NULL);
-	printf("new_payload '%s'\n", new_payload);
 	len = 0;
-	printf("old_payload '%c'\n", *com_payload[len]);
 	command = *com_payload;
 	while (command[len])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/20 03:04:11 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:35:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../../parsing/includes/parse.h"
 # include "../pipex/src/pipex.h"
+# include "../signals/includes/signals.h"
 
 typedef	struct s_com_redir
 {

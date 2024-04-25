@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/20 03:22:03 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/25 13:41:29 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ static t_com_redir make_redirection(char **payload)
 	redirection.output_file = make_output_redir(payload);
 	redirection.status = is_output_file && redirection.output_file < 0;
 	if (redirection.status != 0)
-		return (free(*payload), redirection);
+		return (redirection);
 	redirection.heredoc = make_input_heredoc(payload);
 	redirection.status = is_heredoc && redirection.heredoc == NULL;
 	if (redirection.status != 0)
-		return (free(*payload), redirection);
+		return (redirection);
 	is_input_file = ft_strchr(*payload, '<') != NULL;
 	redirection.input_file = make_input_redir(payload);
 	redirection.status = is_input_file && redirection.input_file < 0;
 	if (redirection.status != 0)
-		return (free(*payload), redirection);
+		return (redirection);
 	return (redirection);
 }
 
@@ -92,7 +92,7 @@ int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
 	if (!command_payload)
 		return (-1);
 	if ((redir = make_redirection(&command_payload)).status != 0)
-		return (free(command_payload), -1);
+		return (free(command_payload), printf("success\n"), -1);
 	if (!(new_node = add_node(q, command_payload, path)))
 		return (-1);
 	if (redir.output_file != -1)
