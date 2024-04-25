@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINTS_H
-# define BUILTINTS_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "../libft/libft.h"
 # include "../parsing/includes/parse.h"
@@ -21,21 +21,21 @@ typedef struct varlist
 	char			*value;
 	char			*varname;
 	struct varlist	*next;
-} t_varlist;
+}	t_varlist;
 
 typedef struct envlist
 {
 	char			*value;
 	char			*varname;
 	struct envlist	*next;
-} t_envlist;
+}	t_envlist;
 
 typedef struct sorted_envlist
 {
 	char					*value;
 	char					*varname;
 	struct sorted_envlist	*next;
-} t_sorted_envlist;
+}	t_sorted_envlist;
 
 void		ft_echo(char *str, t_envlist *envlist, t_varlist *varlist);
 void		ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist);
@@ -63,19 +63,24 @@ void		ft_printenv(t_envlist *envlist);
 char		**ft_merge_envvalues(char **var_split);
 char		*ft_copyvalues(char **var_split, char *var_newsplit);
 
-int			ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist *sorted_envlist);
+int			ft_export(char *str, t_envlist **envlist, t_varlist **varlist);
 void		ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist);
-void		ft_printexport(t_sorted_envlist *sorted_envlist);
+void		ft_printexport(t_envlist **envlist);
+bool		ft_checkvarenv(char *varname, t_envlist *envlist);
 
 void		ft_copyenvlist();
 
 t_sorted_envlist	*ft_create_sortedenv(char *varname, char *varvalue);
-t_sorted_envlist  	*ft_init_sortedenv(char **envp);
+t_sorted_envlist	*ft_init_sortedenv(t_envlist **envlist);
 t_sorted_envlist    *ft_sortenvlist(t_sorted_envlist *sorted_envlist);
 t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *newnode);
 
-int			ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist **sorted_envlist);
+int			ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist);
 bool    	ft_checkcmd(char *str);
+
+void	ft_pwd();
+
+int		ft_cd(char *path);
 #endif //BUILTINTS_H
 
 //$0 – The name of the Bash script.

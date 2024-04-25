@@ -22,8 +22,13 @@ LB				= 	ar rcs
 BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./utils/echo_utils.c \
 					./utils/env_utils.c \
+					./utils/export_utils.c \
+					./utils/sortenv_utils.c \
+					./cd/ft_cd.c \
 					./env/ft_setvar.c \
 					./env/ft_unsetvar.c \
+					./env/ft_env.c \
+					./pwd/ft_pwd.c \
 					./export/ft_export.c \
 					./builtins_utils.c
 

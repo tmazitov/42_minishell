@@ -12,45 +12,47 @@
 
 #include "./builtins.h"
 
-int ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist **sorted_envlist)
+int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-    t_envlist   *env_head;
-    t_sorted_envlist *sorted_envlist_head;
-    // t_varlist   *var_head;
+	t_envlist			*env_head;
 
-    env_head = *envlist;
-    sorted_envlist_head = *sorted_envlist;
-    // var_head = *varlist;
-    if (ft_strncmp(str, "echo", 4) == 0)
-        ft_echo(str, *envlist, *varlist);
-    else if (ft_strchr(str, '=') && !ft_checkcmd(str))
-        ft_setvarname(str, varlist);
-    else if (ft_strncmp(str, "unset", 5) == 0)
-        ft_unsetvarname(str, envlist, varlist);
-    else if (ft_strncmp(str, "export", 6) == 0)
-        ft_export(str, envlist, varlist, *sorted_envlist);
-    else if (ft_strncmp(str, "env", 3) == 0)
-        ft_printenv(*envlist);
-    else if (ft_strncmp(str, "varrr", 5) == 0)
-        ft_printvar(varlist);
-    *envlist = env_head;
-    *sorted_envlist = sorted_envlist_head;
-    // *varlist = var_head;
-    return (1);
+	env_head = *envlist;
+	if (ft_strncmp(str, "echo", 4) == 0)
+		ft_echo(str, *envlist, *varlist);
+	else if (ft_strchr(str, '=') && !ft_checkcmd(str))
+		ft_setvarname(str, varlist);
+	else if (ft_strncmp(str, "unset", 5) == 0)
+		ft_unsetvarname(str, envlist, varlist);
+	else if (ft_strncmp(str, "export", 6) == 0)
+		ft_export(str, envlist, varlist);
+	else if (ft_strncmp(str, "env", 3) == 0)
+		ft_printenv(*envlist);
+	else if (ft_strncmp(str, "cd", 2) == 0)
+		ft_cd(str);
+	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))
+		ft_pwd();
+	else if (ft_strncmp(str, "varrr", 5) == 0)
+		ft_printvar(varlist);
+	*envlist = env_head;
+	return (1);
 }
 
-bool    ft_checkcmd(char *str)
+bool	ft_checkcmd(char *str)
 {
-    if (ft_strncmp(str, "echo", 4) == 0)
-        return (true);
-    else if (ft_strncmp(str, "unset", 5) == 0)
-        return (true);
-    else if (ft_strncmp(str, "export", 6) == 0)
-        return (true);
-    else if (ft_strncmp(str, "env", 3) == 0)
-        return (true);
-    else if (ft_strncmp(str, "varrr", 5) == 0)
-        return (true);
-    else
-        return (false);
+	if (ft_strncmp(str, "echo", 4) == 0)
+		return (true);
+	else if (ft_strncmp(str, "unset", 5) == 0)
+		return (true);
+	else if (ft_strncmp(str, "export", 6) == 0)
+		return (true);
+	else if (ft_strncmp(str, "env", 3) == 0)
+		return (true);
+	else if (ft_strncmp(str, "cd", 2) == 0)
+		return (true);
+	else if (ft_strncmp(str, "varrr", 5) == 0)
+		return (true);
+	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))
+		return (true);
+	else
+		return (false);
 }

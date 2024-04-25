@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 11:13:44 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 16:00:07 by emaravil         ###   ########.fr       */
+/*   Created: 2024/04/25 22:10:51 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/25 22:11:17 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-// returns char is alpha, 0 if not
-int	ft_isalpha(int arg)
+#include "../builtins.h"
+
+void	ft_printenv(t_envlist *envlist)
 {
-	if ((arg >= 'A' && arg <= 'Z') || (arg >= 'a' && arg <= 'z'))
-		return (arg);
-	return (0);
+	while (envlist != NULL)
+	{
+		ft_printf("%s=%s\n", envlist->varname, envlist->value);
+		envlist = envlist->next;
+	}
 }

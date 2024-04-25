@@ -12,10 +12,10 @@
 
 #include "../builtins.h"
 
-int ft_setvarname(char *str, t_varlist **varlist)
+int	ft_setvarname(char *str, t_varlist **varlist)
 {
-	char    	*equalsign;
-	char    	**var_split;
+	char		*equalsign;
+	char		**var_split;
 	t_varlist	*var_head;
 
 	var_head = *varlist;

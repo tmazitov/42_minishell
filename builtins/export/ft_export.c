@@ -12,7 +12,7 @@
 
 #include "../builtins.h"
 
-int ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist *sorted_envlist)
+int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 {
 	char				**var_split;
 	int					index;
@@ -22,12 +22,13 @@ int ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envl
 	if (ft_strncmp(var_split[index], "export", 6) > 0)
 		return (free_pointer(var_split), 0);
 	if (ft_strlen_dp(var_split) == 1)
-		ft_printexport(sorted_envlist);
+		ft_printexport(envlist);
 	while (var_split[++index] != NULL)
 	{
 		if (!ft_checkvarname(var_split[index]))
 		{
-			ft_printf("bash: export: '%s': not a valid identifier\n", var_split[index]);
+			ft_printf("bash: export: '%s': not a valid identifier\n", \
+				var_split[index]);
 			return (free_pointer(var_split), 0);
 		}
 		else
@@ -36,7 +37,7 @@ int ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envl
 	return (1);
 }
 
-void    ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
+void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
 	char		*varvalue;
 	t_envlist	*curr_var;
@@ -46,8 +47,8 @@ void    ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 	env_head = *envlist;
 	var_head = *varlist;
 	varvalue = ft_getenv(varname, *envlist, *varlist);
-	ft_printf("varvalue: %s\n", varvalue);
-	while (varvalue != NULL && (*envlist) != NULL)
+	while (varvalue != NULL && (*envlist) != NULL && \
+		!ft_checkvarenv(varname, *envlist))
 	{
 		if ((*envlist)->next == NULL)
 		{
@@ -61,48 +62,16 @@ void    ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 	*varlist = var_head;
 }
 
-t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *newnode)
+bool	ft_checkvarenv(char *varname, t_envlist *envlist)
 {
-	t_sorted_envlist	*curr_var;
-
-	if (head == NULL || ft_strncmp(newnode->varname, head->varname, ft_strlen(newnode->varname) + ft_strlen(head->varname)) < 0)
+	while (envlist != NULL && envlist->varname != NULL)
 	{
-		newnode->next = head;
-		return newnode;
+		if (ft_strncmp(varname, envlist->varname, ft_strlen(varname)) == 0)
+		{
+			return (true);
+		}
+		else
+			envlist = envlist->next;
 	}
-	curr_var = head;
-	while (curr_var->next != NULL && ft_strncmp(newnode->varname, curr_var->next->varname, ft_strlen(newnode->varname) + ft_strlen(curr_var->next->varname)) > 0)
-		curr_var = curr_var->next;
-	newnode->next = curr_var->next;
-	curr_var->next = newnode;
-	return (head);
-}
-
-t_sorted_envlist    *ft_sortenvlist(t_sorted_envlist *sorted_envlist)
-{
-	t_sorted_envlist	*sortedlist;
-	t_sorted_envlist	*curr_var;
-	t_sorted_envlist	*next_var;
-
-	sortedlist = NULL;
-	curr_var = sorted_envlist;
-	while (curr_var != NULL)
-	{
-		next_var = curr_var->next;
-		sortedlist = insertsortedlist(sortedlist, curr_var);
-		curr_var = next_var;
-	}
-	return (sortedlist);
-}
-
-void    ft_printexport(t_sorted_envlist *sorted_envlist)
-{
-	t_sorted_envlist *curr_var;
-
-	curr_var = ft_sortenvlist(sorted_envlist);
-	while (curr_var != NULL)
-	{
-		ft_printf("declare  -x  %s=\"%s\"\n", curr_var->varname, curr_var->value);
-		curr_var = curr_var->next;
-	}
+	return (false);
 }

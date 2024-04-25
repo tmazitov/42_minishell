@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 11:13:44 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 16:00:07 by emaravil         ###   ########.fr       */
+/*   Created: 2024/04/25 18:20:07 by emaravil          #+#    #+#             */
+/*   Updated: 2024/04/25 22:04:22 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
-// returns char is alpha, 0 if not
-int	ft_isalpha(int arg)
+#include "../builtins.h"
+
+void	ft_pwd()
 {
-	if ((arg >= 'A' && arg <= 'Z') || (arg >= 'a' && arg <= 'z'))
-		return (arg);
-	return (0);
+	char	*path;
+
+	path = getenv("PWD");
+	ft_printf("%s\n", path);
+	// while ((envlist) != NULL && (envlist->varname) != NULL)
+	// {
+	// 	if (ft_strncmp(envlist->varname, "pwd", 3) == 0 || \
+	// 		ft_strncmp(envlist->varname, "PWD", 3) == 0)
+	// 	{
+	// 		ft_printf("%s\n", envlist->value);
+	// 		break ;
+	// 	}
+	// 	envlist = envlist->next;
+	// }
 }

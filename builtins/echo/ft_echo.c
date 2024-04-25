@@ -12,7 +12,8 @@
 
 #include "../builtins.h"
 
-/// @brief ft_echo handles the string with echo as command and multiple arguments
+/// @brief ft_echo handles the string with echo as command and multiple 
+/// @brief arguments
 /// @param str string in format "echo arg1 arg2 arg3 ..."
 void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 {
@@ -27,12 +28,15 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 }
 
 /// @brief print the arguments of echo
-/// @param cmd_split double pointer from ft_split from echo string excluding quotes
+/// @param cmd_split double pointer from ft_split excluding cmd_split quotes
 void	ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist)
 {
 	int	len;
 
 	len = 1;
+	if ((cmd_split[len] != NULL) && \
+		ft_strncmp(cmd_split[len], "-n", 3) == 0) //PENDING!: create a buffer if -n 
+		len++;
 	while (cmd_split[len] != NULL)
 	{
 		if (cmd_split[len][0] == '\'')
@@ -47,13 +51,16 @@ void	ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist)
 		if (cmd_split[len] != NULL)
 			ft_printf(" ");
 	}
-	ft_printf("\n");
+	if ((cmd_split[1] != NULL) && \
+		ft_strncmp(cmd_split[1], "-n", 3) != 0)
+		ft_printf("\n");
 }
 
 /// @brief expand the $var and get it's value. Otherwise print it as string
 /// @param str string with $ sign
 /// @param index next index of the index of $ sign
-void	ft_printexpansion(char *str, int index, t_envlist *envlist, t_varlist *varlist)
+void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
+	t_varlist *varlist)
 {
 	char	*varname;
 	char	*expanded_val;

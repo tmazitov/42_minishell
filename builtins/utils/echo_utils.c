@@ -20,10 +20,10 @@ bool	ft_checkvarname(char *varname)
 		return (false);
 }
 
-char    *ft_getvarname(char *str, int index)
+char	*ft_getvarname(char *str, int index)
 {
-	int     len;
-	char    *varname;
+	int		len;
+	char	*varname;
 
 	len = 0;
 	while (str[index + len] != '\0' && !ft_isspace(str[index + len]) \
