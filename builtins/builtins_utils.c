@@ -12,28 +12,30 @@
 
 #include "./builtins.h"
 
-
-int ft_builtins(char *str, char **envp)
+int ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist **sorted_envlist)
 {
-    t_envlist *envlist;
-    t_varlist *varlist;
-    t_sorted_envlist *sorted_envlist;
+    t_envlist   *env_head;
+    t_sorted_envlist *sorted_envlist_head;
+    // t_varlist   *var_head;
 
-    envlist = ft_init_env(envp);
-	sorted_envlist = ft_init_sortedenv(envp);
-	varlist = ft_init_var();
+    env_head = *envlist;
+    sorted_envlist_head = *sorted_envlist;
+    // var_head = *varlist;
     if (ft_strncmp(str, "echo", 4) == 0)
-        ft_echo(str, envlist, varlist);
+        ft_echo(str, *envlist, *varlist);
     else if (ft_strchr(str, '=') && !ft_checkcmd(str))
         ft_setvarname(str, varlist);
     else if (ft_strncmp(str, "unset", 5) == 0)
         ft_unsetvarname(str, envlist, varlist);
     else if (ft_strncmp(str, "export", 6) == 0)
-        ft_export(str, envlist, varlist, sorted_envlist);
+        ft_export(str, envlist, varlist, *sorted_envlist);
     else if (ft_strncmp(str, "env", 3) == 0)
-        ft_printenv(envlist);
-    else
-        return (1);
+        ft_printenv(*envlist);
+    else if (ft_strncmp(str, "varrr", 5) == 0)
+        ft_printvar(varlist);
+    *envlist = env_head;
+    *sorted_envlist = sorted_envlist_head;
+    // *varlist = var_head;
     return (1);
 }
 
@@ -46,6 +48,8 @@ bool    ft_checkcmd(char *str)
     else if (ft_strncmp(str, "export", 6) == 0)
         return (true);
     else if (ft_strncmp(str, "env", 3) == 0)
+        return (true);
+    else if (ft_strncmp(str, "varrr", 5) == 0)
         return (true);
     else
         return (false);

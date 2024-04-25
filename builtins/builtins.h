@@ -46,15 +46,15 @@ bool		ft_checkvarname(char *varname);
 char		*ft_getvarname(char *str, int index);
 char		*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist);
 
-int			ft_setvarname(char *str, t_varlist *varlist);
-int			ft_unsetvarname(char *str, t_envlist *envlist, t_varlist *varlist);
-int			ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist *varlist);
-int			ft_unsetenv(char *varname, t_envlist *envlist, t_varlist *varlist);
-int			ft_unsetvar(char *varname, t_varlist *varlist);
+int			ft_setvarname(char *str, t_varlist **varlist);
+int			ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist);
+int			ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist);
+int			ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist);
+int			ft_unsetvar(char *varname, t_varlist **varlist);
 t_varlist	*ft_init_var();
 t_varlist	*ft_create_var(char *varname, char *varvalue);
 void		ft_printenvp(char **envp);
-void		ft_printvar(t_varlist *varnames);
+void		ft_printvar(t_varlist **varnames);
 
 t_envlist  	*ft_init_env(char **envp);
 t_envlist	*ft_create_env(char *varname, char *varvalue);
@@ -63,11 +63,10 @@ void		ft_printenv(t_envlist *envlist);
 char		**ft_merge_envvalues(char **var_split);
 char		*ft_copyvalues(char **var_split, char *var_newsplit);
 
-int			ft_export(char *str, t_envlist *envlist, t_varlist *varlist, t_sorted_envlist *sorted_envlist);
-void		ft_exportvar(char *varname, t_envlist *envlist, t_varlist *varlist);
+int			ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist *sorted_envlist);
+void		ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist);
 void		ft_printexport(t_sorted_envlist *sorted_envlist);
 
-// void    	ft_sortenvlist();
 void		ft_copyenvlist();
 
 t_sorted_envlist	*ft_create_sortedenv(char *varname, char *varvalue);
@@ -75,7 +74,7 @@ t_sorted_envlist  	*ft_init_sortedenv(char **envp);
 t_sorted_envlist    *ft_sortenvlist(t_sorted_envlist *sorted_envlist);
 t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *newnode);
 
-int			ft_builtins(char *str, char **envp);
+int			ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist **sorted_envlist);
 bool    	ft_checkcmd(char *str);
 #endif //BUILTINTS_H
 

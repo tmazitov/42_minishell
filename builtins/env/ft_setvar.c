@@ -12,11 +12,13 @@
 
 #include "../builtins.h"
 
-int ft_setvarname(char *str, t_varlist *varlist)
+int ft_setvarname(char *str, t_varlist **varlist)
 {
-	char    *equalsign;
-	char    **var_split;
+	char    	*equalsign;
+	char    	**var_split;
+	t_varlist	*var_head;
 
+	var_head = *varlist;
 	equalsign = ft_strchr(str, '=');
 	if (equalsign)
 	{
@@ -33,32 +35,33 @@ int ft_setvarname(char *str, t_varlist *varlist)
 	}
 	else
 		ft_setenv(var_split[0], var_split[1], 1, varlist);
+	*varlist = var_head;
 	return (1);
 }
 
-int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist *varlist)
+int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
 {
-	if (varlist->varname == NULL && varlist->value == NULL)
+	if ((*varlist)->varname == NULL && (*varlist)->value == NULL)
 	{
-		varlist->varname = varname;
-		varlist->value = varvalue;
-		varlist->next = NULL;
+		(*varlist)->varname = varname;
+		(*varlist)->value = varvalue;
+		(*varlist)->next = NULL;
 		return (1);
 	}
-	while (varlist != NULL && overwrite > 0)
+	while ((*varlist) != NULL && overwrite > 0 )
 	{
-		if (ft_strncmp(varname, varlist->varname, ft_strlen(varname)) == 0)
+		if (ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) == 0)
 		{
-			varlist->value = varvalue;
-			return (1);
+			(*varlist)->value = varvalue;
+			break ;
 		}
-		else if (varlist->next == NULL)
+		else if ((*varlist)->next == NULL)
 		{
-			varlist->next = ft_create_var(varname, varvalue);
-			return (1);
+			(*varlist)->next = ft_create_var(varname, varvalue);
+			break ;
 		}
 		else
-			varlist = varlist->next;
+			(*varlist) = (*varlist)->next;
 	}
-	return (0);
+	return (1);
 }

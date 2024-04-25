@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/19 04:07:31 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/25 01:47:04 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,7 @@ UTILS_SRCS	=	utils/utils.c \
 
 UTILS_OBJ	=	$(UTILS_SRCS:.c=.o)
 
-PRINTF_SRCS	= 	printf/ft_printf.c \
-				printf/ft_puthex.c \
+PRINTF_SRCS	= 	printf/ft_puthex.c \
 				printf/ft_putchar.c \
 				printf/ft_putstr.c \
 				printf/ft_putnbr.c \

@@ -12,7 +12,7 @@
 
 #include "../builtins.h"
 
-int ft_export(char *str, t_envlist *envlist, t_varlist *varlist, t_sorted_envlist *sorted_envlist)
+int ft_export(char *str, t_envlist **envlist, t_varlist **varlist, t_sorted_envlist *sorted_envlist)
 {
 	char				**var_split;
 	int					index;
@@ -33,25 +33,32 @@ int ft_export(char *str, t_envlist *envlist, t_varlist *varlist, t_sorted_envlis
 		else
 			ft_exportvar(var_split[index], envlist, varlist);
 	}
-	return (free_pointer(var_split), 1);
+	return (1);
 }
 
-void    ft_exportvar(char *varname, t_envlist *envlist, t_varlist *varlist)
+void    ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
 	char		*varvalue;
 	t_envlist	*curr_var;
+	t_envlist	*env_head;
+	t_varlist	*var_head;
 
-	varvalue = ft_getenv(varname, envlist, varlist);
-	while (varvalue != NULL && envlist != NULL)
+	env_head = *envlist;
+	var_head = *varlist;
+	varvalue = ft_getenv(varname, *envlist, *varlist);
+	ft_printf("varvalue: %s\n", varvalue);
+	while (varvalue != NULL && (*envlist) != NULL)
 	{
-		if (envlist->next == NULL)
+		if ((*envlist)->next == NULL)
 		{
 			curr_var = ft_create_env(varname, varvalue);
-			envlist->next = curr_var;
-			return ;
+			(*envlist)->next = curr_var;
+			break ;
 		}
-		envlist = envlist->next;
+		*envlist = (*envlist)->next;
 	}
+	*envlist = env_head;
+	*varlist = var_head;
 }
 
 t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *newnode)

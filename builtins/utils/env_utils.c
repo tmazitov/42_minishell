@@ -12,21 +12,21 @@
 
 #include "../builtins.h"
 
-void	ft_printvar(t_varlist *varnames)
+void	ft_printvar(t_varlist **varnames)
 {
-	while (varnames != NULL && varnames->varname != NULL)
+	t_varlist *var_head;
+
+	var_head = *varnames;
+	while (*varnames != NULL && (*varnames)->varname != NULL)
 	{
-		ft_printf("varname: %s || value: %s\n", varnames->varname, varnames->value);
-		varnames = varnames->next;
+		ft_printf("varname: %s || value: %s\n", (*varnames)->varname, (*varnames)->value);
+		(*varnames) = (*varnames)->next;
 	}
+	*varnames = var_head;
 }
 
 void	ft_printenv(t_envlist *envlist)
 {
-    char    *varname;
-    char    *value;
-    int     count;
-
 	while (envlist != NULL)
 	{
 		ft_printf("%s=%s\n", envlist->varname, envlist->value);
@@ -45,7 +45,6 @@ t_varlist  *ft_init_var()
 t_varlist	*ft_create_var(char *varname, char *varvalue)
 {
 	t_varlist *varnames;
-	char	**var_split;
 
 	varnames = (t_varlist *)malloc(sizeof(t_varlist));
 	varnames->varname = varname;
@@ -114,7 +113,6 @@ char **ft_merge_envvalues(char **var_split)
 {
     int     index;
     int     len_tot;
-    int     count;
     char    **var_newsplit;
 
     index = 1;
@@ -157,7 +155,6 @@ char *ft_copyvalues(char **var_split, char *var_newsplit)
 t_envlist	*ft_create_env(char *varname, char *varvalue)
 {
 	t_envlist    *varnames;
-	char        **var_split;
 
 	varnames = (t_envlist *)malloc(sizeof(t_envlist));
 	varnames->varname = varname;
@@ -169,7 +166,6 @@ t_envlist	*ft_create_env(char *varname, char *varvalue)
 t_sorted_envlist	*ft_create_sortedenv(char *varname, char *varvalue)
 {
 	t_sorted_envlist    *varnames;
-	char                **var_split;
 
 	varnames = (t_sorted_envlist *)malloc(sizeof(t_sorted_envlist));
 	varnames->varname = varname;
