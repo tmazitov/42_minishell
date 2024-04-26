@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/26 18:41:46 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:06:52 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,39 @@ t_sorted_envlist	*ft_sortenvlist(t_sorted_envlist *sorted_envlist)
 	return (sortedlist);
 }
 
+t_sorted_envlist	*ft_init_sortedenv(t_envlist **envlist)
+{
+	t_sorted_envlist	*var;
+	t_sorted_envlist	*curr_var;
+	t_sorted_envlist	*sorted_envlist;
+
+	if (!*envlist)
+		return (NULL);
+	var = ft_create_sortedenv((*envlist)->varname, (*envlist)->value);
+	sorted_envlist = var;
+	while ((*envlist) != NULL && (*envlist)->varname != NULL)
+	{
+		curr_var = ft_create_sortedenv((*envlist)->varname, (*envlist)->value);
+		(*envlist) = (*envlist)->next;
+		var->next = curr_var;
+		var = var->next;
+	}
+	return (sorted_envlist);
+}
+
 void	ft_printexport(t_envlist **envlist)
 {
 	t_sorted_envlist	*curr_var;
 	t_sorted_envlist	*sorted_envlist;
 
 	sorted_envlist = ft_init_sortedenv(envlist);
-	curr_var = ft_sortenvlist(sorted_envlist);
+	sorted_envlist = ft_sortenvlist(sorted_envlist);
+	curr_var = sorted_envlist;
 	while (curr_var != NULL)
 	{
 		ft_printf("declare  -x  %s=\"%s\"\n", \
 			curr_var->varname, curr_var->value);
 		curr_var = curr_var->next;
 	}
-	ft_free_sortedenv(&sorted_envlist);
+	// ft_free_sortedenv(&sorted_envlist);
 }

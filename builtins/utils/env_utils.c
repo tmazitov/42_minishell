@@ -26,7 +26,7 @@ void	ft_printvar(t_varlist **varnames)
 	*varnames = var_head;
 }
 
-t_varlist	*ft_init_var()
+t_varlist	*ft_init_var(void)
 {
 	t_varlist	*var;
 
@@ -45,7 +45,7 @@ t_varlist	*ft_create_var(char *varname, char *varvalue)
 	return (varnames);
 }
 
-t_envlist  *ft_init_env(char **envp)
+t_envlist	*ft_init_env(char **envp)
 {
 	int			count;
 	char		**var_split;
@@ -73,25 +73,6 @@ t_envlist  *ft_init_env(char **envp)
 	return (envlist);
 }
 
-t_sorted_envlist	*ft_init_sortedenv(t_envlist **envlist)
-{
-	t_sorted_envlist	*var;
-	t_sorted_envlist	*curr_var;
-	t_sorted_envlist	*sorted_envlist;
-
-	if (!*envlist)
-		return (NULL);
-	var = ft_create_sortedenv((*envlist)->varname, (*envlist)->value);
-	sorted_envlist = var;
-	while ((*envlist) != NULL && (*envlist)->varname != NULL)
-	{
-		curr_var = ft_create_sortedenv((*envlist)->varname, (*envlist)->value);
-		(*envlist) = (*envlist)->next;
-		var->next = curr_var;
-		var = var->next;
-	}
-	return (sorted_envlist);
-}
 
 // t_sorted_envlist  *ft_init_sortedenv(char **envp)
 // {
