@@ -80,7 +80,16 @@ bool    	ft_checkcmd(char *str);
 
 void	ft_pwd();
 
-int		ft_cd(char *path);
+int		ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
+int		ft_update_envlist(char *path, char *currdir, t_envlist **envlist);
+char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist);
+char	*ft_expandhomepath(char **path_split, t_envlist *envlist, t_varlist *varlist);
+char	*ft_getrawpath(char *str);
+
+void    ft_exit(char *str, t_envlist **envlist, t_varlist **varlist);
+void	ft_free_var(t_varlist **varlist);
+void	ft_free_env(t_envlist **envlist);
+void	ft_free_sortedenv(t_sorted_envlist **sorted_envlist);
 #endif //BUILTINTS_H
 
 //$0 – The name of the Bash script.

@@ -24,12 +24,16 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./utils/env_utils.c \
 					./utils/export_utils.c \
 					./utils/sortenv_utils.c \
+					./utils/ft_free_env.c \
+					./utils/ft_free_sortedenv.c \
+					./utils/ft_free_var.c \
 					./cd/ft_cd.c \
 					./env/ft_setvar.c \
 					./env/ft_unsetvar.c \
 					./env/ft_env.c \
 					./pwd/ft_pwd.c \
 					./export/ft_export.c \
+					./exit/ft_exit.c \
 					./builtins_utils.c
 
 BUILTINS_OBJS	=	$(BUILTINS_SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 18:19:31 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:41:46 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	ft_printexport(t_envlist **envlist)
 			curr_var->varname, curr_var->value);
 		curr_var = curr_var->next;
 	}
+	ft_free_sortedenv(&sorted_envlist);
 }

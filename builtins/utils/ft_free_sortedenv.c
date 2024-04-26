@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_env.c                                      :+:      :+:    :+:   */
+/*   ft_free_sortedenv.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:30:23 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/26 18:43:31 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:40:45 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-void	ft_free_env(t_envlist **envlist)
+void	ft_free_sortedenv(t_sorted_envlist **sorted_envlist)
 {
-	t_envlist			*prev;
+	t_sorted_envlist	*prev_sort;
 
-	while (*envlist != NULL)
+	while (*sorted_envlist != NULL)
 	{
-		free((*envlist)->value);
-		free((*envlist)->varname);
-		prev = *envlist;
-		*envlist = (*envlist)->next;
-		free(prev);
+		free((*sorted_envlist)->value);
+		free((*sorted_envlist)->varname);
+		prev_sort = *sorted_envlist;
+		*sorted_envlist = (*sorted_envlist)->next;
+		free(prev_sort);
 	}
 }

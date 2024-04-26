@@ -35,7 +35,7 @@ void	ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist)
 
 	len = 1;
 	if ((cmd_split[len] != NULL) && \
-		ft_strncmp(cmd_split[len], "-n", 3) == 0) //PENDING!: create a buffer if -n 
+		ft_strncmp(cmd_split[len], "-n", 3) == 0)
 		len++;
 	while (cmd_split[len] != NULL)
 	{

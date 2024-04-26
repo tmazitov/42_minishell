@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:20:07 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 22:04:22 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:41:58 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,11 @@
 
 void	ft_pwd()
 {
-	char	*path;
+	// char	*path;
+	char	currdir[PATH_MAX];
 
-	path = getenv("PWD");
-	ft_printf("%s\n", path);
-	// while ((envlist) != NULL && (envlist->varname) != NULL)
-	// {
-	// 	if (ft_strncmp(envlist->varname, "pwd", 3) == 0 || \
-	// 		ft_strncmp(envlist->varname, "PWD", 3) == 0)
-	// 	{
-	// 		ft_printf("%s\n", envlist->value);
-	// 		break ;
-	// 	}
-	// 	envlist = envlist->next;
-	// }
+	// path = getenv("PWD");
+	getcwd(currdir, sizeof(currdir));
+	// ft_printf("%s\n", path);
+	ft_printf("%s\n", currdir);
 }
