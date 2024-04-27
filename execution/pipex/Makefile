@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/25 01:47:04 by marvin           ###   ########.fr        #
+#    Updated: 2024/04/27 18:17:43 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,8 @@ RM			=	rm -rf
 #FILES AND PATH
 CHAN_SRCS	=	chan/chan.c \
 				chan/close.c \
-				chan/free.c \
-				chan/payload.c
+				chan/free.c
 CHAN_OBJ	=	$(CHAN_SRCS:.c=.o)
-
-GNL_SRCS	=	get_next_line/get_next_line.c \
-				get_next_line/get_next_line_utils.c
-GNL_OBJ		=	$(GNL_SRCS:.c=.o)
 
 SRC_SRCS	=	src/com_exec.c \
 				src/com_queue_node.c \
@@ -43,18 +38,10 @@ UTILS_SRCS	=	utils/utils.c \
 
 UTILS_OBJ	=	$(UTILS_SRCS:.c=.o)
 
-PRINTF_SRCS	= 	printf/ft_puthex.c \
-				printf/ft_putchar.c \
-				printf/ft_putstr.c \
-				printf/ft_putnbr.c \
-				printf/ft_putunbr.c
-PRINTF_OBJS =	$(PRINTF_SRCS:.c=.o)
-
 HEADER		=	src/pipex.h \
 				chan/chan.h \
 				utils/utils.h \
 				bonus/main_bonus.h \
-				printf/ft_printf.h \
 				get_next_line/get_next_line.h
 
 MAND_SRCS	=	mandatory/mandatory.c
@@ -65,26 +52,26 @@ BONUS_SRCS	=	bonus/heredoc_bonus.c \
 				bonus/main_bonus.c
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
+LIBFT		=	../../libft/libft.a
+
 #COMMANDS
 # %.o: %.c $(HEADER) Makefile
 # 	@${CC} ${FLAGS} -c $< -o $@
 
-# $(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
-# 	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
+# $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
+# 	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
 # 	@echo -e "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 all: $(NAME)
 
-$(NAME): $(UTILS_OBJ) $(GNL_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(PRINTF_OBJS)
-	@$(LB) $(NAME) $(UTILS_OBJ) $(GNL_OBJ) $(PRINTF_OBJS) $(CHAN_OBJ) $(SRC_OBJ) 
-	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
+$(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ)
+	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(LIBFT)
+	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)" 
 
 clean:
 	@$(RM) $(UTILS_OBJ)
-	@$(RM) $(GNL_OBJ)
 	@$(RM) $(CHAN_OBJ)
 	@$(RM) $(SRC_OBJ)
-	@$(RM) $(PRINTF_OBJS)
 	@$(RM) $(MAND_OBJS)
 	@echo "$(YELLOW) pipex: OBJECT FILES DELETED!$(DEFAULT)"
 

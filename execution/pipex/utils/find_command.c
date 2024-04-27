@@ -6,12 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:54:17 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 15:15:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:08:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "../get_next_line/get_next_line.h"
+#include "../../../libft/get_next_line.h"
+
 
 static char	*make_separator(void)
 {
@@ -23,13 +24,6 @@ static char	*make_separator(void)
 	separator[0] = '/';
 	separator[1] = '\0';
 	return (separator);
-}
-
-static void	*free_null(char *str)
-{
-	if (str)
-		free(str);
-	return (NULL);
 }
 
 static char	*check_path(char *path, char *command_name)
@@ -44,7 +38,7 @@ static char	*check_path(char *path, char *command_name)
 		return (NULL);
 	directory = ftt_strjoin(path, separator);
 	if (!directory)
-		return (free_null(separator));
+		return (free(separator), NULL);
 	command_path = ftt_strjoin(directory, command_name);
 	free(directory);
 	free(separator);
@@ -52,7 +46,7 @@ static char	*check_path(char *path, char *command_name)
 		return (NULL);
 	ok = access(command_path, X_OK);
 	if (ok == -1)
-		return (free_null(command_path));
+		return (free(command_path), NULL);
 	return (command_path); 
 }
 
@@ -82,15 +76,18 @@ char	*find_command_path(char *command_name, char *env_path)
 	return (NULL);
 }
 
-char	*find_path(char **envp)
+char	*find_path(t_envlist **envlist)
 {
-	if (!envp)
+	t_envlist	*env_node;
+
+	if (!envlist)
 		return (NULL);
-	while (*envp)
+	env_node = *envlist;
+	while (env_node)
 	{
-		if (ftt_strnstr(*envp, "PATH", 4))
-			return (*envp + 5);
-		envp++;
+		if (!ft_strncmp(env_node->varname, "PATH", 4))
+			return (env_node->value);
+		env_node = env_node->next;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/25 13:41:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:09:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,18 @@ int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
 {
 	t_com_node	*new_node;
 	t_com_redir redir;
-	char		*command_payload;
+	char		*payload;
 	
-	command_payload = ft_substr(node->value, 0, ft_strlen(node->value));
-	if (!command_payload)
+	payload = ft_substr(node->value, 0, ft_strlen(node->value));
+	if (!payload)
 		return (-1);
-	if ((redir = make_redirection(&command_payload)).status != 0)
-		return (free(command_payload), printf("success\n"), -1);
-	if (!(new_node = add_node(q, command_payload, path)))
-		return (-1);
+	if ((redir = make_redirection(&payload)).status != 0)
+		return (free(payload), -1);
+	// printf("'%s' is builtin : %d\n", payload, ft_checkcmd(payload));
+	if (ft_checkcmd(payload) && !(new_node = add_builtin_node(q, payload)))
+		return (free(payload), -1);
+	if (!ft_checkcmd(payload) && !(new_node = add_node(q, payload, path)))
+		return (free(payload), -1);
 	if (redir.output_file != -1)
 		new_node->out_file = redir.output_file;
 	if (redir.input_file != -1)

@@ -58,6 +58,9 @@ void		ft_printvar(t_varlist **varnames);
 
 t_envlist  	*ft_init_env(char **envp);
 t_envlist	*ft_create_env(char *varname, char *varvalue);
+char		**ft_env_converter(t_envlist **envlist);
+void		*free_envlist(t_envlist *envlist);
+
 void		ft_printenv(t_envlist *envlist);
 // char 		**ft_merge_envvalues(char **var_split, char *str);
 char		**ft_merge_envvalues(char **var_split);

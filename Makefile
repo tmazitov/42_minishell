@@ -12,7 +12,7 @@
 
 NAME			= 	minishell
 CC				= 	cc
-FLAGS			= 	-Wall -Wextra -Werror -fsanitize=address
+FLAGS			= 	-Wall -Wextra -Werror
 RM				= 	rm -rf
 LB				= 	ar rcs
 LDFLAGS			=	-L./libft -lft

@@ -1,0 +1,14 @@
+Makefile
+builtins
+execution
+libft
+minishell
+minishell.c
+minishell.h
+minishell.o
+minishell12.c
+notes
+out2
+parsing
+sample.sh
+test.sh

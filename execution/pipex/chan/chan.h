@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 19:02:20 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/13 17:53:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/27 18:16:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "../get_next_line/get_next_line.h"
+# include "../../../libft/get_next_line.h"
 
 typedef struct s_log_chan
 {
@@ -28,7 +28,6 @@ typedef struct s_log_chan
 
 t_log_chan	*make_log_chan(void);
 void		*free_log_chan(t_log_chan *chan);
-char		**get_chan_payload(t_log_chan *chan);
 int			close_write(t_log_chan *chan);
 int			close_read(t_log_chan *chan);
 int			set_write(t_log_chan *chan, int fd);

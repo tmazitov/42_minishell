@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/19 15:35:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:48:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 # include <sys/wait.h>
 # include "../chan/chan.h"
 # include "../utils/utils.h"
-# include "../get_next_line/get_next_line.h"
-# include "../printf/ft_printf.h"
+# include "../../../libft/get_next_line.h"
+# include "../../../libft/ft_printf.h"
+# include "../../../builtins/builtins.h"
 
 typedef struct s_com_node
 {
 	char				*name;
 	char				*path;
+	char				*builtin;
 	char				**args;
 	struct s_com_node	*next;
 	struct s_com_node	*prev;
@@ -63,7 +65,7 @@ void		*free_queue_relationship(t_com_queue *queue);
 t_com_node	*get_node_by_pid(t_com_queue *queue, pid_t pid);
 
 // MULTIPROCCESSING
-void		run_command_proc(t_com_node *command, char **envp, t_com_queue *q);
+void		run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q);
 
 // INPUT FILE
 int			add_input(t_com_queue *queue, char *input_path);

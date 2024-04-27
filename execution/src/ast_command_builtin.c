@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   com_queue_node.c                                   :+:      :+:    :+:   */
+/*   ast_command_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 19:56:56 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/04/27 19:55:59 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/execution.h"
 
 static void	init_node(t_com_node *node)
 {
@@ -30,55 +30,32 @@ static void	init_node(t_com_node *node)
 	node->args = NULL;
 }
 
-t_com_node	*make_node(char *command_line, char *env_path)
+t_com_node	*make_builtin_node(char *command_line)
 {
 	t_com_node	*node;
-	char		**command_parts;
 
 	if (!command_line)
 		return (NULL);
+	printf("built in node : '%s' \n", command_line);
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);
 	init_node(node);
-	command_parts = ftt_split(command_line, ' ');
-	if (!command_parts)
-	{
-		free_node(node);
-		return (NULL);
-	}
-	node->name = command_parts[0];
-	node->args = command_parts;
-	node->path = find_command_path(command_parts[0], env_path);
+	node->builtin = command_line;
 	return (node);
 }
 
-t_com_node	*get_node_by_pid(t_com_queue *q, pid_t pid)
+t_com_node	*add_builtin_node(t_com_queue *q, char *command_line)
 {
-	t_com_node	*command;
+	t_com_node	*node;
+	t_com_node	*last;
 
-	command = get_first(q);
-	while (command)
-	{
-		if (command->proc_id == pid)
-			return (command);
-		command = command->next;
-	}
-	return (NULL);
-}
-
-void	*free_node(t_com_node *node)
-{
+	node = make_builtin_node(command_line);
 	if (!node)
 		return (NULL);
-	if (node->path)
-		free(node->path);
-	if (node->builtin)
-		free(node->builtin);
-	if (node->args)
-		free_split(node->args);
-	node->next = NULL;
-	node->prev = NULL;
-	free(node);
-	return (NULL);
+	last = get_last(q);
+	node->prev = last;
+	if (last)
+		last->next = node;
+	return (node);
 }

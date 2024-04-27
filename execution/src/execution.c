@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/25 15:21:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/27 19:57:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 /// @param envp Environment parameters
 /// @return If each one command executed successfully return 0.
 /// @return If create of child proccess in failed return -1.
-static int	run_commands(t_com_queue *commands, char **envp)
+static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **varlist)
 {
 	t_com_node	*command;
 
 	command = get_last(commands);
 	while (command)
 	{
-		run_command_proc(command, envp, commands);
+		run_command_proc(command, envlist, varlist, commands);
 		if (command->proc_id == -1)
 			return (-1);
 		command = command->prev;
@@ -63,10 +63,11 @@ static int	wait_commands(t_com_queue *commands, int count)
 
 /// @brief Execute each one command from the AST tree
 /// @param tree AST tree of commands 
-/// @param envp Environment parameters
+/// @param envlist List of the environment parameters
+/// @param varlist List of the variables
 /// @return Status code of the last one executed command.
 /// @return If tree is NULL or empty the status code will be -1.
-int	execute(t_astnodes *tree, char **envp)
+int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 {
 	t_com_queue	*commands;
 	int			status;
@@ -74,12 +75,12 @@ int	execute(t_astnodes *tree, char **envp)
 
 	if (!tree)
 		return (-1);
-	commands = make_ast_q(tree, envp);
+	commands = make_ast_q(tree, envlist);
 	if (!commands)
 		return (-1);
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), -1);
-	if (run_commands(commands, envp) != 0)
+	if (run_commands(commands, envlist, varlist) != 0)
 		return (free_queue(commands), -1);
 	free_queue_relationship(commands);
 	command_count = ast_tree_node_count(tree);
