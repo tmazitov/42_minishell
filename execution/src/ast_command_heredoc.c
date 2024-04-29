@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:51:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/25 17:13:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:09:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,19 @@ static int	fill_heredoc(t_log_chan *chan, char	*limiter)
 {
 	char	*buffer;
 
-	buffer = NULL;
-	setup_read_interrupter();
-	printf("heredoc limiter '%s'\n", limiter);
-	while (!buffer || ft_strncmp(buffer, limiter, ftt_strlen(buffer)))
+	buffer = readline("> ");
+	while (buffer && ft_strncmp(buffer, limiter, ft_strlen(limiter))
+			&& status_code(GET, -1) != STOP_HEREDOC)
 	{
-		if (buffer)
-		{
-			write(chan->side[1], buffer, ftt_strlen(buffer));
-			free(buffer);
-		}
-		ft_printf("> ");
-		buffer = get_next_line(STDIN_FILENO);
-		if (!buffer)
-			return (1);
+		write(chan->side[1], buffer, ft_strlen(buffer));
+		write(chan->side[1], "\n", 1);
+		free(buffer);
+		buffer = readline("> ");
 	}
 	close_write(chan);
 	free(buffer);
+	if (status_code(GET, -1) == STOP_HEREDOC)
+		return (1);
 	return (0);
 }
 
@@ -56,11 +52,10 @@ static t_log_chan	*chan_by_last_heredoc(char **payload)
 	char		*limiter;
 	t_log_chan	*chan;
 
-	signal(SIGINT, sigint_handler);
-
 	chan = NULL;
 	while (ftt_strnstr(*payload, "<<", ftt_strlen(*payload)))
 	{
+		status_code(SET, IN_HEREDOC);
 		if (chan)
 			chan = free_log_chan(chan);
 		if (!(temp = ftt_strnstr(*payload, "<<", ftt_strlen(*payload)) + 3))
@@ -69,7 +64,7 @@ static t_log_chan	*chan_by_last_heredoc(char **payload)
 			return (NULL);
 		if (!(chan = make_log_chan()))
 			return (free(limiter), NULL);
-		if (fill_heredoc(chan, limiter) != 0)
+		if (status_code(SET, fill_heredoc(chan, limiter)) != 0)
 			return (free(limiter), free_log_chan(chan));
 		*payload = temp + ft_strlen(limiter);
 		printf("heredoc new payload '%s'\n", *payload);

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 16:14:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:18:35 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int	wait_commands(t_com_queue *commands, int count)
 		{
 			status = WEXITSTATUS(status);
 			command->proc_status = status;
+			if (status_code(GET, -1) != STOP_HEREDOC)
+				status_code(SET, status);
 		}
 		counter++;
 	}
@@ -79,12 +81,15 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	if (!tree)
 		return (-1);
 	commands = make_ast_q(tree);
+	if (status_code(GET, -1) == STOP_HEREDOC)
+		status_code(SET, CTRL_C);
 	if (!commands)
 		return (-1);
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), -1);
 	command_count = ast_tree_node_count(tree);
 	is_builtin_only = command_count == 1 && get_first(commands)->builtin;
+	status_code(SET, IN_CMD);
 	status = run_commands(commands, envlist, varlist); 
 	free_queue_relationship(commands);
 	if (status != 0)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/27 19:55:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:39:08 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	main(int argc, char **argv, char **envp)
 	envlist = ft_init_env(envp);
 	varlist = ft_init_var();
 	setup_read_interrupter();
+	setup_shell_quit();
 	status_code(SET, 0);
 	while (1)
 	{
-		ft_printf("\033[1;32mminishell$\033[0m ");
-		str = get_next_line(STDIN_FILENO);
+		str = readline("\033[1;32mminishell$\033[0m ");
 		if (str)
 			status_code(SET, 0);
 		if (!str && status_code(GET, -1) == 130)
@@ -68,7 +68,7 @@ int	main(int argc, char **argv, char **envp)
 							status);
 				}
 			}
-			free(str);
+			// free(str);
 		}
 	}
 	return (0);
