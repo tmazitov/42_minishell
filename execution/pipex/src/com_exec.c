@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 20:55:39 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:53:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 	int			status;
 	char		**envp;
 	
+	if (command->name && !command->builtin)
+		command_path(command, envlist);
 	if (!command->path && !command->builtin)
 	{
 		free_queue(q);

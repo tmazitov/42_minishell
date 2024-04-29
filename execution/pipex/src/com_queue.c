@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:16:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/16 17:07:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:23:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-t_com_queue	*make_queue(char **command_lines, char *env_path, int com_count)
+t_com_queue	*make_queue(char **command_lines, int com_count)
 {
 	t_com_queue		*queue;
 	t_com_node		*iter;
@@ -28,7 +28,7 @@ t_com_queue	*make_queue(char **command_lines, char *env_path, int com_count)
 	iter = queue->nodes;
 	while (command_lines[counter] && counter < com_count)
 	{
-		iter = add_node(queue, command_lines[counter], env_path);
+		iter = add_node(queue, command_lines[counter]);
 		if (!iter)
 			return (free_queue(queue));
 		queue->nodes = iter;

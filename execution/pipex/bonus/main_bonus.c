@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:39:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2023/09/12 10:38:29 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:23:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,15 @@ int	wait_commands(t_com_queue *commands, int count)
 int	make_exec_commands(char **argv, int com_count, char **envp)
 {
 	t_com_queue	*commands;
-	char		*path;
 	char		*input_path;
 	char		*output_path;
 
 	input_path = argv[1];
 	output_path = argv[com_count + 2];
-	path = find_path(envp);
-	if (!path)
-		panic("find path error", 1);
 	if (check_heredoc(argv[1]))
-		commands = make_queue(argv + 3, path, com_count - 1);
+		commands = make_queue(argv + 3, com_count - 1);
 	else 
-		commands = make_queue(argv + 2, path, com_count);
+		commands = make_queue(argv + 2, com_count);
 	if (!commands)
 		panic("make command queue error", 1);
 	check_argv(argv[1], commands);

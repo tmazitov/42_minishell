@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 20:07:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:25:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,29 @@
 /// @return Return NULL if the PATH not exists
 /// @return Return NULL if not enough memory
 /// @return Return NULL if tree is empty
-t_com_queue	*make_ast_q(t_astnodes *tree, t_envlist **envlist)
+t_com_queue	*make_ast_q(t_astnodes *tree)
 {
 	t_com_queue			*commands;
-	char				*path;
-
-	path = find_path(envlist);
+	
 	commands = malloc(sizeof(t_com_queue));
 	if (!commands)
 		return (NULL);
 	commands->chan_closed = 0;
 	commands->nodes = NULL;
 	commands->first = NULL;
-	if (path && ast_q_add_command(commands, tree, path) != 0)
+	if (ast_q_add_command(commands, tree) != 0)
 		return (free_queue(commands));
 	return (commands);
 }
 
-int	ast_q_add_command(t_com_queue *q, t_astnodes *node, char *path)
+int	ast_q_add_command(t_com_queue *q, t_astnodes *node)
 {
-	if (node->left && ast_q_add_command(q, node->left, path) != 0)
+	if (node->left && ast_q_add_command(q, node->left) != 0)
 		return (-1);
-	if (node->right && ast_q_add_command(q, node->right, path) != 0)
+	if (node->right && ast_q_add_command(q, node->right) != 0)
 		return (-1);
 	if (!node->right && !node->left)
-		return (make_q_command(q, node, path));
+		return (make_q_command(q, node));
 	return (0);
 }
 

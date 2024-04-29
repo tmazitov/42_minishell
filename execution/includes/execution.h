@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 18:59:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:26:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef	struct s_com_redir
 
 // AST to the command queue
 
-int			make_q_command(t_com_queue *q, t_astnodes *node, char *path);
-t_com_queue	*make_ast_q(t_astnodes *tree, t_envlist **envlist);
-int			ast_q_add_command(t_com_queue *q, t_astnodes *node, char *path);
+int			make_q_command(t_com_queue *q, t_astnodes *node);
+t_com_queue	*make_ast_q(t_astnodes *tree);
+int			ast_q_add_command(t_com_queue *q, t_astnodes *node);
 int			ast_tree_node_count(t_astnodes *node);
 t_com_node	*add_builtin_node(t_com_queue *q, char *command_line);
 

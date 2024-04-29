@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 20:09:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:21:46 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static t_com_redir make_redirection(char **payload)
 }
 
 
-int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
+int	make_q_command(t_com_queue *q, t_astnodes *node)
 {
 	t_com_node	*new_node;
 	t_com_redir redir;
@@ -96,7 +96,7 @@ int	make_q_command(t_com_queue *q, t_astnodes *node, char *path)
 	// printf("'%s' is builtin : %d\n", payload, ft_checkcmd(payload));
 	if (ft_checkcmd(payload) && !(new_node = add_builtin_node(q, payload)))
 		return (free(payload), -1);
-	if (!ft_checkcmd(payload) && !(new_node = add_node(q, payload, path)))
+	if (!ft_checkcmd(payload) && !(new_node = add_node(q, payload)))
 		return (free(payload), -1);
 	if (redir.output_file != -1)
 		new_node->out_file = redir.output_file;

@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/27 18:17:43 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/04/29 15:54:22 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ CHAN_SRCS	=	chan/chan.c \
 				chan/free.c
 CHAN_OBJ	=	$(CHAN_SRCS:.c=.o)
 
-SRC_SRCS	=	src/com_exec.c \
+SRC_SRCS	=	src/com_exec_path.c \
+				src/com_exec.c \
 				src/com_queue_node.c \
 				src/com_queue_utils.c \
 				src/com_queue.c \

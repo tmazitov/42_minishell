@@ -38,7 +38,7 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 		ft_printvar(varlist);
 	ft_printf("###### BUILTIN COMMANDS #######\n\n");
 	*envlist = env_head;
-	return (1);
+	return (0);
 }
 
 bool	ft_checkcmd(char *str)

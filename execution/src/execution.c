@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 19:57:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:14:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 	t_com_node	*command;
 
 	command = get_last(commands);
+	if (command && !command->prev && command->builtin)
+		return (ft_builtins(command->builtin, envlist, varlist));
 	while (command)
 	{
 		run_command_proc(command, envlist, varlist, commands);
@@ -72,22 +74,26 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	t_com_queue	*commands;
 	int			status;
 	int			command_count;
+	int			is_builtin_only;
 
 	if (!tree)
 		return (-1);
-	commands = make_ast_q(tree, envlist);
+	commands = make_ast_q(tree);
 	if (!commands)
 		return (-1);
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), -1);
-	if (run_commands(commands, envlist, varlist) != 0)
-		return (free_queue(commands), -1);
-	free_queue_relationship(commands);
 	command_count = ast_tree_node_count(tree);
+	is_builtin_only = command_count == 1 && get_first(commands)->builtin;
+	status = run_commands(commands, envlist, varlist); 
+	free_queue_relationship(commands);
+	if (status != 0)
+		return (free_queue(commands), -1);
+	if (is_builtin_only)
+		return (status_code(SET, 0));
 	status = wait_commands(commands, command_count);
 	free_queue(commands);
-	status_code(SET, status);
-	return (status);
+	return (status_code(SET, status));
 }
 
 

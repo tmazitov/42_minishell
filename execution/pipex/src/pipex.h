@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 19:48:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:53:22 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ typedef struct s_com_queue
 }		t_com_queue;
 
 // QUEUE NODE
-t_com_node	*make_node(char *command_line, char *env_path);
+t_com_node	*make_node(char *command_line);
 void		*free_node(t_com_node *node);
+char		*command_path(t_com_node *command, t_envlist **envlist);
 
 // QUEUE
 int			make_queue_relationship(t_com_queue *queue);
-t_com_queue	*make_queue(char **command_lines, char *env_path, int com_count);
+t_com_queue	*make_queue(char **command_lines, int com_count);
 t_com_node	*get_node(t_com_queue *queue);
-t_com_node	*add_node(t_com_queue *queue, char *command_line, char *env_path);
+t_com_node	*add_node(t_com_queue *queue, char *command_line);
 t_com_node	*get_first(t_com_queue *queue);
 t_com_node	*get_last(t_com_queue *queue);
 void		*free_queue(t_com_queue *queue);
