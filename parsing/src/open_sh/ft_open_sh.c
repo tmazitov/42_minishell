@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/24 17:08:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:13:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	ft_openshfile(char *str_input)
 		parse_input(str_line);
 	}
 	free_pointer(str_split);
+	free(str_line);
 }

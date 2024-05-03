@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_queue_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:20:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:35:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_com_node	*get_node(t_com_queue *q)
 	first = q->first;
 	if (first)
 		q->first = first->next;
-	else 
+	else
 		q->first = get_first(q);
 	return (first);
 }

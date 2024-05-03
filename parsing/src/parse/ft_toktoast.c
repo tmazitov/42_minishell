@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:39:49 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 21:23:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ t_astnodes	*parse_command(t_tokens **tokens)
 	node = (t_astnodes *)malloc(sizeof(t_astnodes));
 	if ((*tokens != NULL) && (*tokens)->type != PIPE)
 	{
-		node->value = ft_strdup("");
+		node->value = NULL;
 		while ((*tokens != NULL) && (*tokens)->type != PIPE)
 		{
-			if (ft_strlen(node->value) > 0)
+			if ((node->value) && ft_strlen(node->value) > 0)
 				node->value = merge_string(node->value, (*tokens)->value);
 			else
 				node->value = ft_strdup((*tokens)->value);

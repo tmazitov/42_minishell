@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:27:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 01:41:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:28:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	free_pointer(char **s)
 		free(s[count]);
 		count++;
 	}
+	free(s);
 }
 
 void	print_tokens(t_tokens *head)

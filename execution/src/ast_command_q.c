@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_q.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:25:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:36:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 t_com_queue	*make_ast_q(t_astnodes *tree)
 {
 	t_com_queue			*commands;
-	
+
 	commands = malloc(sizeof(t_com_queue));
 	if (!commands)
 		return (NULL);

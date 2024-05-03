@@ -20,6 +20,7 @@ LB				= 	ar rcs
 # LDFLAGS			=	-L../libft -lft
 
 BUILTINS_SRCS	=	./echo/ft_echo.c \
+					./utils/cd_utils.c \
 					./utils/echo_utils.c \
 					./utils/env_utils.c \
 					./utils/export_utils.c \

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/24 16:28:39 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 21:09:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	**ft_handletokens(char **outdp, char *str)
 		outdp = ft_realloc_dp(outdp, str_split[count], ft_strlen_dp(outdp) + 1);
 		count++;
 	}
+	free(str_split);
+	free(str);
 	return (outdp);
 }
 
@@ -88,9 +90,9 @@ t_tokens	*tokenize_input(char **str_token)
 	return (head);
 }
 
-/// @brief assigns pointer value to t_tokens struct 
+/// @brief assigns pointer value to t_tokens struct
 /// @param str_token token value
-/// @return 
+/// @return
 char	*ft_token_value(char *str_token)
 {
 	char	*token_val;

@@ -17,7 +17,7 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 	t_envlist			*env_head;
 
 	env_head = *envlist;
-	ft_printf("\n###### BUILTIN COMMANDS #######\n");
+	// ft_printf("\n###### BUILTIN COMMANDS #######\n");
 	if (ft_strncmp(str, "echo", 4) == 0)
 		ft_echo(str, *envlist, *varlist);
 	else if (ft_strchr(str, '=') && !ft_checkcmd(str))
@@ -36,7 +36,7 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 		ft_exit(str, envlist, varlist);
 	else if (ft_strncmp(str, "varrr", 5) == 0)
 		ft_printvar(varlist);
-	ft_printf("###### BUILTIN COMMANDS #######\n\n");
+	// ft_printf("###### BUILTIN COMMANDS #######\n\n");
 	*envlist = env_head;
 	return (0);
 }

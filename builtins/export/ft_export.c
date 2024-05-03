@@ -19,7 +19,7 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 
 	index = 0;
 	var_split = ft_split(str, ' ');
-	if (ft_strncmp(var_split[index], "export", 6) > 0)
+	if (ft_strncmp("export", var_split[index], ft_strlen(var_split[index])))
 		return (free_pointer(var_split), 0);
 	if (ft_strlen_dp(var_split) == 1)
 		ft_printexport(envlist);
@@ -34,7 +34,7 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 		else
 			ft_exportvar(var_split[index], envlist, varlist);
 	}
-	return (1);
+	return (free_pointer(var_split), 1);
 }
 
 void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
@@ -52,7 +52,7 @@ void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 	{
 		if ((*envlist)->next == NULL)
 		{
-			curr_var = ft_create_env(varname, varvalue);
+			curr_var = ft_create_env(NULL, varname, varvalue);
 			(*envlist)->next = curr_var;
 			break ;
 		}

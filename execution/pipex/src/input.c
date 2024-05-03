@@ -20,7 +20,7 @@ static t_log_chan	*setup_input_chan(int input_fd)
 	log_chan = make_log_chan();
 	if (!log_chan)
 		return (free_log_chan(log_chan));
-	close_read(log_chan); 
+	close_read(log_chan);
 	close_write(log_chan);
 	set_read(log_chan, input_fd);
 	set_write(log_chan, -1);

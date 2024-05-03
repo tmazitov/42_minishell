@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:21:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:37:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 	t_com_node	*new_node;
 	t_com_redir redir;
 	char		*payload;
-	
+
 	payload = ft_substr(node->value, 0, ft_strlen(node->value));
 	if (!payload)
 		return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sortenv_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:11:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 22:12:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:26:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_copyvalues(char **var_split, char *var_newsplit)
 	return (var_newsplit);
 }
 
-t_envlist	*ft_create_env(char *varname, char *varvalue)
+t_envlist	*ft_create_env(char ** var_split, char *varname, char *varvalue)
 {
 	t_envlist	*varnames;
 
@@ -64,6 +64,8 @@ t_envlist	*ft_create_env(char *varname, char *varvalue)
 	varnames->varname = varname;
 	varnames->value = varvalue;
 	varnames->next = NULL;
+	if (var_split != NULL)
+		free(var_split);
 	return (varnames);
 }
 

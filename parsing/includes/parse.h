@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/27 18:00:30 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 21:34:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void		ft_openshfile(char *str_input);
 // ############################### PARSE ##################################
 
 t_astnodes	*parse_input(char *str);
+void		ft_free_tokens(t_tokens *tokens);
 
 int			ft_checknextchar(char *c, int index);
 int			ft_checknextcharb(char *c, int index);

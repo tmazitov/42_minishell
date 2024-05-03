@@ -57,7 +57,7 @@ void		ft_printenvp(char **envp);
 void		ft_printvar(t_varlist **varnames);
 
 t_envlist  	*ft_init_env(char **envp);
-t_envlist	*ft_create_env(char *varname, char *varvalue);
+t_envlist	*ft_create_env(char **var_split, char *varname, char *varvalue);
 char		**ft_env_converter(t_envlist **envlist);
 void		*free_envlist(t_envlist *envlist);
 
@@ -87,7 +87,7 @@ int		ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
 int		ft_update_envlist(char *path, char *currdir, t_envlist **envlist);
 char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist);
 char	*ft_expandhomepath(char **path_split, t_envlist *envlist, t_varlist *varlist);
-char	*ft_getrawpath(char *str);
+char	*ft_copystring(char *str);
 
 void    ft_exit(char *str, t_envlist **envlist, t_varlist **varlist);
 void	ft_free_var(t_varlist **varlist);

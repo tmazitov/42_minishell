@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 00:47:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 20:40:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 	int		count;
 
 	count = 0;
-	out = (char **)malloc(sizeof(char *) *(len + 1));
+	out = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!out)
+		return (NULL);
 	old_size = ft_strlen_dp(s);
 	while (count < old_size)
 	{
@@ -145,5 +147,6 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 	out[count] = input;
 	count++;
 	out[count] = NULL;
+	free(s);
 	return (out);
 }

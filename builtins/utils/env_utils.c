@@ -17,6 +17,7 @@ void	ft_printvar(t_varlist **varnames)
 	t_varlist	*var_head;
 
 	var_head = *varnames;
+	ft_printf("ft_printvar || %s\n", (*varnames)->varname);
 	while (*varnames != NULL && (*varnames)->varname != NULL)
 	{
 		ft_printf("varname: %s || value: %s\n", (*varnames)->varname, \
@@ -59,14 +60,14 @@ t_envlist	*ft_init_env(char **envp)
 	var_split = ft_split(envp[count++], '=');
 	if (ft_strlen_dp(var_split) > 2)
 		var_split = ft_merge_envvalues(var_split);
-	var = ft_create_env(var_split[0], var_split[1]);
+	var = ft_create_env(var_split, var_split[0], var_split[1]);
 	envlist = var;
 	while (envp[count] != NULL)
 	{
 		var_split = ft_split(envp[count++], '=');
 		if (ft_strlen_dp(var_split) > 2)
 			var_split = ft_merge_envvalues(var_split);
-		curr_var = ft_create_env(var_split[0], var_split[1]);
+		curr_var = ft_create_env(var_split, var_split[0], var_split[1]);
 		var->next = curr_var;
 		var = var->next;
 	}

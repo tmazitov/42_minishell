@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/26 19:09:00 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:55:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void	ft_printexport(t_envlist **envlist)
 			curr_var->varname, curr_var->value);
 		curr_var = curr_var->next;
 	}
+	ft_free_sortedenv(&sorted_envlist);
 }

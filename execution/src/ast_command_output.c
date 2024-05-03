@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 17:42:39 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/17 04:51:09 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:39:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	make_com_output(char **com_payload)
 	char		**com_parts;
 	char		*new_payload;
 	int			output_fd;
-	
+
 	if (!*com_payload || !ft_strchr(*com_payload, '>'))
 		return (-1);
 	com_parts = ftt_split(*com_payload, '>');

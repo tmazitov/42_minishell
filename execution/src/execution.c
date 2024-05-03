@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 21:18:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:34:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	wait_commands(t_com_queue *commands, int count)
 
 
 /// @brief Execute each one command from the AST tree
-/// @param tree AST tree of commands 
+/// @param tree AST tree of commands
 /// @param envlist List of the environment parameters
 /// @param varlist List of the variables
 /// @return Status code of the last one executed command.
@@ -90,7 +90,7 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	command_count = ast_tree_node_count(tree);
 	is_builtin_only = command_count == 1 && get_first(commands)->builtin;
 	status_code(SET, IN_CMD);
-	status = run_commands(commands, envlist, varlist); 
+	status = run_commands(commands, envlist, varlist);
 	free_queue_relationship(commands);
 	if (status != 0)
 		return (free_queue(commands), -1);

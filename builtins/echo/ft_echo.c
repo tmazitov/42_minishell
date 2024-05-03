@@ -74,6 +74,7 @@ void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
 		if (expanded_val != NULL)
 			ft_printf("%s", expanded_val);
 	}
+	free(varname);
 }
 
 char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)

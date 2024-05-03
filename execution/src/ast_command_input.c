@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 18:04:42 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/20 03:23:39 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/30 12:39:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	make_com_input(char **com_payload)
 {
 	char		*new_payload;
 	int			input_fd;
-	
+
 	if (!*com_payload || !ft_strchr(*com_payload, '<'))
 		return (-1);
 	new_payload = *com_payload;

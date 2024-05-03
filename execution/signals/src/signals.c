@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:54:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 21:08:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:23:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	event(void)
 	return (EXIT_SUCCESS);
 }
 
-void	sigint_handler(int signum) 
+void	sigint_handler(int signum)
 {
 	int	status;
 

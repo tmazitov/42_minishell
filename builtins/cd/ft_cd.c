@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/26 18:11:46 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:29:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist)
 	path_split = ft_split(str, ' ');
 	if (path_split[1] == NULL || (*path_split[1] == '~' && \
 		ft_strlen(path_split[1]) == 1))
-		path = ft_getenv("HOME", envlist, varlist);
+		path = ft_copystring(ft_getenv("HOME", envlist, varlist));
 	else if (*path_split[1] == '~' && ft_strlen(path_split[1]) > 1)
 		path = ft_expandhomepath(path_split, envlist, varlist);
 	else if (*path_split[1] == '-' && ft_strlen(path_split[1]) == 1)
 	{
-		path = ft_getenv("OLDPWD", envlist, varlist);
+		path = ft_copystring(ft_getenv("OLDPWD", envlist, varlist));
 		if (path == NULL)
 		{
 			ft_printf("bash: cd: OLDPWD not set\n");
@@ -53,15 +53,17 @@ char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist)
 		ft_printf("%s\n", path);
 	}
 	else
-		path = ft_getrawpath(path_split[1]);
+		path = ft_copystring(path_split[1]);
 	return (free_pointer(path_split), path);
 }
 
-char	*ft_getrawpath(char *str)
+char	*ft_copystring(char *str)
 {
 	char	*path;
 
-	path = (char *)malloc(sizeof(char) * ft_strlen(str));
+	path = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!path)
+		return (NULL);
 	ft_strlcpy(path, str, ft_strlen(str) + 1);
 	return (path);
 }
@@ -85,32 +87,4 @@ char	*ft_expandhomepath(char **path_split, t_envlist *envlist, \
 	path[ft_strlen(homepath) + ft_strlen(newpath_split[0])] = '\0';
 	free_pointer(newpath_split);
 	return (path);
-}
-
-int	ft_update_envlist(char *path, char *currdir, t_envlist **envlist)
-{
-	int		oldpwd_exist;
-	char	*oldpwd_value;
-
-	oldpwd_exist = 0;
-	oldpwd_value = (char *)malloc(sizeof(char) * ft_strlen(currdir) + 1);
-	if (!oldpwd_value)
-		return (0);
-	ft_strlcpy(oldpwd_value, currdir, ft_strlen(currdir) + 1);
-	while (*envlist != NULL)
-	{
-		if (ft_strncmp("PWD", (*envlist)->varname, \
-			ft_strlen((*envlist)->varname)) == 0)
-			(*envlist)->value = path;
-		if (ft_strncmp("OLDPWD", (*envlist)->varname, \
-			ft_strlen((*envlist)->varname)) == 0)
-		{
-			oldpwd_exist = 1;
-			(*envlist)->value = oldpwd_value;
-		}
-		(*envlist) = (*envlist)->next;
-	}
-	if (oldpwd_exist == 0)
-		(*envlist) = ft_create_env("OLDPWD", currdir);
-	return (1);
 }

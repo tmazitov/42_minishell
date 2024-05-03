@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 19:55:59 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:37:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_com_node	*make_builtin_node(char *command_line)
 
 	if (!command_line)
 		return (NULL);
-	printf("built in node : '%s' \n", command_line);
+	// printf("built in node : '%s' \n", command_line);
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);

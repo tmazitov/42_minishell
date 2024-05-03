@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:03:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 16:10:32 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:23:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	status_code(t_status_flag flag, int new_status)
 		return (status);
 	else if (flag == SET)
 		status = new_status;
-	return (status);	
+	return (status);
 }
 
 

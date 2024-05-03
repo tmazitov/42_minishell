@@ -35,9 +35,9 @@ char	*ft_getvarname(char *str, int index)
 	ft_strlcpy(varname, &str[index], len + 1);
 	varname[index + len + 2] = '\0';
 	if (ft_checkvarname(varname))
-		return (varname);
+		return (free(str), varname);
 	else
-		return (NULL);
+		return (free(str), NULL);
 }
 
 /// @brief print arguments inside double quotes

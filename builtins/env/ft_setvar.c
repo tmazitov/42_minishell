@@ -36,7 +36,7 @@ int	ft_setvarname(char *str, t_varlist **varlist)
 	else
 		ft_setenv(var_split[0], var_split[1], 1, varlist);
 	*varlist = var_head;
-	return (1);
+	return (free(var_split), 1);
 }
 
 int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
