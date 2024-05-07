@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 18:13:05 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/25 15:35:56 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/07 12:37:38 by emaravil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRC_SRCS	=	src/signals.c \
 
 SRC_OBJ		=	$(SRC_SRCS:.c=.o)
 
+# %.o: %.c $(HEADER) Makefile
+# 	@${CC} ${FLAGS} -c $< -o $@
 
 all: $(NAME)
 

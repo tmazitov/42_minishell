@@ -10,9 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
+UNAME		=	$(shell uname)
 NAME			= 	minishell
 CC				= 	cc
-FLAGS			= 	-Wall -Wextra -Werror
+# FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
 RM				= 	rm -rf
 LB				= 	ar rcs
 LDFLAGS			=	-L./libft -lft
@@ -37,12 +38,29 @@ LIBFT			=	libft.a
 LIBFT_DIR		=	./libft
 LIBFT_LIB		=	$(LIBFT_DIR)/$(LIBFT)
 
+# LIBREAD_DIR		=	/usr/local/Cellar/readline/8.2.10/lib
+# LIBREAD_INC		=	/usr/local/Cellar/readline/8.2.10/include/readline
+# LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
+# LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
+
 MAKE_LIBR		= 	make --no-print-directory -C
+
+%.o: %.c $(HEADER) Makefile
+	@${CC} ${FLAGS} -c $< -o $@
 
 all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
+ifeq ($(UNAME), Darwin)
+FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
+LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
+LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
 $(NAME): $(MINISHELL_OBJS)
-	@$(CC) $(CFLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) -o $(NAME) $(LDFLAGS) -lreadline
+	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -L$(LIBREAD_DIR) -lreadline -o $(NAME) 
+else ifeq ($(UNAME), Darwin)
+FLAGS			=	-Wall -Wextra -Werror -g
+$(NAME): $(MINISHELL_OBJS)
+	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -lreadline -o $(NAME) 
+endif
 
 # Make libft archive
 $(BUILTINS_LIB):

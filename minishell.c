@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/01 00:12:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/07 12:18:18 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	t_envlist		*envlist;
 	t_varlist		*varlist;
 
-	// (void)argc;
+	(void)argc;
 	// (void)argv;
 	envlist = ft_init_env(envp);
 	varlist = ft_init_var();

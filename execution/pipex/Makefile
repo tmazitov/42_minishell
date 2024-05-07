@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/29 15:54:22 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/07 11:54:22 by emaravil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,8 +56,8 @@ BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 LIBFT		=	../../libft/libft.a
 
 #COMMANDS
-# %.o: %.c $(HEADER) Makefile
-# 	@${CC} ${FLAGS} -c $< -o $@
+%.o: %.c $(HEADER) Makefile
+	@${CC} ${FLAGS} -c $< -o $@
 
 # $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
 # 	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
@@ -66,7 +66,7 @@ LIBFT		=	../../libft/libft.a
 all: $(NAME)
 
 $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ)
-	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(LIBFT)
+	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ)
 	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)" 
 
 clean:
