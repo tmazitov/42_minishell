@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_queue_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 12:35:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/08 14:52:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,8 @@ void	*free_queue_relationship(t_com_queue *q)
 	command = get_first(q);
 	while (command)
 	{
-		if (command->in_file)
-		{
-			close(command->in_file);
-			command->in_file = -1;
-		}
-		if (command->out_file)
-		{
-			close(command->out_file);
-			command->out_file = -1;
-		}
-		if (!command->heredoc)
-			command->heredoc = free_log_chan(command->heredoc);
+		if (command->input)
+			close_all_input(command->input);
 		free_log_chan(command->in_chan);
 		if (!command->next)
 			break ;

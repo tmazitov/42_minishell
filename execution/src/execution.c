@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 12:34:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/08 16:58:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
+
+static int	run_infiles(t_com_queue *commands)
+{
+	t_com_node	*command;
+
+	command = get_first(commands);
+	while(command)
+	{
+		if (command->input && open_command_infile(command->input))
+			return (1);
+		command = command->next;
+	}
+	return (0);
+}
+
+static int	run_heredocs(t_com_queue *commands)
+{
+	t_com_node	*command;
+
+	if (!commands)
+		return (0);
+	command = get_first(commands);
+	while(command)
+	{
+		if (command->input && fill_command_heredoc(command->input))
+			return (1);
+		command = command->next;
+	}
+	return (0);
+}
 
 /// @brief Run executable commands one by one
 /// @param commands Commands queue
@@ -21,6 +51,11 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 {
 	t_com_node	*command;
 
+	if (run_heredocs(commands))
+		return (-1);
+	status_code(SET, STOP_HEREDOC);
+	if (run_infiles(commands))
+		return (-1);
 	command = get_last(commands);
 	if (command && !command->prev && command->builtin)
 		return (ft_builtins(command->builtin, envlist, varlist));
@@ -76,7 +111,6 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	t_com_queue	*commands;
 	int			status;
 	int			command_count;
-	int			is_builtin_only;
 
 	if (!tree)
 		return (-1);
@@ -88,13 +122,12 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), -1);
 	command_count = ast_tree_node_count(tree);
-	is_builtin_only = command_count == 1 && get_first(commands)->builtin;
 	status_code(SET, IN_CMD);
 	status = run_commands(commands, envlist, varlist);
 	free_queue_relationship(commands);
 	if (status != 0)
 		return (free_queue(commands), -1);
-	if (is_builtin_only)
+	if (command_count == 1 && get_first(commands)->builtin)
 		return (status_code(SET, 0));
 	status = wait_commands(commands, command_count);
 	free_queue(commands);

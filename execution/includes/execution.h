@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:26:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:34:28 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ char		*filter_spaces(char *str);
 
 // Heredoc
 
-t_log_chan *make_heredoc(char **com_payload);
+char		**heredoc_temp_filepaths(int amount);
 #endif // !EXECUTION_H

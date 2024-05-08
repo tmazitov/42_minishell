@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:21:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:32:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	init_node(t_com_node *node)
 	node->prev = NULL;
 	node->in_chan = NULL;
 	node->out_chan = NULL;
-	node->out_file = -1;
-	node->in_file = -1;
+	// node->out_file = -1;
+	// node->in_file = -1;
 	node->proc_id = -1;
+	node->input = NULL;
 	node->proc_status = 0;
-	node->heredoc = NULL;
+	// node->heredoc_filepath = NULL;
 	node->builtin = NULL;
 	node->name = NULL;
 	node->path = NULL;
@@ -30,25 +31,23 @@ static void	init_node(t_com_node *node)
 	node->args = NULL;
 }
 
-t_com_node	*make_node(char *command_line)
+t_com_node	*make_node(char *com)
 {
 	t_com_node	*node;
 	char		**command_parts;
 
-	if (!command_line)
+	if (!com)
 		return (NULL);
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);
 	init_node(node);
-	command_parts = ftt_split(command_line, ' ');
-	if (!command_parts)
-	{
-		free_node(node);
-		return (NULL);
-	}
-	node->name = command_parts[0];
-	node->args = command_parts;
+	if (ft_strchr(com, '<') && !(node->input = make_input_storage(&com)))
+		return (free_node(node));
+	node->args = ftt_split(com, ' ');
+	if (!node->args)
+		return (free_node(node));
+	node->name = node->args[0];
 	return (node);
 }
 
@@ -76,6 +75,8 @@ void	*free_node(t_com_node *node)
 		free(node->builtin);
 	if (node->args)
 		free_split(node->args);
+	if (node->input)
+		free_input_storage(node->input);
 	node->next = NULL;
 	node->prev = NULL;
 	free(node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 12:37:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:16:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	init_node(t_com_node *node)
 	node->prev = NULL;
 	node->in_chan = NULL;
 	node->out_chan = NULL;
-	node->out_file = -1;
-	node->in_file = -1;
+	// node->out_file = -1;
+	// node->in_file = -1;
 	node->proc_id = -1;
 	node->proc_status = 0;
-	node->heredoc = NULL;
+	// node->heredoc = NULL;
+	node->input = NULL;
 	node->builtin = NULL;
 	node->name = NULL;
 	node->path = NULL;

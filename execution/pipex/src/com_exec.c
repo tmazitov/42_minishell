@@ -6,41 +6,37 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:53:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:57:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	printer(t_com_node *command)
-{
-	if (command->builtin)
-		printf("B-IN\t| %s\t", command->builtin);
-	else
-		printf("CMD\t| %s\t", command->name);
-	printf("| pipe-in : %p\t| pipe-out : %p\t", command->in_chan, command->out_chan);
-	printf("| file-in : %d\t| file-out : %d\t", command->in_file, command->out_file);
-	printf("| heredoc : %p\t|", command->heredoc);
-	printf("\n");
-}
+// static void	printer(t_com_node *command)
+// {
+// 	if (command->builtin)
+// 		printf("B-IN\t| %s\t", command->builtin);
+// 	else
+// 		printf("CMD\t| %s\t", command->name);
+// 	printf("| pipe-in : %p\t| pipe-out : %p\t", command->in_chan, command->out_chan);
+// 	printf("| file-in : %d\t| file-out : %d\t", command->in_file, command->out_file);
+// 	printf("| heredoc : %p\t|", command->heredoc);
+// 	printf("\n");
+// }
 
 static void duper(t_com_node *command)
 {
-	t_log_chan	*input;
-	t_log_chan	*output;
+	t_log_chan	*pipe_input;
+	t_log_chan	*pipe_output;
 
-	input = command->in_chan;
-	output = command->out_chan;
-	if (command->heredoc)
-		dup2(command->heredoc->side[0], STDIN_FILENO);
-	else if (command->in_file != -1)
-		dup2(command->in_file, STDIN_FILENO);
-	else if (input && input->side[0] != -1)
-		dup2(input->side[0], STDIN_FILENO);
-	if (command->out_file != -1)
-		dup2(command->out_file, STDOUT_FILENO);
-	else if (output && output->side[1] != -1)
-		dup2(output->side[1], STDOUT_FILENO);
+	pipe_input = command->in_chan;
+	pipe_output = command->out_chan;
+	if (command->input && get_last_input(command->input))
+		dup2(get_last_input(command->input)->fd, STDIN_FILENO);
+	else if (pipe_input && pipe_input->side[0] != -1)
+		dup2(pipe_input->side[0], STDIN_FILENO);
+	if (pipe_output && pipe_output->side[1] != -1)
+		dup2(pipe_output->side[1], STDOUT_FILENO);
 }
 
 static void	closer(t_com_node *command)
@@ -61,7 +57,8 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 {
 	int			status;
 	char		**envp;
-	
+	t_log_chan	*heredoc;
+
 	if (command->name && !command->builtin)
 		command_path(command, envlist);
 	if (!command->path && !command->builtin)
@@ -70,7 +67,10 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 		free_envlist(*envlist);
 		panic(NULL, 127);
 	}
-	printer(command);
+	// heredoc = NULL;
+	// if (command->heredoc_filepath)
+	// 	heredoc = make_heredoc();
+	// printer(command);
 	duper(command);
 	closer(command);
 	status = 0;
@@ -102,10 +102,14 @@ void	run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varl
 		return ;
 	proc_id = fork();
 	if (proc_id == -1)
+	{
+		perror("fork() failed"); 
 		return ;
+	}
 	if (proc_id == 0)
 		command_proc(command, envlist, varlist, q);
 	command->proc_id = proc_id;
+
 	close_write(command->out_chan);
 	close_read(command->in_chan);
 }

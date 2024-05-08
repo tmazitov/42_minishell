@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/04/29 15:54:22 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/08 14:13:41 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME		=	pipex.a
 CC			=	cc
 LB			=	ar rcs
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
 RM			=	rm -rf
 
 #FILES AND PATH
@@ -29,13 +29,21 @@ SRC_SRCS	=	src/com_exec_path.c \
 				src/com_queue_utils.c \
 				src/com_queue.c \
 				src/input.c \
+				src/input/input_file.c \
+				src/input/input_filter_command.c \
+				src/input/input_heredoc_path.c \
+				src/input/input_heredoc.c \
+				src/input/input_storage_fill.c \
+				src/input/input_storage.c \
+				src/input/input_utils.c \
 				src/output.c
+
 SRC_OBJ		=	$(SRC_SRCS:.c=.o)
 
 UTILS_SRCS	=	utils/utils.c \
 				utils/find_command.c \
 				utils/ft_split.c \
-				utils/ft_strnstr.c
+				utils/ft_strnstr.c 
 
 UTILS_OBJ	=	$(UTILS_SRCS:.c=.o)
 
@@ -54,6 +62,7 @@ BONUS_SRCS	=	bonus/heredoc_bonus.c \
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 LIBFT		=	../../libft/libft.a
+SIGNAL		=	../../signal/signal.a
 
 #COMMANDS
 # %.o: %.c $(HEADER) Makefile

@@ -21,9 +21,6 @@ EXEC_SRCS	=	./src/execution.c \
 				./src/ast_command.c \
 				./src/ast_command_q.c \
 				./src/ast_command_utils.c \
-				./src/ast_command_input.c \
-				./src/ast_command_output.c \
-				./src/ast_command_heredoc.c \
 				./src/ast_command_builtin.c 
 				
 EXEC_OBJS	=	$(EXEC_SRCS:.c=.o)
