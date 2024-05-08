@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/05/08 14:13:41 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/08 17:12:44 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,8 @@ LIBFT		=	../../libft/libft.a
 SIGNAL		=	../../signal/signal.a
 
 #COMMANDS
-# %.o: %.c $(HEADER) Makefile
-# 	@${CC} ${FLAGS} -c $< -o $@
+%.o: %.c $(HEADER) Makefile
+	@${CC} ${FLAGS} -c $< -o $@
 
 # $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
 # 	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
@@ -75,7 +75,7 @@ SIGNAL		=	../../signal/signal.a
 all: $(NAME)
 
 $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ)
-	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(LIBFT)
+	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ)
 	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)" 
 
 clean:

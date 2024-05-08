@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:55:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 20:47:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:25:10 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ int	status_code(t_status_flag flag, int value);
 void	sigint_handler(int signum);
 void	setup_read_interrupter();
 void	setup_shell_quit();
+
 #endif

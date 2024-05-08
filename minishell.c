@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/08 12:52:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:12:21 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	t_envlist		*envlist;
 	t_varlist		*varlist;
 
-	// (void)argc;
+	(void)argc;
 	// (void)argv;
 	envlist = ft_init_env(envp);
 	varlist = ft_init_var();
