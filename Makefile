@@ -51,13 +51,14 @@ MAKE_LIBR		= 	make --no-print-directory -C
 all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
 # ifeq ($(UNAME), Darwin)
-FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
+# FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
+FLAGS			= 	-Wall -Wextra -Werror
 LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
 LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
 
 
 $(NAME): $(MINISHELL_OBJS)
-	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -L$(LIBREAD_DIR) -lreadline -o $(NAME) 
+	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -o $(NAME) -lreadline
 	@echo	"$(GREEN) libreadline.a directory: $(LIBREAD_DIR)$(DEFAULT)"
 	@echo	"$(GREEN) readline.h directory: $(LIBREAD_INC)$(DEFAULT)"
 # else ifeq ($(UNAME), Linux)
