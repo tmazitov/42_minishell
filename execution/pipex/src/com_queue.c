@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:16:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:23:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 09:08:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,4 @@ int	make_queue_relationship(t_com_queue *queue)
 		command = command->next;
 	}
 	return (0);
-}
-
-int	add_input(t_com_queue *queue, char *input_path)
-{
-	t_com_node		*first;
-
-	if (!queue || !queue->nodes)
-		return (1);
-	first = get_first(queue);
-	first->in_chan = make_input(input_path);
-	return (first->in_chan == NULL);
-}
-
-int	add_output(t_com_queue *queue, char *output_path)
-{
-	t_com_node		*last;
-
-	if (!queue || !queue->nodes)
-		return (1);
-	last = get_last(queue);
-	last->out_chan = make_output(output_path);
-	return (last->out_chan == NULL);
 }

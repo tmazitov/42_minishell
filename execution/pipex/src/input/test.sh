@@ -7,4 +7,5 @@ cc -Wall -Wextra -Werror input_filter_command.c ../../../../libft/libft.a -fsani
 ./a.out "ls -a < infile << heredoc"
 ./a.out "<< heredoc ls -a < infile"
 ./a.out "< infile ls -a < infile < infile"
+./a.out " > outfile < infile ls -a < infile > outfile < infile"
 rm -rf ./a.out

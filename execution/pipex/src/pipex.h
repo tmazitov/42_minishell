@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/07 20:32:31 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 09:35:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "../../../builtins/builtins.h"
 # include "../../signals/includes/signals.h"
 # include "input/input.h"
+# include "output/output.h"
 
 typedef struct s_com_node
 {
@@ -37,9 +38,7 @@ typedef struct s_com_node
 	struct s_com_node	*prev;
 	t_log_chan			*in_chan;
 	t_log_chan			*out_chan;
-	// char				*heredoc_filepath;
-	// int					out_file;
-	// int					in_file;
+	t_com_output_storage	*output;
 	t_com_input_storage	*input;
 	int					proc_id;
 	int					proc_status;

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/08 16:57:54 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 09:45:45 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void duper(t_com_node *command)
 		dup2(get_last_input(command->input)->fd, STDIN_FILENO);
 	else if (pipe_input && pipe_input->side[0] != -1)
 		dup2(pipe_input->side[0], STDIN_FILENO);
-	if (pipe_output && pipe_output->side[1] != -1)
+	if (command->output && get_last_output(command->output))
+		dup2(get_last_output(command->output)->fd, STDOUT_FILENO);
+	else if (pipe_output && pipe_output->side[1] != -1)
 		dup2(pipe_output->side[1], STDOUT_FILENO);
 }
 
