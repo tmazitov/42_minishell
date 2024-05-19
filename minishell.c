@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/08 17:12:21 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:49:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	// (void)argv;
 	envlist = ft_init_env(envp);
 	varlist = ft_init_var();
-	if (ft_strncmp("-c", argv[2], 3) == 0)
+	if (argv[2] != NULL && ft_strncmp("-c", argv[2], 3) == 0)
 		run_minicmd(argv[1], &envlist, &varlist);
 	setup_read_interrupter();
 	setup_shell_quit();
@@ -53,10 +53,11 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				root = parse_input(str);
-				// ft_builtins(str, &envlist, &varlist);
 				if (root)
 				{
-					status = execute(root, &envlist, &varlist);
+					ft_builtins(str, &envlist, &varlist);
+					// status = execute(root, &envlist, &varlist);
+					status = 0;
 					if (status >= 0)
 						ft_printf("success execution : status code %d\n", \
 							status);
@@ -74,17 +75,18 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_free_env(&envlist);
 	ft_free_var(&varlist);
+	rl_clear_history();
 	return (0);
 }
 
 void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	int				status;
+	// int				status;
 	t_astnodes		*root;
 
 	setup_read_interrupter();
 	setup_shell_quit();
-	status_code(SET, 0);
+	// status_code(SET, 0);
 	str = ft_cleaninput_b(str);
 	if (str)
 		status_code(SET, 0);
@@ -105,19 +107,19 @@ void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist)
 		else
 		{
 			root = parse_input(str);
-			// ft_builtins(str, envlist, varlist);
+			ft_builtins(str, envlist, varlist);
 			if (root)
 			{
-				status = execute(root, envlist, varlist);
-				if (status >= 0)
-					ft_printf("success execution : status code %d\n", \
-						status);
-				else if (status_code(GET, -1))
-					ft_printf("success execution : status code %d\n", \
-						status_code(GET, -1));
-				else
-					ft_printf("execution error : status code %d\n", \
-						status);
+				// status = execute(root, envlist, varlist);
+				// if (status >= 0)
+				// 	ft_printf("success execution : status code %d\n", 
+				// 		status);
+				// else if (status_code(GET, -1))
+				// 	ft_printf("success execution : status code %d\n", 
+				// 		status_code(GET, -1));
+				// else
+				// 	ft_printf("execution error : status code %d\n", 
+				// 		status);
 			}
 			ft_free_ast(root);
 		}

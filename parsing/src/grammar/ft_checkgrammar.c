@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:35:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/19 18:58:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	ft_checkpipe(t_tokens *tokens)
 {
 	if (tokens->next == NULL || tokens->next->type == PIPE)
 	{
-		ft_printf("bash: syntex error near unexpected token '%s'\n", \
+		ft_printf("bash: syntax error near unexpected token '%s'\n", \
 			tokens->value);
 		return (false);
 	}
@@ -85,13 +85,13 @@ bool	ft_ioredir(t_tokens *token_start, t_tokens *token_end)
 		{
 			if (tokens->next == NULL)
 			{
-				ft_printf("bash: syntex error near unexpected ");
+				ft_printf("bash: syntax error near unexpected a ");
 				ft_printf("token 'newline'\n");
 				return (false);
 			}
 			else if (tokens->next->type != WORD)
 			{
-				ft_printf("bash: syntex error near unexpected token '%s'\n", \
+				ft_printf("bash: syntax error near unexpected token '%s'\n", \
 					tokens->next->value);
 				return (false);
 			}

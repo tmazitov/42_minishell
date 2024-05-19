@@ -12,31 +12,26 @@
 
 #include "../builtins.h"
 
+
+
 int	ft_setvarname(char *str, t_varlist **varlist)
 {
-	char		*equalsign;
-	char		**var_split;
+	// char		*equalsign;
+	char		*varname;
+	char		*varvalue;
+	// char		**var_split;
 	t_varlist	*var_head;
 
 	var_head = *varlist;
-	equalsign = ft_strchr(str, '=');
-	if (equalsign)
-	{
-		var_split = ft_split(str, '=');
-		if (ft_strlen_dp(var_split) == 1)
-			var_split = ft_realloc_dp(var_split, "", 2);
-	}
+	varname = ft_splitequalsign(str, ft_strchr(str, '='));
+	varvalue = ft_splitequalsign((ft_strchr(str,'=')), ft_strchr(str, '\0'));
+
+	if (!varname || !ft_checkvarname(varname))
+		return (ft_printf("%s: command not found\n", str), 0);
 	else
-		return (0);
-	if (!ft_checkvarname(var_split[0]))
-	{
-		ft_printf("%s: command not found\n", str);
-		return (0);
-	}
-	else
-		ft_setenv(var_split[0], var_split[1], 1, varlist);
+		ft_setenv(varname, varvalue, 1, varlist);
 	*varlist = var_head;
-	return (free(var_split), 1);
+	return (1);
 }
 
 int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
@@ -64,4 +59,24 @@ int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
 			(*varlist) = (*varlist)->next;
 	}
 	return (1);
+}
+
+char	*ft_splitequalsign(char *start, char *end)
+{
+	char	*var;
+	int		len;
+	int		count;
+
+	count = 0;
+	if (*start == '=' && start < end)
+		start++;
+	len = end - start + 1;
+	var = malloc(sizeof(char) * (len));
+	while (start < end && count < len - 1)
+	{
+		var[count] = start[count];
+		count++;
+	}
+	var[count] = '\0';
+	return (var);
 }

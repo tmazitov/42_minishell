@@ -31,7 +31,7 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 	else if (ft_strncmp(str, "cd", 2) == 0)
 		ft_cd(str, envlist, varlist);
 	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))
-		ft_pwd();
+		ft_pwd(str);
 	else if (ft_strncmp(str, "exit", 4) == 0)
 		ft_exit(str, envlist, varlist);
 	else if (ft_strncmp(str, "varrr", 5) == 0)

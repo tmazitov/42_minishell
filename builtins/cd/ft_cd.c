@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 23:29:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/19 15:26:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	*path;
 
 	getcwd(currdir, sizeof(currdir));
-	path = ft_getpath(str, *envlist, *varlist);
+	path = ft_getpath(str, envlist, varlist);
 	if (path == NULL)
 		return (0);
 	if (chdir(path) != 0)
@@ -30,7 +30,7 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 	return (1);
 }
 
-char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist)
+char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 {
 	char	**path_split;
 	char	*path;
@@ -39,12 +39,12 @@ char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist)
 	path_split = ft_split(str, ' ');
 	if (path_split[1] == NULL || (*path_split[1] == '~' && \
 		ft_strlen(path_split[1]) == 1))
-		path = ft_copystring(ft_getenv("HOME", envlist, varlist));
+		path = ft_copystring(ft_getenv("HOME", *envlist, *varlist));
 	else if (*path_split[1] == '~' && ft_strlen(path_split[1]) > 1)
-		path = ft_expandhomepath(path_split, envlist, varlist);
+		path = ft_expandhomepath(path_split, *envlist, *varlist);
 	else if (*path_split[1] == '-' && ft_strlen(path_split[1]) == 1)
 	{
-		path = ft_copystring(ft_getenv("OLDPWD", envlist, varlist));
+		path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
 		if (path == NULL)
 		{
 			ft_printf("bash: cd: OLDPWD not set\n");
@@ -60,11 +60,20 @@ char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist)
 char	*ft_copystring(char *str)
 {
 	char	*path;
+	int		len;
+	int		count;
 
-	path = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	len = ft_strlen(str);
+	path = (char *)malloc(sizeof(char) * (len + 1));
 	if (!path)
 		return (NULL);
-	ft_strlcpy(path, str, ft_strlen(str) + 1);
+	count = 0;
+	while (count < len)
+	{
+		path[count] = str[count];
+		count++;
+	}
+	path[count] = '\0';
 	return (path);
 }
 

@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "../parsing/includes/parse.h"
+# include <string.h>
 
 typedef struct varlist
 {
@@ -38,7 +39,7 @@ typedef struct sorted_envlist
 }	t_sorted_envlist;
 
 void		ft_echo(char *str, t_envlist *envlist, t_varlist *varlist);
-void		ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist);
+void		ft_printparams(char *str, char *cmd_split, t_envlist *envlist, t_varlist *varlist);
 void		ft_printdquotes(char *str, t_envlist *envlist, t_varlist *varlist);
 void		ft_printexpansion(char *str, int index, t_envlist *envlist, t_varlist *varlist);
 void		ft_printsquotes(char *str);
@@ -47,6 +48,7 @@ char		*ft_getvarname(char *str, int index);
 char		*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist);
 
 int			ft_setvarname(char *str, t_varlist **varlist);
+char		*ft_splitequalsign(char *start, char *end);
 int			ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist);
 int			ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist);
 int			ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist);
@@ -81,11 +83,11 @@ t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *new
 int			ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist);
 bool    	ft_checkcmd(char *str);
 
-void	ft_pwd();
+void	ft_pwd(char *str);
 
 int		ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
 int		ft_update_envlist(char *path, char *currdir, t_envlist **envlist);
-char	*ft_getpath(char *str, t_envlist *envlist, t_varlist *varlist);
+char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist);
 char	*ft_expandhomepath(char **path_split, t_envlist *envlist, t_varlist *varlist);
 char	*ft_copystring(char *str);
 

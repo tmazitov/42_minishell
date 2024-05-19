@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:54:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 14:23:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/19 17:20:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	sigquit_handler(int signum)
 	{
 		status_code(SET, CTRL_BS);
 		rl_replace_line("", 0);
+		rl_clear_history();
 		rl_redisplay();
 		rl_done = 1;
 		write(STDERR_FILENO, "Quit: ", 6);
