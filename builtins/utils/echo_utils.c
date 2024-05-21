@@ -14,10 +14,18 @@
 
 bool	ft_checkvarname(char *varname)
 {
-	if ((ft_isalpha(varname[0]) > 0) || ft_strncmp("_", varname, 1) == 0)
-		return (true);
-	else
+	if ((ft_isdigit(varname[0]) > 0) || (((ft_isalpha(varname[0]) == 0)) && \
+		ft_strncmp("_", varname, 1) != 0))
 		return (false);
+	varname++;
+	while (*varname)
+	{
+		if (((ft_isalpha(*varname) == 0) && (*varname != '_')) && \
+			(ft_isdigit(*varname) == 0))
+			return (false);
+		varname++;
+	}
+	return (true);
 }
 
 char	*ft_getvarname(char *str, int index)

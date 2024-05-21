@@ -22,8 +22,6 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 
 	len = 1;
 	cmd_split = ft_splittoken(str);
-	if (!cmd_split)
-		return ;
 	cmd_split = str_token(cmd_split);
 	if ((cmd_split[len] != NULL) && ft_strncmp(cmd_split[len], "-n", 2) == 0)
 		len++;
@@ -32,14 +30,16 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 		ft_printparams(str, cmd_split[len], envlist, varlist);
 		len++;
 		if ((cmd_split[len] != NULL))
+		{
 			if ((size_t)(ft_strstr(str, cmd_split[len]) - \
 				ft_strstr(str, cmd_split[len - 1])) > \
 				ft_strlen(cmd_split[len - 1]))
 				ft_printf(" ");
+			str = ft_strstr(str, cmd_split[len]);
+		}
 	}
-	if ((cmd_split[1] != NULL) && ft_strncmp(cmd_split[1], "-n", 2) == 0)
-		return ;
-	ft_printf("\n");
+	if (!((cmd_split[1] != NULL) && ft_strncmp(cmd_split[1], "-n", 2) == 0))
+		ft_printf("\n");
 	free_pointer(cmd_split);
 }
 
@@ -97,8 +97,6 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 	{
 		if (ft_strncmp(varname, varlist->varname, ft_strlen(varname)) == 0)
 			return (varlist->value);
-		// else if (varlist->next == NULL)
-		// 	return (NULL);
 		else
 			varlist = varlist->next;
 	}
@@ -106,8 +104,6 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 	{
 		if (ft_strncmp(varname, envlist->varname, ft_strlen(varname)) == 0)
 			return (envlist->value);
-		// else if (envlist->next == NULL)
-		// 	return (NULL);
 		else
 			envlist = envlist->next;
 	}

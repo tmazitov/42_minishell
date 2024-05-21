@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 20:40:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/20 15:56:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,16 @@ char	**ft_splittoken(char *str)
 		while (str[spval.index] && (ft_isspace(str[spval.index]) > 0))
 			spval.index++;
 		if (str[spval.index] && !(ft_isspace(str[spval.index])) && \
-			str[spval.index] != '\'' \
-			&& str[spval.index] != '\"')
+			str[spval.index] != '\'' && str[spval.index] != '\"' && \
+			!(str[spval.index] == '$' && str[spval.index + 1] == '\"') && \
+			!(str[spval.index] == '$' && str[spval.index + 1] == '\''))
 			out = ft_handlestring(out, str, &spval.index, \
 			(++spval.token_count));
-		if (str[spval.index] == '\'' || str[spval.index] == '\"')
-		{
+		if (str[spval.index] == '\'' || str[spval.index] == '\"' || \
+			(str[spval.index] == '$' && str[spval.index + 1] == '\"') || \
+			(str[spval.index] == '$' && str[spval.index + 1] == '\''))
 			out = ft_handlequotes(out, str, &spval.index, \
 			(spval.token_count + 2));
-			if (!out)
-				return (NULL);
-		}
 	}
 	return (out);
 }
@@ -54,16 +53,80 @@ char	**ft_splittoken(char *str)
 char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
+	char	**out_temp;
 	char	*str_temp;
 	int		start;
 
 	start = *index;
 	out = in;
-	while (str[*index] != '\0' && !(ft_isspace(str[*index])) \
-		&& str[*index] != '\'' && str[*index] != '\"')
+	out_temp = NULL;
+	while (str[*index] != '\0' && !(ft_isspace(str[*index])) && \
+		str[*index] != '\'' && str[*index] != '\"' && !(str[*index] == '$' && \
+		str[(*index) + 1] == '\"') && !(str[*index] == '$' && \
+		str[(*index) + 1] == '\''))
 		*index += 1;
 	str_temp = ft_assignstring(str, start, *index);
-	out = ft_realloc_dp(out, str_temp, token_count + 1);
+	if (ft_strchr(str_temp, '$'))
+	{
+		out_temp = ft_splitstring(str_temp);
+		while (*out_temp != NULL)
+			out = ft_realloc_dp(out, *out_temp++, token_count + 1);
+	}
+	else
+		out = ft_realloc_dp(out, str_temp, token_count + 1);
+	return (out);
+}
+
+/// @brief split string on $
+/// @param str input string
+/// @return double pointer
+char	**ft_splitstring(char *str)
+{
+	char	**out;
+	int		index;
+	int		start;
+	char	*str_temp;
+
+	out = (char **)malloc(sizeof(char *) * 1);
+	out[0] = NULL;
+	index = 0;
+	start = 0;
+	str_temp = NULL;
+	while (str[index] != '\0')
+	{
+		if (str[index] == '$')
+			out = ft_checkadjacent(out, str, &start, &index);
+		else
+			index++;
+	}
+	if (index > start)
+	{
+		str_temp = ft_assignstring(str, start, index);
+		out = ft_realloc_dp(out, str_temp, 1);
+	}
+	return (out);
+}
+
+char **ft_checkadjacent(char **in, char *str, int *start, int *index)
+{
+	char **out;
+
+	out = in;
+	if (*index > *start)
+	{
+		out = ft_realloc_dp(out, \
+			ft_assignstring(str, *start, *index), *index - *start);
+		(*start) = (*index);
+	}
+	if (ft_isdigit(str[*index + 1]) != 0)
+	{
+		out = ft_realloc_dp(out, \
+			ft_assignstring(str, *index, *index + 2), 2);
+		(*index) += 2;
+		(*start) = (*index);
+	}
+	else
+		(*index)++;
 	return (out);
 }
 
@@ -80,6 +143,8 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 	char	c;
 	int		start;
 
+	if (str[*index] == '$')
+		(*index)++;
 	c = str[*index];
 	start = *index;
 	*index += 1;
@@ -135,10 +200,13 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 	int		count;
 
 	count = 0;
+	old_size = ft_strlen_dp(s);
+	if (!input || !*input)
+		return (s);
+	len = old_size + 1;
 	out = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!out)
 		return (NULL);
-	old_size = ft_strlen_dp(s);
 	while (count < old_size)
 	{
 		out[count] = s[count];

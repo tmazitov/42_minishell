@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 21:34:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/20 13:49:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			ft_checkcbrackets(char *str);
 char		**ft_splittoken(char *str);
 char		**ft_handlestring(char **in, char *str, \
 			int *index, int token_count);
+char		**ft_splitstring(char *str);
+char 		**ft_checkadjacent(char **in, char *str, int *start, int *index);
 char		**ft_handlequotes(char **in, char *str, \
 			int *index, int token_count);
 char		*ft_assignstring(char *str, int start, int end);

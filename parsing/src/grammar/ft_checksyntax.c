@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/19 19:39:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/20 12:17:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,15 @@ bool	ft_checkparam(t_tokens *tokens)
 	while ((tokens) != NULL)
 	{
 		index = 0;
-		while ((tokens)->value[index] != '\0' && \
-			(tokens)->value[0] != '\"' && \
-			(tokens)->value[0] != '\'')
+		while ((tokens)->value[index] != '\0' && (tokens)->value[0] != \
+			 '\"' && (tokens)->value[0] != '\'')
 		{
 			if ((tokens)->value[index] == '$')
 			{
 				if ((tokens)->value[index + 1] != '\0' && \
-					(ft_isalpha((tokens)->value[index + 1]) == 0) && \
+					((ft_isalpha((tokens)->value[index + 1]) == 0) && \
+					((tokens)->value[index + 1]) != '_') && \
+					(ft_isdigit((tokens)->value[index + 1])) == 0 && \
 					(tokens)->value[index + 1] != '?')
 				{
 					ft_printf("bash: syntax error, wrong parameter name\n");

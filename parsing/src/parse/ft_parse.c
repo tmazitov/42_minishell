@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 21:35:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/20 12:38:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ t_astnodes	*parse_input(char *str)
 	root = NULL;
 	token_head = token_input;
 	if (ft_shellgrammar(token_input) && ft_checksyntax(token_input))
+	{
+		print_tokens(token_input);
 		root = ft_parsetokens(&token_input);
+	}
 	ft_free_tokens(token_head);
 	free_pointer(str_split);
 	return (root);

@@ -47,8 +47,15 @@ bool		ft_checkvarname(char *varname);
 char		*ft_getvarname(char *str, int index);
 char		*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist);
 
-int			ft_setvarname(char *str, t_varlist **varlist);
-char		*ft_splitequalsign(char *start, char *end);
+int			ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist);
+int			ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist);
+char		*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist);
+char		*ft_copyvarvalues(char *s1, char *s2, size_t len1, size_t len2);
+char		*ft_mergevarval(char *str, char *s1, char *s2);
+char		*ft_getvaluesquotes(char *str);
+char		*ft_getvaluedquotes(char *str, t_envlist **envlist, t_varlist **varlist);
+char		*ft_splitequalsign(char *start, char *end, t_envlist **envlist, t_varlist **varlist);
+char		*ft_expanddquotes(char *str, int len, t_envlist **envlist, t_varlist **varlist);
 int			ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist);
 int			ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist);
 int			ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist);
@@ -69,6 +76,8 @@ char		**ft_merge_envvalues(char **var_split);
 char		*ft_copyvalues(char **var_split, char *var_newsplit);
 
 int			ft_export(char *str, t_envlist **envlist, t_varlist **varlist);
+int			ft_checkexport(char *varname, int out, t_envlist **envlist, t_varlist **varlist);
+char		*ft_splittoname(char *str, t_envlist **envlist, t_varlist **varlist);
 void		ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist);
 void		ft_printexport(t_envlist **envlist);
 bool		ft_checkvarenv(char *varname, t_envlist *envlist);
