@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:54:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 14:23:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/09 15:43:01 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	sigint_handler(int signum)
 {
 	int	status;
 
+	status = 0;
 	if (status != IN_HEREDOC)
 		write(STDERR_FILENO, "\n", 1);
 	status = status_code(GET, -1);

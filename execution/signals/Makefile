@@ -6,7 +6,7 @@
 #    By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 18:13:05 by tmazitov          #+#    #+#              #
-#    Updated: 2024/05/07 12:37:38 by emaravil         ###   ########.fr        #
+#    Updated: 2024/05/09 15:44:36 by emaravil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME		=	signals.a
 CC			=	cc
 LB			=	ar rcs
-FLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -I /Users/emaravil/.local/opt/readline/include
 RM			=	rm -rf
 
 #FILES AND PATH
@@ -26,7 +26,7 @@ SRC_SRCS	=	src/signals.c \
 SRC_OBJ		=	$(SRC_SRCS:.c=.o)
 
 # %.o: %.c $(HEADER) Makefile
-# 	@${CC} ${FLAGS} -c $< -o $@
+# 	${CC} ${FLAGS} -c $< -o $@
 
 all: $(NAME)
 
