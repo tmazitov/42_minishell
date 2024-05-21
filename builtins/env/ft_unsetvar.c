@@ -74,14 +74,17 @@ int	ft_unsetvar(char *varname, t_varlist **varlist)
 {
 	t_varlist	*head;
 	t_varlist	*prev_var;
+	t_varlist	*curr_var;
 
 	prev_var = NULL;
 	head = (*varlist);
 	if ((*varlist) != NULL && (*varlist)->varname != NULL && \
 		ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) == 0)
 	{
-		free(*varlist);
+		curr_var = (*varlist);
+		// free(*varlist);
 		*varlist = (*varlist)->next;
+		free(curr_var);
 		return (2);
 	}
 	while ((*varlist) != NULL && (*varlist)->varname != NULL && \

@@ -304,3 +304,20 @@ here_end            :   WORD
 sequential_sep      :   ';' linebreak
                     |   newline_list
                     ;
+
+
+
+ECHO Grammar
+<echo_command> ::= "echo" [ <option> ] [ <string>... ]
+
+<option> ::= "-n" | "-e" | "-E"
+
+<string> ::= <text> | <variable> | <escape_sequence>
+
+<text> ::= any sequence of characters excluding control characters
+
+<variable> ::= "$" <variable_name>
+
+<variable_name> ::= [a-zA-Z_][a-zA-Z0-9_]*
+
+<escape_sequence> ::= "\\" | "\a" | "\b" | "\c" | "\e" | "\f" | "\n" | "\r" | "\t" | "\v"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 23:55:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/21 23:33:55 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ t_sorted_envlist	*ft_init_sortedenv(t_envlist **envlist)
 	return (sorted_envlist);
 }
 
-void	ft_printexport(t_envlist **envlist)
+void	ft_printexport(t_envlist **envlist, t_varlist **varlist)
 {
 	t_sorted_envlist	*curr_var;
 	t_sorted_envlist	*sorted_envlist;
+	t_varlist			*var_head;
 
 	sorted_envlist = ft_init_sortedenv(envlist);
 	sorted_envlist = ft_sortenvlist(sorted_envlist);
@@ -84,5 +85,16 @@ void	ft_printexport(t_envlist **envlist)
 			curr_var->varname, curr_var->value);
 		curr_var = curr_var->next;
 	}
+	var_head = *varlist;
+	while (*varlist != NULL && (*varlist)->varname != NULL)
+	{
+		ft_printf("declare  -x  %s", (*varlist)->varname);
+		if ((*varlist)->value)
+			ft_printf("=\"%s\"\n", (*varlist)->value);
+		else
+			ft_printf("\n");
+		(*varlist) = (*varlist)->next;
+	}
+	*varlist = var_head;
 	ft_free_sortedenv(&sorted_envlist);
 }

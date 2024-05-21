@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 21:09:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/19 20:32:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ t_tokens	*tokenize_input(char **str_token)
 		token->type = WORD;
 		if (ft_strncmp(*str_token, "|", 1) == 0)
 			token->type = PIPE;
-		else if ((ft_strchr(*str_token, '>') != 0) || \
-			(ft_strchr(*str_token, '<') != 0))
+		else if (((ft_strchr(*str_token, '>') != 0) || \
+			(ft_strchr(*str_token, '<') != 0)) && ((*str_token[0] != '\"') && \
+			(*str_token[0] != '\'')))
 			token->type = REDIR;
 		token->value = ft_token_value(*str_token);
 		head = ft_sethead_token(head, tail, token);

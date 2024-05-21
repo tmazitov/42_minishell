@@ -14,14 +14,15 @@
 
 int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	t_envlist			*env_head;
+	t_envlist	*env_head;
+	t_varlist	*var_head;
 
 	env_head = *envlist;
-	// ft_printf("\n###### BUILTIN COMMANDS #######\n");
+	var_head = *varlist;
 	if (ft_strncmp(str, "echo", 4) == 0)
 		ft_echo(str, *envlist, *varlist);
 	else if (ft_strchr(str, '=') && !ft_checkcmd(str))
-		ft_setvarname(str, varlist);
+		ft_setvar(str, envlist, varlist);
 	else if (ft_strncmp(str, "unset", 5) == 0)
 		ft_unsetvarname(str, envlist, varlist);
 	else if (ft_strncmp(str, "export", 6) == 0)
@@ -31,13 +32,15 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 	else if (ft_strncmp(str, "cd", 2) == 0)
 		ft_cd(str, envlist, varlist);
 	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))
-		ft_pwd();
+		ft_pwd(str);
 	else if (ft_strncmp(str, "exit", 4) == 0)
 		ft_exit(str, envlist, varlist);
 	else if (ft_strncmp(str, "varrr", 5) == 0)
 		ft_printvar(varlist);
-	// ft_printf("###### BUILTIN COMMANDS #######\n\n");
+	else
+		ft_printf("HANDLE THIS IF NOT IN BUUILTIN '%s'\n", str);
 	*envlist = env_head;
+	*varlist = var_head;
 	return (0);
 }
 

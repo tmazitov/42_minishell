@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_storage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:48:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/08 16:55:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:23:48 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,5 @@ void	*free_input_storage(t_com_input_storage *st)
 		free(st->content);
 	}
 	free(st);
+	return (0);
 }

@@ -18,42 +18,44 @@
 void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 {
 	char	**cmd_split;
+	int		len;
 
+	len = 1;
 	cmd_split = ft_splittoken(str);
-	if (!cmd_split)
-		return ;
 	cmd_split = str_token(cmd_split);
-	ft_printparams(cmd_split, envlist, varlist);
+	if ((cmd_split[len] != NULL) && ft_strncmp(cmd_split[len], "-n", 2) == 0)
+		len++;
+	while (cmd_split[len] != NULL)
+	{
+		ft_printparams(str, cmd_split[len], envlist, varlist);
+		len++;
+		if ((cmd_split[len] != NULL))
+		{
+			if ((size_t)(ft_strstr(str, cmd_split[len]) - \
+				ft_strstr(str, cmd_split[len - 1])) > \
+				ft_strlen(cmd_split[len - 1]))
+				ft_printf(" ");
+			str = ft_strstr(str, cmd_split[len]);
+		}
+	}
+	if (!((cmd_split[1] != NULL) && ft_strncmp(cmd_split[1], "-n", 2) == 0))
+		ft_printf("\n");
 	free_pointer(cmd_split);
 }
 
 /// @brief print the arguments of echo
 /// @param cmd_split double pointer from ft_split excluding cmd_split quotes
-void	ft_printparams(char **cmd_split, t_envlist *envlist, t_varlist *varlist)
+void	ft_printparams(char *str, char *cmd_split, t_envlist *envlist, t_varlist *varlist)
 {
-	int	len;
-
-	len = 1;
-	if ((cmd_split[len] != NULL) && \
-		ft_strncmp(cmd_split[len], "-n", 3) == 0)
-		len++;
-	while (cmd_split[len] != NULL)
-	{
-		if (cmd_split[len][0] == '\'')
-			ft_printsquotes(cmd_split[len]);
-		else if (cmd_split[len][0] == '$')
-			ft_printexpansion(cmd_split[len], 1, envlist, varlist);
-		else if (cmd_split[len][0] == '\"')
-			ft_printdquotes(cmd_split[len], envlist, varlist);
-		else
-			ft_printf("%s", cmd_split[len]);
-		len++;
-		if (cmd_split[len] != NULL)
-			ft_printf(" ");
-	}
-	if ((cmd_split[1] != NULL) && \
-		ft_strncmp(cmd_split[1], "-n", 3) != 0)
-		ft_printf("\n");
+	(void)str;
+	if (cmd_split[0] == '\'')
+		ft_printsquotes(cmd_split);
+	else if (cmd_split[0] == '$')
+		ft_printexpansion(cmd_split, 1, envlist, varlist);
+	else if (cmd_split[0] == '\"')
+		ft_printdquotes(cmd_split, envlist, varlist);
+	else
+		ft_printf("%s", cmd_split);
 }
 
 /// @brief expand the $var and get it's value. Otherwise print it as string
@@ -65,16 +67,28 @@ void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
 	char	*varname;
 	char	*expanded_val;
 
+	if (ft_strncmp("$", str, ft_strlen(str)) == 0)
+	{
+		ft_printf("$");
+		return ;
+	}
+	else if (str[index] == '?')
+	{
+		ft_printf("0");
+		while (str[index + 1] != ' ' && str[index + 1] != '\0')
+			write(1, &str[++index], 1);
+		return ;
+	}
 	varname = ft_getvarname(str, index);
 	if (!varname)
-		ft_printf("%s", &str[index + 1]);
+		ft_printf("%s", varname);
 	else
 	{
 		expanded_val = ft_getenv(varname, envlist, varlist);
 		if (expanded_val != NULL)
 			ft_printf("%s", expanded_val);
+		free(varname);
 	}
-	free(varname);
 }
 
 char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
@@ -83,8 +97,6 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 	{
 		if (ft_strncmp(varname, varlist->varname, ft_strlen(varname)) == 0)
 			return (varlist->value);
-		else if (varlist->next == NULL)
-			return (NULL);
 		else
 			varlist = varlist->next;
 	}
@@ -92,8 +104,6 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 	{
 		if (ft_strncmp(varname, envlist->varname, ft_strlen(varname)) == 0)
 			return (envlist->value);
-		else if (envlist->next == NULL)
-			return (NULL);
 		else
 			envlist = envlist->next;
 	}

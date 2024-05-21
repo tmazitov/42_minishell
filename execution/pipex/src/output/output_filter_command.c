@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_filter_command.c                             :+:      :+:    :+:   */
+/*   output_filter_command.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 17:37:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:22:09 by emaravil         ###   ########.fr       */
+/*   Created: 2024/05/11 09:12:21 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/05/11 09:24:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input.h"
-// #include <stdio.h>
+#include "output.h"
 
 static char	*ft_strjoin_clean(char *str1, char *str2)
 {
@@ -27,10 +26,10 @@ static char	*ft_strjoin_clean(char *str1, char *str2)
 
 static int	skip_redir(char *line, int start)
 {
-	int	counter;
+	int counter;
 
 	counter = start;
-	while (line[counter] && line[counter] == '<')
+	while (line[counter] && line[counter] == '>')
 		counter++;
 	if (!line[counter])
 		return (counter);
@@ -49,7 +48,7 @@ static int	skip_redir_arg(char *line, int start)
 	return (counter + 1);
 }
 
-int	remove_com_line_input(char **com)
+int	remove_com_line_output(char **com)
 {
 	int		start;
 	int		end;
@@ -66,7 +65,7 @@ int	remove_com_line_input(char **com)
 	while (line[start])
 	{
 		end = start;
-		while (line[end] && line[end] != '<')
+		while (line[end] && line[end] != '>')
 			end++;
 		if (end-start != 0 
 			&& !(temp = ft_strjoin_clean(result, ft_substr(*com, start, end-start))))
@@ -91,7 +90,7 @@ int	remove_com_line_input(char **com)
 // 		return (1);
 // 	char * cp1 = ft_substr(av[1], 0, ft_strlen(av[1]));
 // 	char * cp2 = ft_substr(av[1], 0, ft_strlen(av[1]));
-// 	int	status = remove_com_line_input(&cp2);
+// 	int	status = remove_com_line_output(&cp2);
 
 // 	if (status != 0)
 // 		return (free(cp1), free(cp2), status);

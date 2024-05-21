@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   input_storage_fill.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:12:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/08 16:49:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:21:12 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input.h"
 
 static t_input_src	take_next_input_src(char **com_string)
-{	
+{
 	char	*temp;
 	int		counter;
 
@@ -21,7 +21,7 @@ static t_input_src	take_next_input_src(char **com_string)
 	temp = *com_string;
 	while (temp[counter])
 	{
-		if (temp[counter] == '<') 
+		if (temp[counter] == '<')
 		{
 			*com_string = temp + counter + 2;
 			if (temp[counter + 1] == '<')
@@ -50,7 +50,7 @@ static int	ft_strlen_zero(char *str)
 int	fill_input_storage(t_com_input_storage *st,char *com_string)
 {
 	char		*temp;
-	t_input_src src_type;
+	t_input_src	src_type;
 	char		*src_arg;
 	int			counter;
 
@@ -83,7 +83,7 @@ int	fill_command_heredoc(t_com_input_storage *storage)
 
 	counter = 0;
 	input = storage->content[counter];
-	while(input)
+	while (input)
 	{
 		if (input->src == HEREDOC)
 		{
@@ -97,14 +97,14 @@ int	fill_command_heredoc(t_com_input_storage *storage)
 	return (0);
 }
 
-int	open_command_infile(t_com_input_storage *storage)
+int	open_command_infile(t_com_input_storage	*storage)
 {
 	int			counter;
 	t_com_input	*input;
 
 	counter = 0;
 	input = storage->content[counter];
-	while(input)
+	while (input)
 	{
 		if (input->src == INFILE)
 		{

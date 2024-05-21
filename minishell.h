@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 12:14:20 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:25:05 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "./parsing/includes/parse.h"
 #include "./libft/libft.h"
 #include "./builtins/builtins.h"
-#include <readline/readline.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>

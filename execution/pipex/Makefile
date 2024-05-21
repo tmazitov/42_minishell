@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/05/08 17:12:44 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/11 10:04:39 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRC_SRCS	=	src/com_exec_path.c \
 				src/com_queue_node.c \
 				src/com_queue_utils.c \
 				src/com_queue.c \
-				src/input.c \
 				src/input/input_file.c \
 				src/input/input_filter_command.c \
 				src/input/input_heredoc_path.c \
@@ -36,7 +35,11 @@ SRC_SRCS	=	src/com_exec_path.c \
 				src/input/input_storage_fill.c \
 				src/input/input_storage.c \
 				src/input/input_utils.c \
-				src/output.c
+				src/output/output_file.c \
+				src/output/output_filter_command.c \
+				src/output/output_storage.c \
+				src/output/output_storage_fill.c \
+				src/output/output_utils.c \
 
 SRC_OBJ		=	$(SRC_SRCS:.c=.o)
 

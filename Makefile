@@ -10,13 +10,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-
-
-
 UNAME		=	$(shell uname)
 NAME			= 	minishell
 CC				= 	cc
-FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
 RM				= 	rm -rf
 LB				= 	ar rcs
 LDFLAGS			=	-L./libft -lft
@@ -41,19 +37,7 @@ LIBFT			=	libft.a
 LIBFT_DIR		=	./libft
 LIBFT_LIB		=	$(LIBFT_DIR)/$(LIBFT)
 
-LIBREAD_DIR		= 	/Users/emaravil/.local/opt/readline/lib
-LIBREAD_INC		=   /Users/emaravil/.local/opt/readline/include
-
-# LIBREAD_DIR		=	/usr/local/Cellar/readline/8.2.10/lib
-# LIBREAD_INC		=	/usr/local/Cellar/readline/8.2.10/include/readline
-# LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
-# LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
-
 MAKE_LIBR		= 	make --no-print-directory -C
-# FLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
-
-%.o: %.c $(HEADER) Makefile
-	{CC} ${FLAGS} -c $< -o $@
 
 print:
 	@echo	"$(GREEN) libreadline.a directory: $(LIBREAD_DIR)$(DEFAULT)"
@@ -61,19 +45,21 @@ print:
 
 all: print $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
-# ifeq ($(UNAME), Darwin)
-# LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
-# LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
-
-
-
+ifeq ($(UNAME), Darwin)
+CFLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)
+LIBREAD_DIR		= 	/Users/emaravil/.local/opt/readline/lib
+LIBREAD_INC		=   /Users/emaravil/.local/opt/readline/include
 $(NAME): $(MINISHELL_OBJS)
-	(CC) $(FLAGS)  $(MINISHELL_OBJS)  $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) -L$(LIBREAD_DIR) -lreadline $(LDFLAGS)  -o $(NAME) 
-# else ifeq ($(UNAME), Linux)
-# FLAGS			=	-Wall -Wextra -Werror -g
-# $(NAME): $(MINISHELL_OBJS)
-# 	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -lreadline -o $(NAME) 
-# endif
+	$(CC) $(FLAGS)  $(MINISHELL_OBJS)  $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) -L$(LIBREAD_DIR) -lreadline $(LDFLAGS)  -o $(NAME)
+else ifeq ($(UNAME), Linux)
+CFLAGS			= 	-Wall -Wextra -Werror
+LIBREAD_DIR		:= $(shell find /usr/local -name 'libreadline.a' -exec dirname {} \;)
+LIBREAD_INC		:= $(shell find /usr/local -name 'readline.h' -exec dirname {} \;)
+$(NAME): $(MINISHELL_OBJS)
+	@$(CC) $(FLAGS) $(MINISHELL_OBJS) $(PARSE_LIB) $(EXEC_LIB) $(BUILTINS_LIB) $(LDFLAGS) -o $(NAME) -lreadline
+	@echo	"$(GREEN) libreadline.a directory: $(LIBREAD_DIR)$(DEFAULT)"
+	@echo	"$(GREEN) readline.h directory: $(LIBREAD_INC)$(DEFAULT)"
+endif
 
 # Make libft archive
 $(BUILTINS_LIB):

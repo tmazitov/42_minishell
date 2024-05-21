@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/07 19:34:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 13:22:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,9 @@ t_com_node	*add_builtin_node(t_com_queue *q, char *command_line);
 // Execution functions
 
 int			execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist);
-
-// Command io redirection
-
-int			make_com_output(char **com_payload);
-int			make_com_input(char **com_payload);
-t_log_chan 	*make_heredoc(char **com_payload);
-
+int	single_builtin(t_com_node *command, t_envlist **envlist, t_varlist **varlist);
 // Utils
 
 char		*filter_spaces(char *str);
 
-// Heredoc
-
-char		**heredoc_temp_filepaths(int amount);
 #endif // !EXECUTION_H

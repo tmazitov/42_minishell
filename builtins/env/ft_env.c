@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:10:51 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/25 22:11:17 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/05/18 23:06:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	ft_printenv(t_envlist *envlist)
 {
-	while (envlist != NULL)
+	while (envlist != NULL && envlist->varname != NULL)
 	{
-		ft_printf("%s=%s\n", envlist->varname, envlist->value);
+		ft_printf("%s=", envlist->varname);
+		ft_printf("%s\n", envlist->value);
 		envlist = envlist->next;
 	}
 }

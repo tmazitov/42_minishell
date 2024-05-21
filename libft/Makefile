@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 12:14:47 by emaravil          #+#    #+#              #
-#    Updated: 2024/04/24 16:31:59 by marvin           ###   ########.fr        #
+#    Updated: 2024/05/19 22:55:36 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ STR_SRCS	=	ft_strings/ft_split.c \
 				ft_strings/ft_strmapi.c \
 				ft_strings/ft_strncmp.c \
 				ft_strings/ft_strnstr.c \
+				ft_strings/ft_strstr.c \
 				ft_strings/ft_strrchr.c \
 				ft_strings/ft_strtrim.c \
 				ft_strings/ft_substr.c

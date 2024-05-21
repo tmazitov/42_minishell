@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 17:54:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/09 15:43:01 by emaravil         ###   ########.fr       */
+/*   Created: 2024/04/25 15:03:54 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/05/21 14:25:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	sigquit_handler(int signum)
 	{
 		status_code(SET, CTRL_BS);
 		rl_replace_line("", 0);
+		rl_clear_history();
 		rl_redisplay();
 		rl_done = 1;
 		write(STDERR_FILENO, "Quit: ", 6);

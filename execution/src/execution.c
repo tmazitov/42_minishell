@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/08 16:58:24 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 12:33:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 		return (-1);
 	command = get_last(commands);
 	if (command && !command->prev && command->builtin)
-		return (ft_builtins(command->builtin, envlist, varlist));
+		return (single_builtin(command, envlist, varlist));
 	while (command)
 	{
 		run_command_proc(command, envlist, varlist, commands);
@@ -125,10 +125,10 @@ int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
 	status_code(SET, IN_CMD);
 	status = run_commands(commands, envlist, varlist);
 	free_queue_relationship(commands);
+	if (command_count == 1 && get_first(commands)->builtin)
+		return (status_code(SET, status));
 	if (status != 0)
 		return (free_queue(commands), -1);
-	if (command_count == 1 && get_first(commands)->builtin)
-		return (status_code(SET, 0));
 	status = wait_commands(commands, command_count);
 	free_queue(commands);
 	return (status_code(SET, status));

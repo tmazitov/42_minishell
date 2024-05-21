@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/08 16:32:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/11 09:36:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@ static void	init_node(t_com_node *node)
 	node->prev = NULL;
 	node->in_chan = NULL;
 	node->out_chan = NULL;
-	// node->out_file = -1;
-	// node->in_file = -1;
 	node->proc_id = -1;
 	node->input = NULL;
+	node->output = NULL;
 	node->proc_status = 0;
-	// node->heredoc_filepath = NULL;
 	node->builtin = NULL;
 	node->name = NULL;
 	node->path = NULL;
@@ -43,6 +41,8 @@ t_com_node	*make_node(char *com)
 		return (NULL);
 	init_node(node);
 	if (ft_strchr(com, '<') && !(node->input = make_input_storage(&com)))
+		return (free_node(node));
+	if (ft_strchr(com, '>') && !(node->output = make_output_storage(&com)))
 		return (free_node(node));
 	node->args = ftt_split(com, ' ');
 	if (!node->args)

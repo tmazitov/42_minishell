@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:55:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/07 12:25:10 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:25:13 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <signal.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include "../../../libft/libft.h"
 // Status part
 

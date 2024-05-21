@@ -17,7 +17,6 @@ void	ft_printvar(t_varlist **varnames)
 	t_varlist	*var_head;
 
 	var_head = *varnames;
-	ft_printf("ft_printvar || %s\n", (*varnames)->varname);
 	while (*varnames != NULL && (*varnames)->varname != NULL)
 	{
 		ft_printf("varname: %s || value: %s\n", (*varnames)->varname, \
