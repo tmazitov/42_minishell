@@ -26,7 +26,6 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (0);
 	while (var[index] != NULL)
 	{
-		ft_printf("var[%d]: %s\n", index, var[index]);
 		out = ft_setvarname(var[index], envlist, varlist);
 		if (out == 0)
 			return (ft_printf("%s: command not found\n", var[index]), 0);
@@ -77,16 +76,48 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 		ft_strchr(str, '\0'), envlist, varlist);
 	if (!varname || !ft_checkvarname(varname))
 	{
-		free(varname);
-		free(varvalue);
+		if (varname)
+			free(varname);
+		if (varvalue)
+			free(varvalue);
 		return (0);
 	}
 	else
-		ft_setenv(varname, varvalue, 1, varlist);
+		if (ft_checkvarenv(varname, *envlist))
+			ft_setenvlist(varname, varvalue, 1, envlist);
+		else
+			ft_setvarlist(varname, varvalue, 1, varlist);
 	return (1);
 }
 
-int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
+int	ft_setenvlist(char *varname, char *varvalue, int overwrite, t_envlist **envlist)
+{
+	if ((*envlist)->varname == NULL && (*envlist)->value == NULL)
+	{
+		(*envlist)->varname = varname;
+		(*envlist)->value = varvalue;
+		(*envlist)->next = NULL;
+		return (2);
+	}
+	while ((*envlist) != NULL && overwrite > 0)
+	{
+		if (ft_strncmp(varname, (*envlist)->varname, ft_strlen(varname)) == 0)
+		{
+			(*envlist)->value = varvalue;
+			return (2);
+		}
+		else if ((*envlist)->next == NULL)
+		{
+			(*envlist)->next = ft_create_env(NULL, varname, varvalue);
+			return (2);
+		}
+		else
+			(*envlist) = (*envlist)->next;
+	}
+	return (1);
+}
+
+int	ft_setvarlist(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
 {
 	if ((*varlist)->varname == NULL && (*varlist)->value == NULL)
 	{
@@ -100,12 +131,12 @@ int	ft_setenv(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
 		if (ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) == 0)
 		{
 			(*varlist)->value = varvalue;
-			break ;
+			return (2);
 		}
 		else if ((*varlist)->next == NULL)
 		{
 			(*varlist)->next = ft_create_var(varname, varvalue);
-			break ;
+			return (2);
 		}
 		else
 			(*varlist) = (*varlist)->next;

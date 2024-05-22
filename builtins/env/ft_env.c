@@ -6,18 +6,22 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:10:51 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/18 23:06:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/22 03:49:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-void	ft_printenv(t_envlist *envlist)
+void	ft_printenv(t_envlist *envlist, t_varlist *varlist)
 {
 	while (envlist != NULL && envlist->varname != NULL)
 	{
-		ft_printf("%s=", envlist->varname);
-		ft_printf("%s\n", envlist->value);
+		if (!(ft_checkvarlist(envlist->varname, varlist) && !*(envlist->value)))
+		{
+			ft_printf("%s", envlist->varname);
+			ft_printf("=%s", envlist->value);
+			ft_printf("\n");
+		}
 		envlist = envlist->next;
 	}
 }

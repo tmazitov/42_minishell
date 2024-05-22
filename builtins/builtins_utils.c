@@ -28,7 +28,7 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 	else if (ft_strncmp(str, "export", 6) == 0)
 		ft_export(str, envlist, varlist);
 	else if (ft_strncmp(str, "env", 3) == 0)
-		ft_printenv(*envlist);
+		ft_printenv(*envlist, *varlist);
 	else if (ft_strncmp(str, "cd", 2) == 0)
 		ft_cd(str, envlist, varlist);
 	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))

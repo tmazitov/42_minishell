@@ -71,47 +71,19 @@ int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
 	int	out;
 
 	if (!ft_strchr(str_input, '='))
-		str_input = ft_mergevarval(varname, str_input, "=");
+		str_input = ft_mergevarval(NULL, ft_strdup(str_input), "=");
 	out = ft_setvarname(str_input, envlist, varlist);
 	if (out == 0 || !varname || (!ft_checkvarname(varname) && \
 		!(ft_strchr(varname, '='))) || (varname[0] == '='))
 		return (ft_printf("bash: export: '%s': not a valid identifier\n", \
 				varname), 0);
 	else
-		ft_exportvar(varname, envlist, varlist);
+	{
+		if (!ft_checkvarenv(varname, *envlist))
+			ft_exportvar(varname, envlist, varlist);
+	}
 	return (1);
 }
-
-// char	*ft_splittoname(char *str, t_envlist **envlist, t_varlist **varlist)
-// {
-// 	char		*varname;
-// 	char		*varvalue;
-// 	t_varlist	*var_head;
-
-// 	var_head = *varlist;
-// 	varvalue = NULL;
-// 	if (ft_strchr(str, '='))
-// 	{
-// 		varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
-// 		varvalue = ft_splitequalsign((ft_strchr(str,'=')), 
-// 			ft_strchr(str, '\0'), envlist, varlist);
-// 	}
-// 	else
-// 		varname = str;
-// 	if (!varname || !ft_checkvarname(varname))
-// 	{
-// 		if (varname)
-// 			free(varname);
-// 		if (varvalue)
-// 			free(varvalue);
-// 		return (ft_printf("bash: export: '%s': not a valid identifier\n", 
-// 			varname), NULL);
-// 	}
-// 	else
-// 		ft_setenv(varname, varvalue, 1, varlist);
-// 	*varlist = var_head;
-// 	return (varname);
-// }
 
 void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
@@ -123,8 +95,7 @@ void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 	env_head = *envlist;
 	var_head = *varlist;
 	varvalue = ft_getenv(varname, *envlist, *varlist);
-	while (varvalue != NULL && (*envlist) != NULL && \
-		!ft_checkvarenv(varname, *envlist))
+	while ((*envlist) != NULL)
 	{
 		if ((*envlist)->next == NULL)
 		{
@@ -149,6 +120,20 @@ bool	ft_checkvarenv(char *varname, t_envlist *envlist)
 		}
 		else
 			envlist = envlist->next;
+	}
+	return (false);
+}
+
+bool	ft_checkvarlist(char *varname, t_varlist *varlist)
+{
+	while (varlist != NULL && varlist->varname != NULL)
+	{
+		if (ft_strncmp(varname, varlist->varname, ft_strlen(varname)) == 0)
+		{
+			return (true);
+		}
+		else
+			varlist = varlist->next;
 	}
 	return (false);
 }
