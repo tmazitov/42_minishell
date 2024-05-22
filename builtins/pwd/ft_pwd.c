@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:20:07 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/19 18:00:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/22 13:08:33 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	ft_pwd(char *str)
 		ft_printf("pwd: too many arguments\n");
 	else
 	{
-		// path = getenv("PWD");
 		getcwd(currdir, sizeof(currdir));
-		// ft_printf("%s\n", path);
 		ft_printf("%s\n", currdir);
 	}
 	free_pointer(path_split);

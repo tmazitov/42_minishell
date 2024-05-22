@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/21 21:42:38 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:53:44 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	currdir[PATH_MAX];
 	char	*path;
 
+	if (ft_strlen(str) > NAME_MAX)
+		return (ft_printf("File name too long\n"), 0);
 	getcwd(currdir, sizeof(currdir));
 	path = ft_getpath(str, envlist, varlist);
 	if (path == NULL)
@@ -32,17 +34,17 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 
 char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	char	**path_split;
+	char	**psplit;
 	char	*path;
 
-	path = str;
-	path_split = ft_split(str, ' ');
-	if (path_split[1] == NULL || (*path_split[1] == '~' && \
-		ft_strlen(path_split[1]) == 1))
+	psplit = ft_splittoken(str);
+	psplit = str_token(psplit);
+	psplit = ft_handlecdsplit(str, psplit);
+	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
 		path = ft_copystring(ft_getenv("HOME", *envlist, *varlist));
-	else if (*path_split[1] == '~' && ft_strlen(path_split[1]) > 1)
-		path = ft_expandhomepath(path_split, *envlist, *varlist);
-	else if (*path_split[1] == '-' && ft_strlen(path_split[1]) == 1)
+	else if (*psplit[1] == '~' && ft_strlen(psplit[1]) > 1)
+		path = ft_expandhomepath(psplit, *envlist, *varlist);
+	else if (*psplit[1] == '-' && ft_strlen(psplit[1]) == 1)
 	{
 		path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
 		if (path == NULL)
@@ -52,11 +54,40 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 		}
 		ft_printf("%s\n", path);
 	}
-	else if (path_split[1][0] == '$')
-		path = ft_cdexpandpath(path_split[1], envlist, varlist);
+	else if (psplit[1][0] == '$')
+		path = ft_cdexpandpath(psplit[1], envlist, varlist);
 	else
-		path = ft_copystring(path_split[1]);
-	return (free_pointer(path_split), path);
+		path = ft_copystring(psplit[1]);
+	return (free_pointer(psplit), path);
+}
+
+char	**ft_handlecdsplit(char *str, char **var)
+{
+	char	**out;
+	int		count;
+	int		index;
+
+	out = (char **)malloc(sizeof(char *) * 1);
+	out[0] = NULL;
+	count = 0;
+	index = -1;
+	while (var[count] != NULL)
+	{
+		if ((count > 0) && (var[count][0] != '\"' || \
+			var[count][0] != '\'') && ((size_t)(ft_strstr(str, var[count]) - \
+			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
+		{
+			out[index] = ft_mergevarval(str, out[index], var[count]);
+			str = ft_strstr(str, var[count++]);
+		}
+		else
+		{
+			index++;
+			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
+		}
+	}
+	free(var);
+	return (out);
 }
 
 char	*ft_cdexpandpath(char *pathstr, t_envlist **envlist, \
@@ -77,15 +108,22 @@ char	*ft_copystring(char *str)
 	char	*path;
 	int		len;
 	int		count;
+	int		offset;
 
+	if (!str)
+		return (NULL);
 	len = ft_strlen(str);
 	path = (char *)malloc(sizeof(char) * (len + 1));
+	ft_bzero(path, len + 1);
 	if (!path)
 		return (NULL);
+	offset = 0;
 	count = 0;
-	while (count < len)
+	while ((count + offset) < len)
 	{
-		path[count] = str[count];
+		if (str[count + offset] == '\"' || str[count + offset] == '\'')
+			offset++;
+		path[count] = str[count + offset];
 		count++;
 	}
 	path[count] = '\0';

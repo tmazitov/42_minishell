@@ -17,7 +17,9 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 	t_envlist	*env_head;
 	t_varlist	*var_head;
 
-	env_head = *envlist;
+	env_head = NULL;
+	if ((*envlist) != NULL)
+		env_head = *envlist;
 	var_head = *varlist;
 	if (ft_strncmp(str, "echo", 4) == 0)
 		ft_echo(str, *envlist, *varlist);
@@ -39,7 +41,8 @@ int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 		ft_printvar(varlist);
 	else
 		ft_printf("HANDLE THIS IF NOT IN BUUILTIN '%s'\n", str);
-	*envlist = env_head;
+	if (env_head != NULL)
+		*envlist = env_head;
 	*varlist = var_head;
 	return (0);
 }

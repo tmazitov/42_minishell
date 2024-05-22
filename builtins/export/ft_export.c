@@ -78,10 +78,8 @@ int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
 		return (ft_printf("bash: export: '%s': not a valid identifier\n", \
 				varname), 0);
 	else
-	{
 		if (!ft_checkvarenv(varname, *envlist))
 			ft_exportvar(varname, envlist, varlist);
-	}
 	return (1);
 }
 
@@ -106,7 +104,11 @@ void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 		}
 		*envlist = (*envlist)->next;
 	}
-	*envlist = env_head;
+	if ((*envlist) == NULL)
+		(*envlist) = ft_create_env(NULL, ft_strdup(varname), \
+				ft_strdup(varvalue));
+	else
+		*envlist = env_head;
 	*varlist = var_head;
 }
 
@@ -114,7 +116,8 @@ bool	ft_checkvarenv(char *varname, t_envlist *envlist)
 {
 	while (envlist != NULL && envlist->varname != NULL)
 	{
-		if (ft_strncmp(varname, envlist->varname, ft_strlen(varname)) == 0)
+		if (ft_strncmp(varname, envlist->varname, \
+			ft_strlen(envlist->varname)) == 0)
 		{
 			return (true);
 		}
@@ -128,7 +131,8 @@ bool	ft_checkvarlist(char *varname, t_varlist *varlist)
 {
 	while (varlist != NULL && varlist->varname != NULL)
 	{
-		if (ft_strncmp(varname, varlist->varname, ft_strlen(varname)) == 0)
+		if (ft_strncmp(varname, varlist->varname, \
+			ft_strlen(varlist->varname)) == 0)
 		{
 			return (true);
 		}

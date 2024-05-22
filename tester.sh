@@ -29,9 +29,6 @@ echo hello$1world
 echo $"$var"
 echo $'1234var'
 echo $eli hello$eli
-###############
-
-### NOT HANDLED ###
 echo $1
 echo $2
 echo $3
@@ -41,7 +38,12 @@ echo $6
 echo $7
 echo $8
 echo $9
+echo "hello '$USER' world"
+echo "a$H b"
+echo $USER 'hello "$USER" world' $USER
+###############
 
+### NOT HANDLED ###
 ##################
 
 ### PWD ####
@@ -111,16 +113,26 @@ export 123
 ### HANDLED ###
 cd $PWD
 cd $PWD hi 
+cd ./"test folder"
 cd 123123
 ###############
+CD after env -i ./minishell
 
+####### UNSET #########
 
+### HANDLED ###
 unset
 unset HELLO
 unset HELLO1 HELLO2
 unset HOME
 unset PATH
 unset SHELL
+###############
+### NOT HANDLED ###
+
+###################
+
+
 exit 123
 exit 298
 exit +100

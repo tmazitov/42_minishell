@@ -45,6 +45,7 @@ void		ft_printexpansion(char *str, int index, t_envlist *envlist, t_varlist *var
 void		ft_printsquotes(char *str);
 bool		ft_checkvarname(char *varname);
 char		*ft_getvarname(char *str, int index);
+int			ft_countvarname(char *varname);
 char		*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist);
 
 int			ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist);
@@ -100,6 +101,7 @@ bool    	ft_checkcmd(char *str);
 void	ft_pwd(char *str);
 
 int		ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
+char	**ft_handlecdsplit(char *str, char **var);
 char	*ft_cdexpandpath(char *pathstr, t_envlist **envlist, t_varlist **varlist);
 int		ft_update_envlist(char *path, char *currdir, t_envlist **envlist);
 char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist);

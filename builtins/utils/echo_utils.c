@@ -14,8 +14,10 @@
 
 bool	ft_checkvarname(char *varname)
 {
-	if ((ft_isdigit(varname[0]) > 0) || (((ft_isalpha(varname[0]) == 0)) && \
-		ft_strncmp("_", varname, 1) != 0))
+	if ((ft_isdigit(varname[0]) > 0 && ft_strlen(varname) == 1))
+		return (true);
+	if ((ft_isdigit(varname[0]) > 0 && ft_strlen(varname) > 0) || \
+		(((ft_isalpha(varname[0]) == 0)) && ft_strncmp("_", varname, 1) != 0))
 		return (false);
 	varname++;
 	while (*varname)
@@ -28,23 +30,35 @@ bool	ft_checkvarname(char *varname)
 	return (true);
 }
 
+int	ft_countvarname(char *varname)
+{
+	int	count;
+
+	count = 0;
+	while (*varname)
+	{
+		if (((ft_isalpha(*varname) == 0) && (*varname != '_')) && \
+			(ft_isdigit(*varname) == 0))
+			return (count);
+		varname++;
+		count++;
+	}
+	return (count);
+}
+
 char	*ft_getvarname(char *str, int index)
 {
 	int		len;
 	char	*varname;
 	int		count;
 
-	len = 0;
-	while (str[index + len] != '\0' && !ft_isspace(str[index + len]) \
-		&& str[index + len] != '\"')
-		len++;
+	len = ft_countvarname(&str[index]);
 	varname = malloc(sizeof(char) * (len + 1));
 	if (!varname)
 		return (NULL);
 	ft_bzero(varname, len + 1);
 	count = 0;
-	while (str[index + count] != '\0' && !ft_isspace(str[index + count]) \
-		&& str[index + count] != '\"')
+	while (count < len)
 	{
 		varname[count] = str[index + count];
 		count++;
@@ -77,9 +91,7 @@ void	ft_printdquotes(char *str, t_envlist *envlist, t_varlist *varlist)
 			else
 			{
 				ft_printexpansion(str, ++len, envlist, varlist);
-				while (!ft_isspace(str[len]) && str[len] != '\0' && \
-						str[len] != '\"')
-					len++;
+				len += ft_countvarname(&str[len]);
 			}
 		}
 		else

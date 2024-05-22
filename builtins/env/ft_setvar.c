@@ -83,14 +83,16 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (0);
 	}
 	else
+	{
+		ft_setvarlist(varname, varvalue, 1, varlist);
 		if (ft_checkvarenv(varname, *envlist))
 			ft_setenvlist(varname, varvalue, 1, envlist);
-		else
-			ft_setvarlist(varname, varvalue, 1, varlist);
+	}
 	return (1);
 }
 
-int	ft_setenvlist(char *varname, char *varvalue, int overwrite, t_envlist **envlist)
+int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
+	t_envlist **envlist)
 {
 	if ((*envlist)->varname == NULL && (*envlist)->value == NULL)
 	{
@@ -117,7 +119,8 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, t_envlist **envl
 	return (1);
 }
 
-int	ft_setvarlist(char *varname, char *varvalue, int overwrite, t_varlist **varlist)
+int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
+	t_varlist **varlist)
 {
 	if ((*varlist)->varname == NULL && (*varlist)->value == NULL)
 	{
