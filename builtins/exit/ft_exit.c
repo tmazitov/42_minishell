@@ -14,7 +14,21 @@
 
 void	ft_exit(char *str, t_envlist **envlist, t_varlist **varlist)
 {
+	char	**str_split;
+	int		count;
+
+	count = 0;
+	str_split = ft_split(str, ' ');
 	ft_printf("exit\n");
+	while (str_split[1][count])
+	{
+		if (ft_isdigit(str_split[1][count]) == 0)
+		{
+			ft_printf("bash: exit: %s: numeric argument required\n", str_split[1]);
+			break;
+		}
+		count++;
+	}
 	free(str);
 	ft_free_env(envlist);
 	ft_free_var(varlist);
