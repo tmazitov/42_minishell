@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/20 15:56:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/24 03:48:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 	if (ft_strchr(str_temp, '$'))
 	{
 		out_temp = ft_splitstring(str_temp);
-		while (*out_temp != NULL)
-			out = ft_realloc_dp(out, *out_temp++, token_count + 1);
+		start = 0;
+		while (out_temp[start] != NULL)
+			out = ft_realloc_dp(out, out_temp[start++], token_count + 1);
+		free(out_temp);
 	}
 	else
 		out = ft_realloc_dp(out, str_temp, token_count + 1);
@@ -104,6 +106,7 @@ char	**ft_splitstring(char *str)
 		str_temp = ft_assignstring(str, start, index);
 		out = ft_realloc_dp(out, str_temp, 1);
 	}
+	free(str);
 	return (out);
 }
 

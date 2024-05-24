@@ -31,6 +31,7 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 			return (ft_printf("%s: command not found\n", var[index]), 0);
 		index++;
 	}
+	free_pointer(var);
 	return (1);
 }
 
@@ -68,8 +69,9 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 
 int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	char		*varname;
-	char		*varvalue;
+	char	*varname;
+	char	*varvalue;
+	int		out;
 
 	varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
 	varvalue = ft_splitequalsign(ft_strchr(str, '='), \
@@ -84,9 +86,11 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	else
 	{
-		ft_setvarlist(varname, varvalue, 1, varlist);
+		out = ft_setvarlist(varname, varvalue, 1, varlist);
 		if (ft_checkvarenv(varname, *envlist))
 			ft_setenvlist(varname, varvalue, 1, envlist);
+		if (out == 2)
+			free(varname);
 	}
 	return (1);
 }
@@ -99,7 +103,7 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 		(*envlist)->varname = varname;
 		(*envlist)->value = varvalue;
 		(*envlist)->next = NULL;
-		return (2);
+		return (1);
 	}
 	while ((*envlist) != NULL && overwrite > 0)
 	{
@@ -111,12 +115,12 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 		else if ((*envlist)->next == NULL)
 		{
 			(*envlist)->next = ft_create_env(NULL, varname, varvalue);
-			return (2);
+			return (1);
 		}
 		else
 			(*envlist) = (*envlist)->next;
 	}
-	return (1);
+	return (3);
 }
 
 int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
@@ -139,12 +143,12 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 		else if ((*varlist)->next == NULL)
 		{
 			(*varlist)->next = ft_create_var(varname, varvalue);
-			return (2);
+			return (1);
 		}
 		else
 			(*varlist) = (*varlist)->next;
 	}
-	return (1);
+	return (3);
 }
 
 char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
@@ -239,8 +243,7 @@ char	*ft_copyvarvalues(char *s1, char *s2, size_t len1, size_t len2)
 		out[index] = s2[index - len1];
 		index++;
 	}
-	if (s1 && *s1)
-		free(s1);
+	free(s1);
 	out[index] = '\0';
 	return (out);
 }

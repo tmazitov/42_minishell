@@ -1,0 +1,89 @@
+[1;32mminishell$[0m echo "hello world"
+hello world
+[1;32mminishell$[0m echo 'hello world'
+hello world
+[1;32mminishell$[0m echo hello'world'
+hello world
+[1;32mminishell$[0m echo hello""world
+hello  world
+[1;32mminishell$[0m echo ''
+
+[1;32mminishell$[0m echo "$PWD"
+/mnt/hgfs/shared/42_cursus/cursus/group_minishell
+[1;32mminishell$[0m echo '$PWD'
+$PWD
+[1;32mminishell$[0m echo "aspas ->'"
+aspas ->'
+[1;32mminishell$[0m echo "aspas -> ' "
+aspas -> ' 
+[1;32mminishell$[0m echo 'aspas ->"'
+aspas ->"
+[1;32mminishell$[0m echo 'aspas -> " '
+aspas -> " 
+[1;32mminishell$[0m echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
+> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
+[1;32mminishell$[0m echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
+> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<
+[1;32mminishell$[0m echo "exit_code ->$? user ->$USER home -> $HOME"
+exit_code ->0 user ->kali home -> /home/kali
+[1;32mminishell$[0m echo 'exit_code ->$? user ->$USER home -> $HOME'
+exit_code ->$? user ->$USER home -> $HOME
+[1;32mminishell$[0m echo "$"
+$
+[1;32mminishell$[0m echo '$'
+$
+[1;32mminishell$[0m echo $
+$
+[1;32mminishell$[0m echo $?
+0
+[1;32mminishell$[0m echo $?HELLO
+0HELLO
+[1;32mminishell$[0m 
+[1;32mminishell$[0m echo $ '1234var'
+$ 1234var
+[1;32mminishell$[0m 
+[1;32mminishell$[0m echo hello$1world
+hello  world
+[1;32mminishell$[0m echo $"$var"
+
+[1;32mminishell$[0m echo $'1234var'
+1234var
+[1;32mminishell$[0m echo $eli hello$eli
+ hello 
+[1;32mminishell$[0m echo $1
+
+[1;32mminishell$[0m echo $2
+
+[1;32mminishell$[0m echo $3
+
+[1;32mminishell$[0m echo $4
+
+[1;32mminishell$[0m echo $5
+
+[1;32mminishell$[0m echo $6
+
+[1;32mminishell$[0m echo $7
+
+[1;32mminishell$[0m echo $8
+
+[1;32mminishell$[0m echo $9
+
+[1;32mminishell$[0m echo "hello '$USER' world"
+hello 'kali' world
+[1;32mminishell$[0m echo "a$H b"
+a b
+[1;32mminishell$[0m echo $USER 'hello "$USER" world' $USER
+kali hello "$USER" world kali
+[1;32mminishell$[0m 
+[1;32mminishell$[0m 
+[1;32mminishell$[0m PWD
+/mnt/hgfs/shared/42_cursus/cursus/group_minishell
+[1;32mminishell$[0m pwd
+/mnt/hgfs/shared/42_cursus/cursus/group_minishell
+[1;32mminishell$[0m pwd oi
+pwd: too many arguments
+[1;32mminishell$[0m 
+[1;32mminishell$[0m var=hello
+[1;32mminishell$[0m "var"="123"
+"var"="123": command not found
+[1;32mminishell$[0m var=hello"world$test"
