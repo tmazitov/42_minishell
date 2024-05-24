@@ -6,7 +6,7 @@
 #    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/05/11 10:04:39 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/05/24 16:17:10 by tmazitov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_SRCS	=	src/com_exec_path.c \
 				src/input/input_storage.c \
 				src/input/input_utils.c \
 				src/output/output_file.c \
+				src/output/append_file.c \
 				src/output/output_filter_command.c \
 				src/output/output_storage.c \
 				src/output/output_storage_fill.c \

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 10:00:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 10:05:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:18:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static t_output_dest	take_next_output_dest(char **com_string)
 		if (temp[counter] == '>') 
 		{
 			*com_string = temp + counter + 2;
-			// if (temp[counter + 1] == '<')
-			// {
-			// 	*com_string = *com_string + 1;
-			// 	return (HEREDOC);
-			// }
-			// else
-			return (OUTFILE);
+			if (temp[counter + 1] == '>')
+			{
+				*com_string = *com_string + 1;
+				return (APPENDFILE);
+			}
+			else
+				return (OUTFILE);
 		}
 		counter++;
 	}
@@ -67,8 +67,8 @@ int	fill_output_storage(t_com_output_storage *st, char *com_string)
 			return (1);
 		if (dest_type == OUTFILE)
 			st->content[counter] = make_file_output(dest_arg);
-		// else if (src_type == INFILE)
-		// 	st->content[counter] = make_file_input(src_arg);
+		else if (dest_type == APPENDFILE)
+			st->content[counter] = make_file_append(dest_arg);
 		if (!st->content[counter])
 			return (1);
 		counter++;

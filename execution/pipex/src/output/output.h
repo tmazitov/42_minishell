@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:48:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 10:04:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:31:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,19 @@
 
 typedef enum {
 	OUTFILE = 3,
+	APPENDFILE = 4
 }		t_output_dest;
 
 typedef struct	s_com_output {
 	t_output_dest	src;
 	int				fd;
 	char			*filepath;
-	char			*limiter;
 }		t_com_output;
 
 typedef struct	s_com_output_storage
 {
 	int				file_amount;
+	int				append_amount;
 	int				total_amount;
 	t_com_output	**content;
 }		t_com_output_storage;
@@ -41,6 +42,11 @@ typedef struct	s_com_output_storage
 
 t_com_output	*make_file_output(char *filepath);
 void			*free_file_output(t_com_output *output);
+
+// Appendfile
+
+t_com_output	*make_file_append(char *filepath);
+void			*free_file_append(t_com_output *output);
 
 // Output storage
 

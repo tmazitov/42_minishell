@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_storage.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:40:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:24:05 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:36:16 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,27 @@ static int	outfile_amount(char *com_string)
 	return (amount);
 }
 
+static int	append_outfile_amount(char *com_string)
+{
+	int		amount;
+	char	*temp_com;
+	char	*heredoc;
+
+	temp_com = com_string;
+	amount = 0;
+	while (1)
+	{
+		if (*temp_com == '\0')
+			break;
+		heredoc = ft_strnstr(temp_com, ">>", ft_strlen(temp_com));
+		if (!heredoc)
+			break ;
+		amount++;
+		temp_com = heredoc + 2;
+	}
+	return (amount);
+}
+
 t_com_output_storage	*make_output_storage(char **com_line)
 {	
 	t_com_output_storage	*storage;
@@ -52,7 +73,8 @@ t_com_output_storage	*make_output_storage(char **com_line)
 		return (NULL);
 	storage->content = NULL;
 	storage->file_amount = outfile_amount(*com_line);
-	storage->total_amount = storage->file_amount;
+	storage->append_amount = append_outfile_amount(*com_line);
+	storage->total_amount = storage->file_amount + storage->append_amount;
 	if (total_amount == 0)
 		return (storage);
 	storage->content = malloc(sizeof(t_com_output*) * (storage->total_amount + 1));
@@ -97,6 +119,8 @@ void	*free_output_storage(t_com_output_storage *st)
 		{
 			if (output->src == OUTFILE)
 				free_file_output(output);
+			if (output->src == APPENDFILE)
+				free_file_append(output);
 			counter++;
 			output = st->content[counter];
 		}

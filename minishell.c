@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/19 17:49:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:53:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	main(int argc, char **argv, char **envp)
 				root = parse_input(str);
 				if (root)
 				{
-					ft_builtins(str, &envlist, &varlist);
-					// status = execute(root, &envlist, &varlist);
-					status = 0;
+					// ft_builtins(str, &envlist, &varlist);
+					status = execute(root, &envlist, &varlist);
+					// status = 0;
 					if (status >= 0)
 						ft_printf("success execution : status code %d\n", \
 							status);
