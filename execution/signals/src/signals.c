@@ -12,6 +12,8 @@
 
 #include "../includes/signals.h"
 
+
+
 int	event(void)
 {
 	return (EXIT_SUCCESS);
@@ -61,7 +63,7 @@ void	sigquit_handler(int signum)
 		rl_done = 1;
 		write(STDERR_FILENO, "Quit: ", 6);
 		ft_putnbr_fd(signum, STDERR_FILENO);
-		write(STDERR_FILENO, "\n", 1);
+		write(STDERR_FILENO, "\n", 1); 
 		return ;
 	}
 }

@@ -74,8 +74,11 @@ void	ft_printexport(t_envlist **envlist, t_varlist **varlist)
 {
 	t_sorted_envlist	*curr_var;
 	t_sorted_envlist	*sorted_envlist;
+	t_envlist			*env_head;
+	t_varlist			*var_head;
 
-	(void)varlist;
+	env_head = *envlist;
+	var_head = *varlist;
 	sorted_envlist = ft_init_sortedenv(envlist);
 	sorted_envlist = ft_sortenvlist(sorted_envlist);
 	curr_var = sorted_envlist;
@@ -89,4 +92,6 @@ void	ft_printexport(t_envlist **envlist, t_varlist **varlist)
 		curr_var = curr_var->next;
 	}
 	ft_free_sortedenv(&sorted_envlist);
+	*envlist = env_head;
+	*varlist = var_head;
 }

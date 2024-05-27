@@ -42,26 +42,36 @@ int	ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
 	t_envlist	*head;
 	t_envlist	*prev_env;
+	t_envlist	*curr_env;
 
 	prev_env = NULL;
 	head = (*envlist);
 	if ((*envlist) != NULL && (*envlist)->varname != NULL && \
-		ft_strncmp(varname, (*envlist)->varname, ft_strlen(varname)) == 0)
+		ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) == 0 && \
+		(ft_strlen(varname) == ft_strlen((*envlist)->varname)))
 	{
-		free(*envlist);
+		curr_env = *envlist;
 		*envlist = (*envlist)->next;
+		free(curr_env->varname);
+		free(curr_env->value);
+		free(curr_env);
+		ft_printf("enter unset env\n");
 		return (2);
 	}
 	while ((*envlist) != NULL && (*envlist)->varname != NULL && \
-		ft_strncmp(varname, (*envlist)->varname, ft_strlen(varname)) != 0)
+		ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) != 0)
 	{
 		prev_env = (*envlist);
 		(*envlist) = (*envlist)->next;
 	}
 	if ((*envlist) != NULL && (*envlist)->varname != NULL)
 	{
+		curr_env = *envlist;
 		prev_env->next = (*envlist)->next;
-		free((*envlist));
+		free((*envlist)->varname);
+		free((*envlist)->value);
+		ft_printf("enter unset env 2\n");
+		free(curr_env);
 	}
 	*envlist = head;
 	return (ft_unsetvar(varname, varlist));
@@ -76,16 +86,19 @@ int	ft_unsetvar(char *varname, t_varlist **varlist)
 	prev_var = NULL;
 	head = (*varlist);
 	if ((*varlist) != NULL && (*varlist)->varname != NULL && \
-		ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) == 0)
+		ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) == 0 && \
+		(ft_strlen(varname) == ft_strlen((*varlist)->varname)))
 	{
 		curr_var = (*varlist);
-		// free(*varlist);
 		*varlist = (*varlist)->next;
+		free(curr_var->varname);
+		free(curr_var->value);
 		free(curr_var);
+		ft_printf("enter unset var\n");
 		return (2);
 	}
 	while ((*varlist) != NULL && (*varlist)->varname != NULL && \
-		ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) != 0)
+		ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) != 0)
 	{
 		prev_var = (*varlist);
 		(*varlist) = (*varlist)->next;
@@ -93,10 +106,10 @@ int	ft_unsetvar(char *varname, t_varlist **varlist)
 	if ((*varlist) != NULL && (*varlist)->varname != NULL)
 	{
 		prev_var->next = (*varlist)->next;
+		free((*varlist)->varname);
+		free((*varlist)->value);
 		free((*varlist));
 	}
 	*varlist = head;
 	return (1);
 }
-// if (prev_var == NULL && (*varlist) != NULL)
-// 	*varlist = (*varlist)->next;

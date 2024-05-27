@@ -22,5 +22,3 @@ int	status_code(t_status_flag flag, int new_status)
 		status = new_status;
 	return (status);
 }
-
-

@@ -57,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 				{
 					// ft_builtins(str, &envlist, &varlist);
 					status = execute(root, &envlist, &varlist);
-					// status = 0;
+					status = 0;
 					if (status >= 0)
 						ft_printf("success execution : status code %d\n", \
 							status);

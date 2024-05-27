@@ -22,7 +22,9 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 		return (-1);
 	new_node = NULL;
 	if (ft_checkcmd(payload))
-		new_node = add_builtin_node(q, payload);	
+		new_node = add_builtin_node(q, payload);
+	else if (ft_strchr(payload, '=') && !ft_checkcmd(payload))
+		new_node = add_builtin_node(q, payload);
 	else 
 		new_node = add_node(q, payload);
 	if (!new_node)

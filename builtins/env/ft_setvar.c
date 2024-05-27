@@ -17,8 +17,10 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 	int		out;
 	char	**var;
 	int		index;
+	t_varlist *var_head;
 
 	index = 0;
+	var_head = *varlist;
 	var = ft_splittoken(str);
 	var = str_token(var);
 	var = ft_handlesetvarsplit(str, var);
@@ -32,6 +34,7 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		index++;
 	}
 	free_pointer(var);
+	*varlist=var_head;
 	return (1);
 }
 
@@ -71,7 +74,6 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 {
 	char	*varname;
 	char	*varvalue;
-	int		out;
 
 	varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
 	varvalue = ft_splitequalsign(ft_strchr(str, '='), \
@@ -86,11 +88,11 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	else
 	{
-		out = ft_setvarlist(varname, varvalue, 1, varlist);
+		ft_setvarlist(strdup(varname), strdup(varvalue), 1, varlist);
 		if (ft_checkvarenv(varname, *envlist))
-			ft_setenvlist(varname, varvalue, 1, envlist);
-		if (out == 2)
-			free(varname);
+			ft_setenvlist(strdup(varname), strdup(varvalue), 1, envlist);
+		free(varname);
+		free(varvalue);
 	}
 	return (1);
 }
@@ -107,7 +109,7 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*envlist) != NULL && overwrite > 0)
 	{
-		if (ft_strncmp(varname, (*envlist)->varname, ft_strlen(varname)) == 0)
+		if ((ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) == 0) && (ft_strlen((*envlist)->varname) == ft_strlen(varname)))
 		{
 			(*envlist)->value = varvalue;
 			return (2);
@@ -135,7 +137,7 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*varlist) != NULL && overwrite > 0)
 	{
-		if (ft_strncmp(varname, (*varlist)->varname, ft_strlen(varname)) == 0)
+		if ((ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) == 0) && (ft_strlen((*varlist)->varname) == ft_strlen(varname)))
 		{
 			(*varlist)->value = varvalue;
 			return (2);

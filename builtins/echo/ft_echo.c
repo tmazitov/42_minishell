@@ -96,16 +96,16 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 {
 	while (varlist != NULL && varlist->varname != NULL)
 	{
-		if (ft_strncmp(varname, varlist->varname, \
-			ft_strlen(varlist->varname)) == 0)
+		if ((ft_strncmp(varname, varlist->varname, \
+			ft_strlen(varlist->varname)) == 0) && (ft_strlen(varname) == ft_strlen(varlist->varname)))
 			return (varlist->value);
 		else
 			varlist = varlist->next;
 	}
 	while (envlist != NULL && envlist->varname != NULL)
 	{
-		if (ft_strncmp(varname, envlist->varname, \
-			ft_strlen(envlist->varname)) == 0)
+		if ((ft_strncmp(varname, envlist->varname, \
+			ft_strlen(envlist->varname)) == 0) && (ft_strlen(varname) == ft_strlen(envlist->varname)))
 			return (envlist->value);
 		else
 			envlist = envlist->next;
