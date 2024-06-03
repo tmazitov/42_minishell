@@ -16,6 +16,32 @@
 # include "../libft/libft.h"
 # include "../parsing/includes/parse.h"
 # include <string.h>
+# include "../execution/pipex/chan/chan.h"
+# include "../execution/pipex/src/input/input.h"
+# include "../execution/pipex/src/output/output.h"
+
+typedef struct s_com_node
+{
+	char				*name;
+	char				*path;
+	char				*builtin;
+	char				**args;
+	struct s_com_node	*next;
+	struct s_com_node	*prev;
+	t_log_chan			*in_chan;
+	t_log_chan			*out_chan;
+	t_com_output_storage	*output;
+	t_com_input_storage	*input;
+	int					proc_id;
+	int					proc_status;
+}		t_com_node;
+
+typedef struct s_com_queue
+{
+	t_com_node	*nodes;
+	t_com_node	*first;
+	int			chan_closed;
+}		t_com_queue;
 
 typedef struct varlist
 {
@@ -37,6 +63,14 @@ typedef struct sorted_envlist
 	char					*varname;
 	struct sorted_envlist	*next;
 }	t_sorted_envlist;
+
+typedef struct builtin_info
+{
+	t_envlist	**env;
+	t_varlist	**var;
+	t_com_queue	*q;
+}		t_builtin_info;
+
 
 void		ft_echo(char *str, t_envlist *envlist, t_varlist *varlist);
 void		ft_printparams(char *str, char *cmd_split, t_envlist *envlist, t_varlist *varlist);
@@ -95,7 +129,7 @@ t_sorted_envlist	*ft_init_sortedenv(t_envlist **envlist);
 t_sorted_envlist    *ft_sortenvlist(t_sorted_envlist *sorted_envlist);
 t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, t_sorted_envlist *newnode);
 
-int			ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist);
+int			ft_builtins(char *str, t_builtin_info *info);
 bool    	ft_checkcmd(char *str);
 
 void	ft_pwd(char *str);
@@ -108,7 +142,9 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist);
 char	*ft_expandhomepath(char **path_split, t_envlist *envlist, t_varlist *varlist);
 char	*ft_copystring(char *str);
 
-void    ft_exit(char *str, t_envlist **envlist, t_varlist **varlist);
+void	ft_exit(char *str, t_builtin_info *info);
+void	*free_queue(t_com_queue *queue);
+void	*free_queue_relationship(t_com_queue *queue);
 void	ft_free_var(t_varlist **varlist);
 void	ft_free_env(t_envlist **envlist);
 void	ft_free_sortedenv(t_sorted_envlist **sorted_envlist);

@@ -35,7 +35,8 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./pwd/ft_pwd.c \
 					./export/ft_export.c \
 					./exit/ft_exit.c \
-					./builtins_utils.c
+					./builtins_utils.c \
+					./com_queue.c
 
 BUILTINS_OBJS	=	$(BUILTINS_SRCS:.c=.o)
 HEADER			=	./builtins.h

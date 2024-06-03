@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 13:20:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:47:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_com_node	*add_builtin_node(t_com_queue *q, char *command_line)
 	return (node);
 }
 
-int	single_builtin(t_com_node *command, t_envlist **envlist, t_varlist **varlist)
+int	single_builtin(t_com_node *command, t_builtin_info *info)
 {
 	int	status;
 	int	temp_in;
@@ -77,10 +77,11 @@ int	single_builtin(t_com_node *command, t_envlist **envlist, t_varlist **varlist
 		dup2(get_last_input(command->input)->fd, STDIN_FILENO);
 	if (command->output && get_last_output(command->output))
 		dup2(get_last_output(command->output)->fd, STDOUT_FILENO);
-	status = ft_builtins(command->builtin, envlist, varlist);
+	status = ft_builtins(command->builtin, info);
 	if (command->input && get_last_input(command->input))
 		dup2(temp_in, STDIN_FILENO);
 	if (command->output && get_last_output(command->output))
 		dup2(temp_out, STDOUT_FILENO);
+	// printf("\nbuiltin '%s' status : %d\n\n", command->builtin, status);
 	return (status);
 }

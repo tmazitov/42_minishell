@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 15:38:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:20:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,20 @@ int	main(int argc, char **argv, char **envp)
 			else
 			{
 				root = parse_input(str);
+				if (!root)
+					continue;
+				status = execute(&root, &envlist, &varlist);
+				if (status >= 0)
+					ft_printf("success execution : status code %d\n", \
+						status);
+				else if (status_code(GET, -1))
+					ft_printf("success execution : status code %d\n", \
+						status_code(GET, -1));
+				else
+					ft_printf("execution error : status code %d\n", \
+						status);
 				if (root)
-				{
-					// ft_builtins(str, &envlist, &varlist);
-					status = execute(root, &envlist, &varlist);
-					if (status >= 0)
-						ft_printf("success execution : status code %d\n", \
-							status);
-					else if (status_code(GET, -1))
-						ft_printf("success execution : status code %d\n", \
-							status_code(GET, -1));
-					else
-						ft_printf("execution error : status code %d\n", \
-							status);
-				}
-				ft_free_ast(root);
+					ft_free_ast(root);	
 			}
 			free(str);
 		}
@@ -80,7 +79,7 @@ int	main(int argc, char **argv, char **envp)
 
 void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	// int				status;
+	int				status;
 	t_astnodes		*root;
 
 	setup_read_interrupter();
@@ -106,41 +105,30 @@ void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist)
 		else
 		{
 			root = parse_input(str);
-			ft_builtins(str, envlist, varlist);
-			if (root)
+			if (!root)
 			{
-				// status = execute(root, envlist, varlist);
-				// if (status >= 0)
-				// 	ft_printf("success execution : status code %d\n", 
-				// 		status);
-				// else if (status_code(GET, -1))
-				// 	ft_printf("success execution : status code %d\n", 
-				// 		status_code(GET, -1));
-				// else
-				// 	ft_printf("execution error : status code %d\n", 
-				// 		status);
+				ft_free_env(envlist);
+				ft_free_var(varlist);
+				exit(EXIT_FAILURE);
 			}
-			ft_free_ast(root);
+			status = execute(&root, envlist, varlist);
+			if (status >= 0)
+				ft_printf("success execution : status code %d\n", 
+					status);
+			else if (status_code(GET, -1))
+				ft_printf("success execution : status code %d\n", 
+					status_code(GET, -1));
+			else
+				ft_printf("execution error : status code %d\n", 
+					status);
+			if (root)
+				ft_free_ast(root);			
 		}
 		free(str);
 	}
 	ft_free_env(envlist);
 	ft_free_var(varlist);
 	exit(EXIT_SUCCESS);
-}
-
-void	ft_free_ast(t_astnodes *root)
-{
-	t_astnodes	*prev;
-
-	while (root != NULL)
-	{
-		free((root)->value);
-		free((root)->left);
-		prev = root;
-		root = (root)->right;
-		free(prev);
-	}
 }
 
 char	*ft_cleaninput_b(char *str)

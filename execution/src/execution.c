@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:59:46 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:21:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,24 @@ static int	run_heredocs(t_com_queue *commands)
 /// @return If create of child proccess in failed return -1.
 static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **varlist)
 {
-	t_com_node	*command;
-	int			status;
+	t_com_node		*command;
+	int				status;
+	t_builtin_info	info;
 
 	if ((status = run_heredocs(commands))) 
 		return (status);
 	status_code(SET, STOP_HEREDOC);
 	if ((status = run_infiles(commands)))
 		return (status);
+	info.env = envlist;
+	info.var = varlist;
+	info.q = commands;
 	command = get_last(commands);
 	if (command && !command->prev && command->builtin)
-		return (single_builtin(command, envlist, varlist));
+		return (single_builtin(command, &info));
 	while (command)
 	{
-		if ((status = run_command_proc(command, envlist, varlist, commands)))
+		if ((status = run_command_proc(command, &info)))
 			return (status);
 		command = command->prev;
 	}
@@ -110,28 +114,30 @@ static int	wait_commands(t_com_queue *commands, int count)
 /// @param varlist List of the variables
 /// @return Status code of the last one executed command.
 /// @return If tree is NULL or empty the status code will be -1.
-int	execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist)
+int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 {
 	t_com_queue	*commands;
 	int			status;
 	int			command_count;
 
-	if (!tree)
+	if (!tree || !*tree)
 		return (1);
-	commands = make_ast_q(tree);
+	commands = make_ast_q(*tree);
 	if (status_code(GET, -1) == STOP_HEREDOC)
 		status_code(SET, CTRL_C);
 	if (!commands)
 		return (1);
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), 1);
-	command_count = ast_tree_node_count(tree);
+	command_count = ast_tree_node_count(*tree);
+	ft_free_ast(*tree);
+	*tree = NULL;
 	status_code(SET, IN_CMD);
-	if ((status = run_commands(commands, envlist, varlist)))
-		return (free_queue(commands), status_code(SET, status));
+	if ((status = status_code(SET, run_commands(commands, envlist, varlist))))
+		return (free_queue(commands), status_code(GET, status));
 	free_queue_relationship(commands);
 	if (command_count == 1 && get_first(commands)->builtin)
-		return (free_queue(commands), status_code(GET, 1));
+		return (free_queue(commands), status_code(GET, status));
 	status = wait_commands(commands, command_count);
 	free_queue(commands);
 	return (status_code(SET, status));

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:38:04 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:50:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static void	closer(t_com_node *command)
 	}
 }
 
-static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q)
+static void	command_proc(t_com_node *command, t_builtin_info *info)
 {
 	int			status;
 	char		**envp;
 	t_log_chan	*heredoc;
 
 	if (command->name && !command->builtin)
-		command_path(command, envlist);
+		command_path(command, info->env);
 	if (!command->path && !command->builtin)
 	{
-		free_queue(q);
-		ft_free_env(envlist);
-		ft_free_var(varlist);
+		free_queue(info->q);
+		ft_free_env(info->env);
+		ft_free_var(info->var);
 		exit(127);
 	}
 	duper(command);
@@ -75,34 +75,36 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 	status = 0;
 	if (command->path)
 	{
-		envp = ft_env_converter(envlist);
+		envp = ft_env_converter(info->env);
 		if (!envp)
 		{
-			free_envlist(*envlist);
-			free_queue(q);
+			ft_free_var(info->var);
+			ft_free_env(info->env);
+			free_queue(info->q);
 			exit(1);
 		}
 		status = execve(command->path, command->args, envp);
 		free_split(envp);
 	}
 	else if (command->builtin)
-		status = ft_builtins(command->builtin, envlist, varlist);
-	free_envlist(*envlist);
-	free_queue(q);
+		status = ft_builtins(command->builtin, info);
+	ft_free_var(info->var);
+	ft_free_env(info->env);
+	free_queue(info->q);
 	exit(status);
 }
 
-int	run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q)
+int	run_command_proc(t_com_node *command, t_builtin_info *info)
 {
 	pid_t	proc_id;
 
-	if (!command || !envlist)
+	if (!info->env || !info->var || !info->q)
 		return (1);
 	proc_id = fork();
 	if (proc_id == -1)
 		return (1);
 	if (proc_id == 0)
-		command_proc(command, envlist, varlist, q);
+		command_proc(command, info);
 	command->proc_id = proc_id;
 	close_write(command->out_chan);
 	close_read(command->in_chan);

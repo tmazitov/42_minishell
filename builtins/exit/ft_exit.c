@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/24 03:31:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/03 17:27:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-void	ft_exit(char *str, t_envlist **envlist, t_varlist **varlist)
+void	ft_exit(char *str, t_builtin_info *info)
 {
 	char	**str_split;
 	int		count;
@@ -32,7 +32,8 @@ void	ft_exit(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	free_pointer(str_split);
 	free(str);
-	ft_free_env(envlist);
-	ft_free_var(varlist);
+	free_queue(info->q);
+	ft_free_env(info->env);
+	ft_free_var(info->var);
 	exit (EXIT_SUCCESS);
 }

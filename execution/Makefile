@@ -18,6 +18,7 @@ RM			=	rm -rf
 LB			= 	ar rcs
 
 EXEC_SRCS	=	./src/execution.c \
+				./src/ast_utils.c \
 				./src/ast_command.c \
 				./src/ast_command_q.c \
 				./src/ast_command_utils.c \

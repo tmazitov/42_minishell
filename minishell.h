@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:25:05 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:12:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@
 char	*ft_cleaninput(char *str);
 char	*ft_cleaninput_b(char *str);
 void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist);
-void	ft_free_ast(t_astnodes *root);
 
 #endif // MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:15:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:26:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,6 @@
 # include "input/input.h"
 # include "output/output.h"
 
-typedef struct s_com_node
-{
-	char				*name;
-	char				*path;
-	char				*builtin;
-	char				**args;
-	struct s_com_node	*next;
-	struct s_com_node	*prev;
-	t_log_chan			*in_chan;
-	t_log_chan			*out_chan;
-	t_com_output_storage	*output;
-	t_com_input_storage	*input;
-	int					proc_id;
-	int					proc_status;
-}		t_com_node;
-
-
-
-typedef struct s_com_queue
-{
-	t_com_node	*nodes;
-	t_com_node	*first;
-	int			chan_closed;
-}		t_com_queue;
-
 // QUEUE NODE
 t_com_node	*make_node(char *command_line);
 void		*free_node(t_com_node *node);
@@ -65,13 +40,11 @@ t_com_node	*get_node(t_com_queue *queue);
 t_com_node	*add_node(t_com_queue *queue, char *command_line);
 t_com_node	*get_first(t_com_queue *queue);
 t_com_node	*get_last(t_com_queue *queue);
-void		*free_queue(t_com_queue *queue);
-void		*free_queue_relationship(t_com_queue *queue);
+
 t_com_node	*get_node_by_pid(t_com_queue *queue, pid_t pid);
 
 // MULTIPROCCESSING
-int		run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q);
-
+int			run_command_proc(t_com_node *command, t_builtin_info *info);
 // INPUT FILE
 int			add_input(t_com_queue *queue, char *input_path);
 int			check_input(char *input_path);

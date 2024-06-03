@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 13:22:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:13:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ t_com_node	*add_builtin_node(t_com_queue *q, char *command_line);
 
 // Execution functions
 
-int			execute(t_astnodes *tree, t_envlist **envlist, t_varlist **varlist);
-int	single_builtin(t_com_node *command, t_envlist **envlist, t_varlist **varlist);
+int			execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist);
+int			single_builtin(t_com_node *command, t_builtin_info *info);
 // Utils
 
+void		ft_free_ast(t_astnodes *root);
 char		*filter_spaces(char *str);
 
 #endif // !EXECUTION_H

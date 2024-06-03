@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 09:50:28 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:25:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,4 @@ t_com_node	*get_node(t_com_queue *q)
 	else
 		q->first = get_first(q);
 	return (first);
-}
-
-void	*free_queue_relationship(t_com_queue *q)
-{
-	t_com_node	*command;
-
-	q->chan_closed = 1;
-	command = get_first(q);
-	while (command)
-	{
-		if (command->input)
-			close_all_input(command->input);
-		if (command->output)
-			close_all_output(command->output);
-		free_log_chan(command->in_chan);
-		if (!command->next)
-			break ;
-		command = command->next;
-	}
-	if (command)
-		free_log_chan(command->out_chan);
-	return (NULL);
 }
