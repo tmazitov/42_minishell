@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 09:35:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:15:44 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		*free_queue_relationship(t_com_queue *queue);
 t_com_node	*get_node_by_pid(t_com_queue *queue, pid_t pid);
 
 // MULTIPROCCESSING
-void		run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q);
+int		run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q);
 
 // INPUT FILE
 int			add_input(t_com_queue *queue, char *input_path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_q.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/30 12:36:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:21:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ t_com_queue	*make_ast_q(t_astnodes *tree)
 int	ast_q_add_command(t_com_queue *q, t_astnodes *node)
 {
 	if (node->left && ast_q_add_command(q, node->left) != 0)
-		return (-1);
+		return (1);
 	if (node->right && ast_q_add_command(q, node->right) != 0)
-		return (-1);
+		return (1);
 	if (!node->right && !node->left)
 		return (make_q_command(q, node));
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:23:37 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:43:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	heredoc_fill(t_com_input *heredoc)
 		write(fd, "\n", 1);
 		free(input);
 		input = readline("> ");
+		if (!input)
+			return (close(fd), 0);
 	}
 	close(fd);
 	free(input);

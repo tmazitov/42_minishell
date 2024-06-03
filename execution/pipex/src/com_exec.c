@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 09:45:45 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:38:04 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,15 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 	if (!command->path && !command->builtin)
 	{
 		free_queue(q);
-		free_envlist(*envlist);
-		panic(NULL, 127);
+		ft_free_env(envlist);
+		ft_free_var(varlist);
+		exit(127);
 	}
-	// heredoc = NULL;
-	// if (command->heredoc_filepath)
-	// 	heredoc = make_heredoc();
-	// printer(command);
 	duper(command);
 	closer(command);
 	status = 0;
 	if (command->path)
 	{
-		// printf("command path : %s\n", command->path);
 		envp = ft_env_converter(envlist);
 		if (!envp)
 		{
@@ -96,22 +92,19 @@ static void	command_proc(t_com_node *command, t_envlist **envlist, t_varlist **v
 	exit(status);
 }
 
-void	run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q)
+int	run_command_proc(t_com_node *command, t_envlist **envlist, t_varlist **varlist, t_com_queue *q)
 {
 	pid_t	proc_id;
 
 	if (!command || !envlist)
-		return ;
+		return (1);
 	proc_id = fork();
 	if (proc_id == -1)
-	{
-		perror("fork() failed"); 
-		return ;
-	}
+		return (1);
 	if (proc_id == 0)
 		command_proc(command, envlist, varlist, q);
 	command->proc_id = proc_id;
-
 	close_write(command->out_chan);
 	close_read(command->in_chan);
+	return (0);
 }
