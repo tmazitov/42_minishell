@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 14:20:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:41:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int	main(int argc, char **argv, char **envp)
 	t_envlist		*envlist;
 	t_varlist		*varlist;
 
-	envlist = ft_init_env(envp);
-	varlist = ft_init_var();
+	if (!(envlist = ft_init_env(envp))
+		|| !(varlist = ft_init_var()))
+		return (ft_free_env(&envlist), 1);
 	if (is_single_command(argc, argv))
 		return (run_single_command(argv[2], &envlist, &varlist));
 	setup_read_interrupter();
@@ -29,8 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	status_code(SET, 0);
 	while (1)
 	{
-		user_input = prepare_user_input();
-		if (!user_input)
+		if (!(user_input = prepare_user_input()))
 			break ;
 		err_status = run_one_command(user_input, &envlist, &varlist);
 		if (err_status)
@@ -53,7 +53,7 @@ int 	run_single_command(char *user_input, t_envlist **envlist, t_varlist **varli
 		return (0);
 	}
 	if (!user_input)
-		return (free(user_input), 1);
+		return (1);
 	different_execute(user_input, envlist, varlist);
 	ft_free_env(envlist);
 	ft_free_var(varlist);

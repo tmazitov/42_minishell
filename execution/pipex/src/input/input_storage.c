@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_storage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:48:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:23:48 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:52:58 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static int	heredoc_amount(char *com_string)
 t_com_input_storage	*make_input_storage(char **com_line)
 {	
 	t_com_input_storage	*storage;
-	int					total_amount;
 
 	storage = malloc(sizeof(t_com_input_storage));
 	if (!storage)
@@ -72,7 +71,7 @@ t_com_input_storage	*make_input_storage(char **com_line)
 	storage->file_amount = infile_amount(*com_line);
 	storage->heredoc_amount = heredoc_amount(*com_line);
 	storage->total_amount = storage->file_amount + storage->heredoc_amount;
-	if (total_amount == 0)
+	if (storage->total_amount == 0)
 		return (storage);
 	storage->content = malloc(sizeof(t_com_input*) * (storage->total_amount + 1));
 	if (!storage->content)
@@ -116,7 +115,7 @@ void	*free_input_storage(t_com_input_storage *st)
 		{
 			if (input->src == INFILE)
 				free_file_input(input);
-			if (input->src == HEREDOC)
+			else if (input->src == HEREDOC)
 				free_heredoc_input(input);
 			counter++;
 			input = st->content[counter];

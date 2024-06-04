@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:25:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:10:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:43:34 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static void	*free_node(t_com_node *node)
 		free_split(node->args);
 	if (node->input)
 		free_input_storage(node->input);
+	if (node->output)
+		free_output_storage(node->output);
+	if (node->in_chan)
+		free_log_chan(node->in_chan);
+	if (node->out_chan)
+		free_log_chan(node->out_chan);
 	node->next = NULL;
 	node->prev = NULL;
 	free(node);
@@ -62,17 +68,18 @@ void	*free_queue_relationship(t_com_queue *q)
 	command = get_first(q);
 	while (command)
 	{
+		if (command->next && command->out_chan)
+			command->out_chan = NULL;
 		if (command->input)
-			close_all_input(command->input);
+			command->input = free_input_storage(command->input);
 		if (command->output)
-			close_all_output(command->output);
-		free_log_chan(command->in_chan);
+			command->output = free_output_storage(command->output);
+		if (command->in_chan)
+			command->in_chan = free_log_chan(command->in_chan);
 		if (!command->next)
 			break ;
 		command = command->next;
 	}
-	if (command)
-		free_log_chan(command->out_chan);
 	return (NULL);
 }
 

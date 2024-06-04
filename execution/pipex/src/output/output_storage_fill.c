@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 10:00:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/24 16:18:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:48:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,11 @@ int	fill_output_storage(t_com_output_storage *st, char *com_string)
 	temp = com_string;
 	while (counter < st->total_amount)
 	{
-		dest_type = take_next_output_dest(&temp);
-		if (dest_type == 0)
+		if (!(dest_type = take_next_output_dest(&temp)))
 			break ;
-		dest_arg = ft_substr(temp, 0, ft_strlen_zero(temp));
-		if (!dest_arg)
+		if (!(dest_arg = ft_substr(temp, 0, ft_strlen_zero(temp))))
 			return (1);
+		st->content[counter] = NULL;
 		if (dest_type == OUTFILE)
 			st->content[counter] = make_file_output(dest_arg);
 		else if (dest_type == APPENDFILE)

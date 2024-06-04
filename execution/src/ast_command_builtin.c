@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:09:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:52:45 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,27 @@ static void	init_node(t_com_node *node)
 	node->args = NULL;
 }
 
-t_com_node	*make_builtin_node(char *com)
+t_com_node	*make_builtin_node(char **com)
 {
 	t_com_node	*node;
 
-	if (!com)
+	if (!com || !*com)
 		return (NULL);
 	node = malloc(sizeof(t_com_node));
 	if (!node)
 		return (NULL);
 	init_node(node);
-	if (ft_strchr(com, '<') && !(node->input = make_input_storage(&com)))
+	if (ft_strchr(*com, '<') && !(node->input = make_input_storage(com)))
 		return (free_node(node));
-	if (ft_strchr(com, '>') && !(node->output = make_output_storage(&com)))
+	if (ft_strchr(*com, '>') && !(node->output = make_output_storage(com)))
 		return (free_node(node));
-	node->builtin = ft_substr(com, 0, ft_strlen(com));
+	node->builtin = ft_substr(*com, 0, ft_strlen(*com));
 	if (!node->builtin)
 		return (free_node(node));
 	return (node);
 }
 
-t_com_node	*add_builtin_node(t_com_queue *q, char *command_line)
+t_com_node	*add_builtin_node(t_com_queue *q, char **command_line)
 {
 	t_com_node	*node;
 	t_com_node	*last;

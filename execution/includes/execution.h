@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 19:13:53 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:53:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			make_q_command(t_com_queue *q, t_astnodes *node);
 t_com_queue	*make_ast_q(t_astnodes *tree);
 int			ast_q_add_command(t_com_queue *q, t_astnodes *node);
 int			ast_tree_node_count(t_astnodes *node);
-t_com_node	*add_builtin_node(t_com_queue *q, char *command_line);
+t_com_node	*add_builtin_node(t_com_queue *q, char **command_line);
 
 // Execution functions
 

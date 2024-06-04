@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:06:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:54:13 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "output/output.h"
 
 // QUEUE NODE
-t_com_node	*make_node(char *command_line);
+t_com_node	*make_node(char **command_line);
 void		*free_node(t_com_node *node);
 char		*command_path(t_com_node *command, t_envlist **envlist);
 
@@ -37,7 +37,7 @@ char		*command_path(t_com_node *command, t_envlist **envlist);
 int			make_queue_relationship(t_com_queue *queue);
 t_com_queue	*make_queue(char **command_lines, int com_count);
 t_com_node	*get_node(t_com_queue *queue);
-t_com_node	*add_node(t_com_queue *queue, char *command_line);
+t_com_node	*add_node(t_com_queue *queue, char **command_line);
 t_com_node	*get_last(t_com_queue *queue);
 
 t_com_node	*get_node_by_pid(t_com_queue *queue, pid_t pid);

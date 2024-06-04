@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:16:31 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 17:26:49 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:56:25 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_com_queue	*make_queue(char **command_lines, int com_count)
 	iter = queue->nodes;
 	while (command_lines[counter] && counter < com_count)
 	{
-		iter = add_node(queue, command_lines[counter]);
+		iter = add_node(queue, &command_lines[counter]);
 		if (!iter)
 			return (free_queue(queue));
 		queue->nodes = iter;

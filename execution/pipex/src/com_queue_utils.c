@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:05:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:53:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_com_node	*get_last(t_com_queue *q)
 	return (iter);
 }
 
-t_com_node	*add_node(t_com_queue *q, char *command_line)
+t_com_node	*add_node(t_com_queue *q, char **command_line)
 {
 	t_com_node	*node;
 	t_com_node	*last;

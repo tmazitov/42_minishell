@@ -22,18 +22,18 @@
 
 typedef struct s_com_node
 {
-	char				*name;
-	char				*path;
-	char				*builtin;
-	char				**args;
-	struct s_com_node	*next;
-	struct s_com_node	*prev;
-	t_log_chan			*in_chan;
-	t_log_chan			*out_chan;
+	char					*name;
+	char					*path;
+	char					*builtin;
+	char					**args;
+	struct s_com_node		*next;
+	struct s_com_node		*prev;
+	t_log_chan				*in_chan;
+	t_log_chan				*out_chan;
 	t_com_output_storage	*output;
-	t_com_input_storage	*input;
-	int					proc_id;
-	int					proc_status;
+	t_com_input_storage		*input;
+	int						proc_id;
+	int						proc_status;
 }		t_com_node;
 
 typedef struct s_com_queue

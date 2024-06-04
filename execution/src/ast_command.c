@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:08:19 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:28:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 		return (1);
 	new_node = NULL;
 	if (ft_checkcmd(payload))
-		new_node = add_builtin_node(q, payload);
+		new_node = add_builtin_node(q, &payload);
 	else if (ft_strchr(payload, '=') && !ft_checkcmd(payload))
-		new_node = add_builtin_node(q, payload);
+		new_node = add_builtin_node(q, &payload);
 	else 
-		new_node = add_node(q, payload);
+		new_node = add_node(q, &payload);
 	free(payload);
 	if (!new_node)
 		return (1);

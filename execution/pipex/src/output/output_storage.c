@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:40:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/24 16:36:16 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:52:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	append_outfile_amount(char *com_string)
 t_com_output_storage	*make_output_storage(char **com_line)
 {	
 	t_com_output_storage	*storage;
-	int					total_amount;
 
 	storage = malloc(sizeof(t_com_output_storage));
 	if (!storage)
@@ -75,7 +74,7 @@ t_com_output_storage	*make_output_storage(char **com_line)
 	storage->file_amount = outfile_amount(*com_line);
 	storage->append_amount = append_outfile_amount(*com_line);
 	storage->total_amount = storage->file_amount + storage->append_amount;
-	if (total_amount == 0)
+	if (storage->total_amount == 0)
 		return (storage);
 	storage->content = malloc(sizeof(t_com_output*) * (storage->total_amount + 1));
 	if (!storage->content)
@@ -114,15 +113,16 @@ void	*free_output_storage(t_com_output_storage *st)
 	if (st->content)
 	{
 		counter = 0;
-		output = st->content[counter];
-		while (output)
+		while (counter < st->total_amount)
 		{
+			output = st->content[counter];
+			if (!output)
+				break ;
 			if (output->src == OUTFILE)
 				free_file_output(output);
-			if (output->src == APPENDFILE)
+			else if (output->src == APPENDFILE)
 				free_file_append(output);
 			counter++;
-			output = st->content[counter];
 		}
 		free(st->content);
 	}
