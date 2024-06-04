@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/03 19:20:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:09:06 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,25 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char			*str;
 	int				status;
-	t_astnodes		*root;
+	char			*user_input;
 	t_envlist		*envlist;
 	t_varlist		*varlist;
 
-	(void)argc;
-	// (void)argv;
 	envlist = ft_init_env(envp);
 	varlist = ft_init_var();
-	if (argv[2] != NULL && ft_strncmp("-c", argv[2], 3) == 0)
-		run_minicmd(argv[1], &envlist, &varlist);
+	if (is_single_command(argc, argv))
+		return (run_single_command(argv[2], &envlist, &varlist));
 	setup_read_interrupter();
 	setup_shell_quit();
 	status_code(SET, 0);
 	while (1)
 	{
-		str = readline("\033[1;32mminishell$\033[0m ");
-		if (str)
-			status_code(SET, 0);
-		if (!str && status_code(GET, -1) == 130)
-		{
-			status_code(SET, 0);
-			continue ;
-		}
-		if (!str)
-			return (1);
-		str = ft_cleaninput(str);
-		while (ft_isspace(*str) > 0)
-			str++;
-		if (ft_strlen(str) > 0 && *str != '\0')
-		{
-			add_history(str);
-			if (ft_checkshfile(str))
-				ft_openshfile(str);
-			else
-			{
-				root = parse_input(str);
-				if (!root)
-					continue;
-				status = execute(&root, &envlist, &varlist);
-				if (status >= 0)
-					ft_printf("success execution : status code %d\n", \
-						status);
-				else if (status_code(GET, -1))
-					ft_printf("success execution : status code %d\n", \
-						status_code(GET, -1));
-				else
-					ft_printf("execution error : status code %d\n", \
-						status);
-				if (root)
-					ft_free_ast(root);	
-			}
-			free(str);
-		}
+		user_input = prepare_user_input();
+		status = run_one_command(user_input, &envlist, &varlist);
+		free(user_input);
+		if (!status)
+			break ;
 	}
 	ft_free_env(&envlist);
 	ft_free_var(&varlist);
@@ -77,58 +41,29 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist)
+int 	run_single_command(char *user_input, t_envlist **envlist, t_varlist **varlist)
 {
-	int				status;
-	t_astnodes		*root;
+	int	status;
 
-	setup_read_interrupter();
-	setup_shell_quit();
-	// status_code(SET, 0);
-	str = ft_cleaninput_b(str);
-	if (str)
-		status_code(SET, 0);
-	if (!str && status_code(GET, -1) == 130)
-	{
-		status_code(SET, 0);
-		return ;
-	}
-	if (!str)
-		return ;
-	while (ft_isspace(*str) > 0)
-		str++;
-	if (ft_strlen(str) > 0 && *str != '\0')
-	{
-		add_history(str);
-		if (ft_checkshfile(str))
-			ft_openshfile(str);
-		else
-		{
-			root = parse_input(str);
-			if (!root)
-			{
-				ft_free_env(envlist);
-				ft_free_var(varlist);
-				exit(EXIT_FAILURE);
-			}
-			status = execute(&root, envlist, varlist);
-			if (status >= 0)
-				ft_printf("success execution : status code %d\n", 
-					status);
-			else if (status_code(GET, -1))
-				ft_printf("success execution : status code %d\n", 
-					status_code(GET, -1));
-			else
-				ft_printf("execution error : status code %d\n", 
-					status);
-			if (root)
-				ft_free_ast(root);			
-		}
-		free(str);
-	}
+	user_input = prepare_single_command(user_input);
+	status = run_one_command(user_input, envlist, varlist);
 	ft_free_env(envlist);
 	ft_free_var(varlist);
-	exit(EXIT_SUCCESS);
+	return (status);
+}	
+
+int		run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist)
+{
+	if ((!user_input && status_code(GET, -1) == 130 )|| (!user_input_is_valid(user_input))) 
+	{
+		status_code(SET, 0);
+		return (0);
+	}
+	if (!user_input)
+		return (1);
+	add_history(user_input);
+	different_execute(user_input, envlist, varlist);
+	return (0);
 }
 
 char	*ft_cleaninput_b(char *str)

@@ -17,7 +17,10 @@ RM				= 	rm -rf
 LB				= 	ar rcs
 LDFLAGS			=	-L./libft -lft
 
-MINISHELL_SRCS	=	minishell.c
+MINISHELL_SRCS	=	minishell.c \
+					minishell_command.c \
+					minishell_command_prep.c 
+					
 MINISHELL_OBJS 	=	$(MINISHELL_SRCS:.c=.o)
 HEADER			= 	minishell.h
 

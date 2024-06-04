@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 17:12:48 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:06:01 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 
 char	*ft_cleaninput(char *str);
 char	*ft_cleaninput_b(char *str);
-void	run_minicmd(char *str, t_envlist **envlist, t_varlist **varlist);
+int		run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
+int 	run_single_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
 
+
+char	*prepare_single_command(char *user_input);
+char	*prepare_user_input();
+
+bool	user_input_is_valid(char *user_input);
+bool	is_sh_file(char *user_input);
+bool	is_single_command(int argc, char **argv);
+void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlist);
 #endif // MINISHELL_H
