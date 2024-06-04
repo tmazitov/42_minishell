@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 14:14:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:20:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int				status;
+	int				err_status;
 	char			*user_input;
 	t_envlist		*envlist;
 	t_varlist		*varlist;
@@ -30,9 +30,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		user_input = prepare_user_input();
-		status = run_one_command(user_input, &envlist, &varlist);
-		free(user_input);
-		if (!status)
+		if (!user_input)
+			break ;
+		err_status = run_one_command(user_input, &envlist, &varlist);
+		if (err_status)
 			break ;
 	}
 	ft_free_env(&envlist);

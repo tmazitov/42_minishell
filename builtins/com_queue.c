@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:25:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 17:32:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:10:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,25 @@ static void	*free_node(t_com_node *node)
 	return (NULL);
 }
 
+t_com_node	*get_first(t_com_queue *q)
+{
+	t_com_node	*iter;
+
+	if (!q || !q->nodes)
+		return (NULL);
+	iter = q->nodes;
+	while (iter->prev)
+		iter = iter->prev;
+	return (iter);
+}
+
+
 void	*free_queue_relationship(t_com_queue *q)
 {
 	t_com_node	*command;
 
 	q->chan_closed = 1;
-	command = q->first;
+	command = get_first(q);
 	while (command)
 	{
 		if (command->input)
@@ -73,7 +86,7 @@ void	*free_queue(t_com_queue *q)
 		return (NULL);
 	if (!q->chan_closed)
 		free_queue_relationship(q);
-	first = q->first;
+	first = get_first(q);
 	iter = first;
 	while (first)
 	{

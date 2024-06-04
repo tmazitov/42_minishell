@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:16:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:08:19 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 		new_node = add_builtin_node(q, payload);
 	else 
 		new_node = add_node(q, payload);
+	free(payload);
 	if (!new_node)
 		return (1);
 	q->nodes = new_node;

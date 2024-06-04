@@ -142,12 +142,13 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist);
 char	*ft_expandhomepath(char **path_split, t_envlist *envlist, t_varlist *varlist);
 char	*ft_copystring(char *str);
 
-void	ft_exit(char *str, t_builtin_info *info);
-void	*free_queue(t_com_queue *queue);
-void	*free_queue_relationship(t_com_queue *queue);
-void	ft_free_var(t_varlist **varlist);
-void	ft_free_env(t_envlist **envlist);
-void	ft_free_sortedenv(t_sorted_envlist **sorted_envlist);
+void		ft_exit(char *str, t_builtin_info *info);
+void		*free_queue(t_com_queue *queue);
+t_com_node	*get_first(t_com_queue *q);
+void		*free_queue_relationship(t_com_queue *queue);
+void		ft_free_var(t_varlist **varlist);
+void		ft_free_env(t_envlist **envlist);
+void		ft_free_sortedenv(t_sorted_envlist **sorted_envlist);
 #endif //BUILTINTS_H
 
 //$0 – The name of the Bash script.

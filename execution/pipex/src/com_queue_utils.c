@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 11:41:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 17:25:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:05:37 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ t_com_node	*get_last(t_com_queue *q)
 	iter = q->nodes;
 	while (iter->next)
 		iter = iter->next;
-	return (iter);
-}
-
-t_com_node	*get_first(t_com_queue *q)
-{
-	t_com_node	*iter;
-
-	if (!q || !q->nodes)
-		return (NULL);
-	iter = q->nodes;
-	while (iter->prev)
-		iter = iter->prev;
 	return (iter);
 }
 
