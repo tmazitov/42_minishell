@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:06 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:14:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,20 @@ int	main(int argc, char **argv, char **envp)
 
 int 	run_single_command(char *user_input, t_envlist **envlist, t_varlist **varlist)
 {
-	int	status;
-
 	user_input = prepare_single_command(user_input);
-	status = run_one_command(user_input, envlist, varlist);
+	if ((!user_input && status_code(GET, -1) == 130 )|| (!user_input_is_valid(user_input))) 
+	{
+		if (user_input)
+			free(user_input);
+		status_code(SET, 0);
+		return (0);
+	}
+	if (!user_input)
+		return (free(user_input), 1);
+	different_execute(user_input, envlist, varlist);
 	ft_free_env(envlist);
 	ft_free_var(varlist);
-	return (status);
+	return (0);
 }	
 
 int		run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist)
