@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:43:05 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 19:21:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 	info.env = envlist;
 	info.var = varlist;
 	info.q = commands;
-	command = get_last(commands);
-	if (command && !command->prev && command->builtin)
+	command = get_first(commands);
+	if (command && !command->next && command->builtin)
 		return (single_builtin(command, &info));
 	while (command)
 	{
 		if ((status = run_command_proc(command, &info)))
 			return (status);
-		command = command->prev;
+		command = command->next;
 	}
 	return (0);
 }
@@ -117,28 +117,28 @@ static int	wait_commands(t_com_queue *commands, int count)
 int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 {
 	t_com_queue	*commands;
-	int			status;
 	int			command_count;
 
 	if (!tree || !*tree)
-		return (1);
-	commands = make_ast_q(*tree);
-	if (status_code(GET, -1) == STOP_HEREDOC)
-		status_code(SET, CTRL_C);
-	if (!commands)
-		return (1);
+		return (status_code(SET, 1));
+	if (!(commands = make_ast_q(*tree)))
+		return (status_code(SET, 1));
 	if (make_queue_relationship(commands) != 0)
-		return (free_queue(commands), 1);
+		return (free_queue(commands), status_code(SET, 1));
 	command_count = ast_tree_node_count(*tree);
 	ft_free_ast(*tree);
 	*tree = NULL;
 	status_code(SET, IN_CMD);
-	if ((status = status_code(SET, run_commands(commands, envlist, varlist))))
-		return (free_queue(commands), status_code(GET, status));
+	if (status_code(SET, run_commands(commands, envlist, varlist)))
+	{
+		if (status_code(GET, -1) == 2)
+			status_code(SET, 0);
+		return (free_queue(commands), 0);
+	}
 	free_queue_relationship(commands);
 	if (command_count == 1 && get_first(commands)->builtin)
-		return (free_queue(commands), status_code(GET, status));
-	status = wait_commands(commands, command_count);
+		return (free_queue(commands), 0);
+	status_code(SET, wait_commands(commands, command_count));
 	free_queue(commands);
-	return (status_code(SET, status));
+	return (0);
 }

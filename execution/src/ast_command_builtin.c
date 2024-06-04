@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:52:45 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:55:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ int	single_builtin(t_com_node *command, t_builtin_info *info)
 		dup2(temp_in, STDIN_FILENO);
 	if (command->output && get_last_output(command->output))
 		dup2(temp_out, STDOUT_FILENO);
-	// printf("\nbuiltin '%s' status : %d\n\n", command->builtin, status);
 	return (status);
 }

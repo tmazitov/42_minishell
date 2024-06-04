@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:43:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:47:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,15 @@ int	heredoc_fill(t_com_input *heredoc)
 		write(fd, input, ft_strlen(input));
 		write(fd, "\n", 1);
 		free(input);
-		input = readline("> ");
-		if (!input)
-			return (close(fd), 0);
+		if (!(input = readline("> ")))
+			return (close(fd), 2);
 	}
 	close(fd);
 	free(input);
 	if (status_code(GET, -1) == STOP_HEREDOC)
 		return (1);
 	heredoc->fd = open(heredoc->filepath, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	return (0);
+	return (fd < 0);
 }
 
 t_com_input	*make_heredoc_input(char *limiter)
@@ -77,6 +74,8 @@ void	*free_heredoc_input(t_com_input *input)
 		close(input->fd);
 	if (access(input->filepath, R_OK) != -1)
 		unlink(input->filepath);
+	if (input->limiter)
+		free(input->limiter);
 	if (input->filepath)
 		free(input->filepath);
 	free(input);

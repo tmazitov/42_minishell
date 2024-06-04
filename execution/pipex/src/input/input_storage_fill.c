@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_storage_fill.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:12:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:21:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:19:33 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	fill_command_heredoc(t_com_input_storage *storage)
 {
 	int			counter;
 	t_com_input	*input;
+	int			status;
 
 	counter = 0;
 	input = storage->content[counter];
@@ -88,8 +89,8 @@ int	fill_command_heredoc(t_com_input_storage *storage)
 		if (input->src == HEREDOC)
 		{
 			status_code(SET, IN_HEREDOC);
-			if (heredoc_fill(input))
-				return (1);
+			if ((status = heredoc_fill(input)))
+				return (status);
 		}
 		counter++;
 		input = storage->content[counter];

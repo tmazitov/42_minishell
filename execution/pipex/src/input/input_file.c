@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:25:41 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:23:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:47:29 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	*free_file_input(t_com_input *input)
 		close(input->fd);
 	if (input->filepath)
 		free(input->filepath);
+	if (input->limiter)
+		free(input->limiter);
 	free(input);
 	return (0);
 }
