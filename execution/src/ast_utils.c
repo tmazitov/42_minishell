@@ -14,14 +14,18 @@
 
 void	ft_free_ast(t_astnodes *root)
 {
-	t_astnodes	*prev;
+	ft_free_ast_temp(root);
+	free(root);
+}
 
-	while (root != NULL)
-	{
-		free((root)->value);
-		free((root)->left);
-		prev = root;
-		root = (root)->right;
-		free(prev);
-	}
+void	ft_free_ast_temp(t_astnodes *rootnode)
+{
+	if (rootnode == NULL)
+		return ;
+	ft_printf("%s\n", rootnode->value);
+	free(rootnode->value);
+	ft_free_ast_temp(rootnode->left);
+	ft_free_ast_temp(rootnode->right);
+	free(rootnode->left);
+	free(rootnode->right);
 }

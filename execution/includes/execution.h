@@ -43,6 +43,7 @@ int			single_builtin(t_com_node *command, t_builtin_info *info);
 // Utils
 
 void		ft_free_ast(t_astnodes *root);
+void		ft_free_ast_temp(t_astnodes *rootnode);
 char		*filter_spaces(char *str);
 
 #endif // !EXECUTION_H
