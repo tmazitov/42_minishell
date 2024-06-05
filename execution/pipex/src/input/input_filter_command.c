@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_filter_command.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:37:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:22:09 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:53:18 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int	remove_com_line_input(char **com)
 			|| !line[(start = skip_redir_arg(line, start))])
 			break ;
 	}
-	if (ft_strlen(result) == 0)
-		return (0);
 	free(*com);
 	*com = result;
 	return (0);

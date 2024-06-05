@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 19:21:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:59:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 		return (single_builtin(command, &info));
 	while (command)
 	{
-		if ((status = run_command_proc(command, &info)))
+		if (command->name && 
+			(status = run_command_proc(command, &info)))
 			return (status);
 		command = command->next;
 	}
@@ -93,12 +94,12 @@ static int	wait_commands(t_com_queue *commands, int count)
 	{
 		pid = wait(&status);
 		command = get_node_by_pid(commands, pid);
-		if (command)
+		if (command && WIFEXITED(status))
 		{
+			printf("\traw : %d\n", status);
 			status = WEXITSTATUS(status);
+			printf("\there status : %d\n", status);
 			command->proc_status = status;
-			if (status_code(GET, -1) != STOP_HEREDOC)
-				status_code(SET, status);
 		}
 		counter++;
 	}
@@ -128,6 +129,7 @@ int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 	command_count = ast_tree_node_count(*tree);
 	ft_free_ast(*tree);
 	*tree = NULL;
+	printf("status code : %d\n", status_code(GET, -1));
 	status_code(SET, IN_CMD);
 	if (status_code(SET, run_commands(commands, envlist, varlist)))
 	{
@@ -139,6 +141,7 @@ int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 	if (command_count == 1 && get_first(commands)->builtin)
 		return (free_queue(commands), 0);
 	status_code(SET, wait_commands(commands, command_count));
+	printf("status code : %d\n", status_code(GET, -1));
 	free_queue(commands);
 	return (0);
 }

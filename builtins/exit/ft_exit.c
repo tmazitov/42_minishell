@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/04 18:55:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:02:43 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ void	ft_exit(char *str, t_builtin_info *info)
 	free_queue(info->q);
 	ft_free_env(info->env);
 	ft_free_var(info->var);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	exit (EXIT_SUCCESS);
 }

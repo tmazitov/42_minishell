@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 09:12:21 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/11 09:24:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:55:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	remove_com_line_output(char **com)
 			|| !line[(start = skip_redir_arg(line, start))])
 			break ;
 	}
-	if (ft_strlen(result) == 0)
-		return (0);
 	free(*com);
 	*com = result;
 	return (0);

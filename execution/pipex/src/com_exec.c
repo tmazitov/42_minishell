@@ -6,23 +6,22 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 16:50:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:47:34 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-// static void	printer(t_com_node *command)
-// {
-// 	if (command->builtin)
-// 		printf("B-IN\t| %s\t", command->builtin);
-// 	else
-// 		printf("CMD\t| %s\t", command->name);
-// 	printf("| pipe-in : %p\t| pipe-out : %p\t", command->in_chan, command->out_chan);
-// 	printf("| file-in : %d\t| file-out : %d\t", command->in_file, command->out_file);
-// 	printf("| heredoc : %p\t|", command->heredoc);
-// 	printf("\n");
-// }
+static void panic(t_builtin_info *info, int status)
+{
+	free_queue(info->q);
+	ft_free_env(info->env);
+	ft_free_var(info->var);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+	exit(status);
+}
 
 static void duper(t_com_node *command)
 {
@@ -64,34 +63,19 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	if (command->name && !command->builtin)
 		command_path(command, info->env);
 	if (!command->path && !command->builtin)
-	{
-		free_queue(info->q);
-		ft_free_env(info->env);
-		ft_free_var(info->var);
-		exit(127);
-	}
+		panic(info, 127);
 	duper(command);
 	closer(command);
 	status = 0;
-	if (command->path)
-	{
-		envp = ft_env_converter(info->env);
-		if (!envp)
-		{
-			ft_free_var(info->var);
-			ft_free_env(info->env);
-			free_queue(info->q);
-			exit(1);
-		}
-		status = execve(command->path, command->args, envp);
-		free_split(envp);
+	if (command->builtin) {
+		panic(info, ft_builtins(command->builtin, info));
 	}
-	else if (command->builtin)
-		status = ft_builtins(command->builtin, info);
-	ft_free_var(info->var);
-	ft_free_env(info->env);
-	free_queue(info->q);
-	exit(status);
+	envp = ft_env_converter(info->env);
+	if (!envp)
+		panic(info, 1);
+	status = execve(command->path, command->args, envp);
+	free_split(envp);
+	panic(info, status);
 }
 
 int	run_command_proc(t_com_node *command, t_builtin_info *info)

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/04 15:41:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:05:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist)
 		return (1);
 	add_history(user_input);
 	different_execute(user_input, envlist, varlist);
+	printf("status code : %d\n", status_code(GET, -1));
 	return (0);
 }
 

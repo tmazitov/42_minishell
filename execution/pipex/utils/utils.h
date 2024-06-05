@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 20:10:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 19:05:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:17:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "../../../builtins/builtins.h"
 # include "../../../libft/libft.h"
 
-void	panic(char *message, int status);
 void	*free_split(char **split_result);
 char	*find_path(t_envlist **envlist);
 char	*find_command_path(char *command_name, char *env_path);
