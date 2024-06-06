@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/06/06 16:41:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:43:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ int	main(int argc, char **argv, char **envp)
 		if (!(user_input = prepare_user_input()))
 			break ;
 		err_status = run_one_command(user_input, &envlist, &varlist);
+		status_code(SET_HISTORY, -1);
 		if (err_status)
 			break ;
 	}
+	rl_clear_history();
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	ft_free_env(&envlist);
 	ft_free_var(&varlist);
-	rl_clear_history();
 	return (0);
 }
 

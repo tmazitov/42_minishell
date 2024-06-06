@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:55:06 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:25:13 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:35:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef enum
 {
 	GET = 1,
 	SET = 2,
+	GET_HISTORY = 3,
+	SET_HISTORY = 4
 }		t_status_flag;
 
 typedef enum

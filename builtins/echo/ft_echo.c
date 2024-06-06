@@ -75,7 +75,7 @@ void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
 	}
 	else if (str[index] == '?')
 	{
-		ft_printf("0");
+		ft_printf("%d", status_code(GET_HISTORY, -1));
 		while (str[index + 1] != ' ' && str[index + 1] != '\0')
 			write(1, &str[++index], 1);
 		return ;
