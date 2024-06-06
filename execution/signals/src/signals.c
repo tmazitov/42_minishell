@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:03:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/21 14:25:28 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:21:09 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void	sigint_handler(int signum)
 {
 	int	status;
 
-	status = 0;
+	status = status_code(GET, -1);
 	if (status != IN_HEREDOC)
 		write(STDERR_FILENO, "\n", 1);
-	status = status_code(GET, -1);
 	if (status == IN_CMD)
 	{
 		status_code(SET, CTRL_C);

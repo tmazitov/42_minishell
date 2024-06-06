@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 15:21:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:19:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /// @return Return NULL if the PATH not exists
 /// @return Return NULL if not enough memory
 /// @return Return NULL if tree is empty
-t_com_queue	*make_ast_q(t_astnodes *tree)
+t_com_queue	*make_ast_q(t_astnodes **tree)
 {
 	t_com_queue			*commands;
 
@@ -30,8 +30,10 @@ t_com_queue	*make_ast_q(t_astnodes *tree)
 	commands->chan_closed = 0;
 	commands->nodes = NULL;
 	commands->first = NULL;
-	if (ast_q_add_command(commands, tree) != 0)
+	if (ast_q_add_command(commands, *tree) != 0)
 		return (free_queue(commands));
+	ft_free_ast(*tree);
+	*tree = NULL;
 	return (commands);
 }
 
@@ -44,6 +46,23 @@ int	ast_q_add_command(t_com_queue *q, t_astnodes *node)
 	if (!node->right && !node->left)
 		return (make_q_command(q, node));
 	return (0);
+}
+
+int	ast_q_length(t_com_queue *q)
+{
+	t_com_node	*node;
+	int			length;
+
+	if (!q || !q->nodes)
+		return (0);
+	node = get_first(q);
+	length = 0;
+	while(node) {
+		if (node->name)
+			length++;
+		node = node->next;
+	}
+	return (length);
 }
 
 int	ast_tree_node_count(t_astnodes *node)
