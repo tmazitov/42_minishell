@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:50:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 01:01:23 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 03:50:48 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*heredoc_temp_filepath(void)
 	num_str = ft_itoa(temp_file_num);
 	if (!num_str)
 		return (NULL);
-	filename = ft_strjoin("./heredoc_", num_str);
+	filename = ft_strjoin("/var/tmp/heredoc_", num_str);
+	if (!filename)
+		return (NULL);
 	free(num_str);
 	return (filename);
 }
