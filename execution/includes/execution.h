@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:50:51 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/06 17:13:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:46:31 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../../parsing/includes/parse.h"
 # include "../pipex/src/pipex.h"
 # include "../signals/includes/signals.h"
-# include "../../builtins/builtins.h"
 
 typedef	struct s_com_redir
 {
@@ -44,7 +43,7 @@ int			single_builtin(t_com_node *command, t_builtin_info *info);
 // Utils
 int			ast_q_length(t_com_queue *q);
 int			run_infiles(t_com_queue *commands);
-int			run_heredocs(t_com_queue *commands);
+int			run_heredocs(t_com_queue *commands, t_envlist **env, t_varlist **var);
 void		ft_free_ast(t_astnodes *root);
 void		ft_free_ast_temp(t_astnodes *rootnode);
 char		*filter_spaces(char *str);

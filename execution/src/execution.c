@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/06 19:22:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:57:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 	int				status;
 	t_builtin_info	info;
 
-	if ((status = run_heredocs(commands))) 
+	if ((status = run_heredocs(commands, envlist, varlist))) 
 		return (status);
 	status_code(SET, STOP_HEREDOC);
 	if ((status = run_infiles(commands)))
@@ -39,7 +39,6 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 		return (single_builtin(command, &info));
 	while (command)
 	{
-		printf("name : %s\n", command->name);
 		if (command->name && 
 			(status = run_command_proc(command, &info)))
 			return (status);

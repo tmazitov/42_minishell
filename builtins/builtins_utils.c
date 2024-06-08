@@ -66,8 +66,11 @@ void	ft_handle_dollar(char *str, t_envlist *envlist, t_varlist *varlist)
 	varname = ft_getvarname(str, 1);
 	if (varname == NULL)
 		return ;
-	value = ft_getenv(varname, envlist, varlist);
+	value = ft_strdup(ft_getenv(varname, envlist, varlist));
+	if (value == NULL)
+		return ;
 	ft_printf("varnaEme: %s value: %s\n", varname, value);
+	free(value);
 }
 
 bool	ft_checkcmd(char *str)

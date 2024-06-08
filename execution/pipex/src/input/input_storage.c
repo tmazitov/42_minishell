@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:48:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 16:52:58 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:15:27 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_com_input_storage	*make_input_storage(char **com_line)
 		return (storage);
 	storage->content = malloc(sizeof(t_com_input*) * (storage->total_amount + 1));
 	if (!storage->content)
-		return (free_input_storage(storage));
+		return (storage);
 	if (fill_input_storage(storage, *com_line))
 		return (free_input_storage(storage));
 	if (remove_com_line_input(com_line))
@@ -100,28 +100,4 @@ void	close_all_input(t_com_input_storage *st)
 	}
 }
 
-void	*free_input_storage(t_com_input_storage *st)
-{
-	int 		counter;
-	t_com_input	*input;
 
-	if (!st)
-		return (NULL);
-	if (st->content)
-	{
-		counter = 0;
-		input = st->content[counter];
-		while (input)
-		{
-			if (input->src == INFILE)
-				free_file_input(input);
-			else if (input->src == HEREDOC)
-				free_heredoc_input(input);
-			counter++;
-			input = st->content[counter];
-		}
-		free(st->content);
-	}
-	free(st);
-	return (0);
-}
