@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:27:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 15:28:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 20:58:41 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	ft_strlen_dp(char **s)
 	int	count;
 
 	count = 0;
-	while (s[count])
+	// if (s == NULL)
+	// 	return (0);
+	while (s[count] != NULL)
 	{
 		count++;
 	}

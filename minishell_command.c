@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 18:59:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 20:11:22 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlis
 	}
 	else
 	{
+		// ft_printf("different_execute\n");
 		root = parse_input(user_input);
 		free(user_input);
 		if (!root)

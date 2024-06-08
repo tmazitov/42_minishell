@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checksyntax.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/20 12:17:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:15:27 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ bool	ft_checkparam(t_tokens *tokens)
 	{
 		index = 0;
 		while ((tokens)->value[index] != '\0' && (tokens)->value[0] != \
-			 '\"' && (tokens)->value[0] != '\'')
+			'\"' && (tokens)->value[0] != '\'')
 		{
 			if ((tokens)->value[index] == '$')
 			{

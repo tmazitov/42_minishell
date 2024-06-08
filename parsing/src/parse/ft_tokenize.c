@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/19 20:17:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:27:06 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ char	*ft_checkoperator(char *c)
 /// @param c old pointer/string
 /// @param len length of the new pointer/string.
 /// @enum i -> 
-/// @enum o -> offset to the old string from the new string based on the added spaces.
+/// @enum o -> offset to the old string from the new string based on the added
+/// spaces.
 /// @return new pointer/string
 char	*ft_tokenize(char *out, char *c, int len)
 {
@@ -71,7 +72,7 @@ char	*ft_tokenize(char *out, char *c, int len)
 			o += 2;
 		}
 		else if ((c[i - o] == '|') || (c[i - o] == '(') || (c[i - o] == ')') \
-			|| (c[i - o] == '&') || ((c[i - o] == ';') ))
+			|| (c[i - o] == '&') || ((c[i - o] == ';')))
 		{
 			i = ft_handleoper(out, c, i, o);
 			o += 2;
@@ -83,11 +84,13 @@ char	*ft_tokenize(char *out, char *c, int len)
 	return (out);
 }
 
-/// @brief check pid before the redir operator and add it to the new token before adding
+/// @brief check pid before the redir operator and add it to the new token
+/// before adding
 /// @brief a space to before and after of the operator. pid should be a number
 /// @param c input string
 /// @param index index from input string
-/// @param offset offset to the old string from the new string based on the added spaces.
+/// @param offset offset to the old string from the new string based on
+/// the added spaces.
 /// @return true if pid exist before redir, false if not
 bool	ft_checkpid(char *c, int index, int offset)
 {
@@ -118,10 +121,12 @@ bool	ft_checkpid(char *c, int index, int offset)
 }
 
 /// @brief adds space to before and after of the operator
-/// @param out the new pointer/string with spaces added to before and after the operator
+/// @param out the new pointer/string with spaces added to before and
+/// after the operator
 /// @param c the old pointer/string
 /// @param index index of the operator from the old pointer/string
-/// @param offset offset to the old string from the new string based on the added spaces
+/// @param offset offset to the old string from the new string based
+/// on the added spaces
 /// @return end index of the new pointer/string
 int	ft_handleoper(char *out, char *c, int index, int offset)
 {
@@ -135,11 +140,14 @@ int	ft_handleoper(char *out, char *c, int index, int offset)
 	return (index);
 }
 
-/// @brief handle redir operator and check the next character if also a redir operator
-/// @param out the new pointer/string where spaces are added to before and after of the redir operator.
+/// @brief handle redir operator and check the next character if also a
+/// redir operator
+/// @param out the new pointer/string where spaces are added to before and
+/// after of the redir operator.
 /// @param c the old pointer/string
 /// @param index where the redir starts (including the pid)
-/// @param offset offset to the old string from the new string based on the added spaces
+/// @param offset offset to the old string from the new string based on
+/// the added spaces
 /// @return end index of the new pointer/string
 int	ft_handleredir(char *out, char *c, int index, int offset)
 {

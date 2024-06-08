@@ -73,8 +73,9 @@ char	**ft_handleexportsplit(char *str, char **var)
 	int		count;
 	int		index;
 
-	out = (char **)malloc(sizeof(char *) * 1);
-	out[0] = NULL;
+	out = safe_dp_malloc(sizeof(char *) * 1);
+	if (out == NULL)
+		return (NULL);
 	count = 0;
 	index = -1;
 	while (var[count] != NULL)

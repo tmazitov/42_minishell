@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checkgrammar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/19 18:58:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:14:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ bool	ft_checkpipe(t_tokens *tokens)
 	return (true);
 }
 
-
-/// @brief checks the arguments of REDIR, next should not be a NULL and it should be a WORD
+/// @brief checks the arguments of REDIR, next should not be a NULL
+/// it should be a WORD
 /// @param token_start starting token where to check
 /// @param token_end ending token where to check
 /// @return true if the arguments of REDIR is not NULL and type WORD

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtoken.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/19 20:32:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 20:45:05 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
-/// @brief checks for the operators, adds spaces to before and after every operator
+/// @brief checks for the operators, adds spaces to before and after
+/// every operator
 /// @brief at every token (quoted tokens are not included)
 /// @param str_input the old double pointer containing the tokens
 /// @return
@@ -21,7 +22,9 @@ char	**str_token(char **str_input)
 	char			**out;
 	int				count;
 
-	out = (char **)malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(sizeof(char *) * 1);
+	if (out == NULL)
+		return (NULL);
 	out[0] = NULL;
 	count = 0;
 	while (str_input[count] != NULL)
@@ -36,7 +39,8 @@ char	**str_token(char **str_input)
 	return (out);
 }
 
-/// @brief splits the tokens to operators and reallocates new double pointer memory 
+/// @brief splits the tokens to operators and reallocates new double pointer
+/// memory 
 /// @brief separating the token words to operators.
 /// @param outdp the reallocated double pointer
 /// @param str input string with spaces added to before and after the operator
@@ -60,7 +64,8 @@ char	**ft_handletokens(char **outdp, char *str)
 	return (outdp);
 }
 
-/// @brief creates a t_tokens struct with token_type, value, and next t_token pointer
+/// @brief creates a t_tokens struct with token_type, value, and next 
+/// t_token pointer
 /// @param str_token double pointer array of tokens
 /// @return t_tokens head
 t_tokens	*tokenize_input(char **str_token)
@@ -76,7 +81,7 @@ t_tokens	*tokenize_input(char **str_token)
 	{
 		token = (t_tokens *)malloc(sizeof(t_tokens));
 		if (!token)
-			handle_errors("Memory allocation of tokens failed\n");
+			return (NULL);
 		token->type = WORD;
 		if (ft_strncmp(*str_token, "|", 1) == 0)
 			token->type = PIPE;
@@ -99,11 +104,14 @@ char	*ft_token_value(char *str_token)
 	char	*token_val;
 
 	token_val = malloc(sizeof(char) * (ft_strlen(str_token)) + 1);
+	if (token_val == NULL)
+		return (NULL);
 	ft_strlcpy(token_val, str_token, ft_strlen(str_token) + 1);
 	return (token_val);
 }
 
-/// @brief adds the current token to the next token traversing from the head pointer
+/// @brief adds the current token to the next token traversing from
+/// the head pointer
 /// @param head starting pointer of the token list
 /// @param tail end pointer of the token list
 /// @param token current token

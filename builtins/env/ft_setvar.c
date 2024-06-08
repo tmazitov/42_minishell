@@ -14,10 +14,10 @@
 
 int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	int		out;
-	char	**var;
-	int		index;
-	t_varlist *var_head;
+	int			out;
+	char		**var;
+	int			index;
+	t_varlist	*var_head;
 
 	index = 0;
 	var_head = *varlist;
@@ -34,7 +34,7 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		index++;
 	}
 	free_pointer(var);
-	*varlist=var_head;
+	*varlist = var_head;
 	return (1);
 }
 
@@ -44,8 +44,9 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 	int		count;
 	int		index;
 
-	out = (char **)malloc(sizeof(char *) * 1);
-	out[0] = NULL;
+	out = safe_dp_malloc(sizeof(char *) * 1);
+	if (out == NULL)
+		return (NULL);
 	count = 0;
 	index = -1;
 	while (var[count] != NULL)
@@ -109,7 +110,9 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*envlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) == 0) && (ft_strlen((*envlist)->varname) == ft_strlen(varname)))
+		if ((ft_strncmp(varname, (*envlist)->varname, \
+			ft_strlen((*envlist)->varname)) == 0) && \
+			(ft_strlen((*envlist)->varname) == ft_strlen(varname)))
 		{
 			(*envlist)->value = varvalue;
 			return (2);
@@ -137,7 +140,9 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*varlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) == 0) && (ft_strlen((*varlist)->varname) == ft_strlen(varname)))
+		if ((ft_strncmp(varname, (*varlist)->varname, \
+			ft_strlen((*varlist)->varname)) == 0) && \
+			(ft_strlen((*varlist)->varname) == ft_strlen(varname)))
 		{
 			(*varlist)->value = varvalue;
 			return (2);

@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toktoast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 21:23:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:39:58 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
 
-
-/// @brief create an AST from the t_tokens (token list) with recursive descent parsing.
-/// @brief The recursive descent happens at the next command (or the right side) from the PIPE
+/// @brief create an AST from the t_tokens (token list) with recursive descent
+/// parsing.
+/// @brief The recursive descent happens at the next command (or the right
+/// side) from the PIPE
 /// @param tokens t_tokens list
 /// @return abstract syntax tree
 t_astnodes	*ft_parsetokens(t_tokens **tokens)
@@ -25,12 +26,16 @@ t_astnodes	*ft_parsetokens(t_tokens **tokens)
 	char		*operator;
 
 	command = parse_command(tokens);
+	if (command == NULL)
+		return (NULL);
 	if ((*tokens != NULL) && ((*tokens)->type == PIPE))
 	{
 		operator = ft_strdup((*tokens)->value);
 		(*tokens) = (*tokens)->next;
 		nextcommand = ft_parsetokens(tokens);
 		node = (t_astnodes *)malloc(sizeof(t_astnodes));
+		if (node == NULL)
+			return (NULL);
 		node->value = operator;
 		node->left = command;
 		node->right = nextcommand;
@@ -40,7 +45,8 @@ t_astnodes	*ft_parsetokens(t_tokens **tokens)
 		return (command);
 }
 
-/// @brief merge strings from the left side of the current PIPE and set the node->value equal to the merged string/
+/// @brief merge strings from the left side of the current PIPE and set
+/// the node->value equal to the merged string/
 /// @param tokens token list
 /// @return abstract syntax tree node
 t_astnodes	*parse_command(t_tokens **tokens)
@@ -50,6 +56,8 @@ t_astnodes	*parse_command(t_tokens **tokens)
 	if ((*tokens) == NULL)
 		return (NULL);
 	node = (t_astnodes *)malloc(sizeof(t_astnodes));
+	if (node == NULL)
+		return (NULL);
 	if ((*tokens != NULL) && (*tokens)->type != PIPE)
 	{
 		node->value = NULL;

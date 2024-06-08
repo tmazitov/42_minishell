@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checknextchar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:58:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/19 03:24:53 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:16:19 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /// @brief checks the next character if redir operator
 /// @param c input string
 /// @param index index of the operator character
-/// @return return the number from the start index to the end of the redir operator
+/// @return return the number from the start index to the end of the redir 
+/// operator
 int	ft_checknextchar(char *c, int index)
 {
 	if (ft_strncmp(&c[index], DLESSDASH, 3) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_sh.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 15:13:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/08 18:29:16 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ bool	ft_checkiffile(char	*str)
 	else
 		return (true);
 }
+
 /// @brief check filedirectory if valid or exists
 /// @param str filepath
 /// @return true if file exists, false if not
@@ -53,8 +54,10 @@ bool	check_fd(char *str)
 	return (true);
 }
 
-/// @brief check if the first command is "minishell". This means that the user wants to open an sh file.
-/// @brief checs the second argument if it is a valid sh file, or if the file exists
+/// @brief check if the first command is "minishell". This means that the 
+/// user wants to open an sh file.
+/// @brief checs the second argument if it is a valid sh file, or if the file
+/// exists
 /// @param str string command from readline
 /// @return true if trying to open sh file, false if not
 bool	ft_checkshfile(char *str)
@@ -91,6 +94,8 @@ void	ft_openshfile(char *str_input)
 
 	str_split = ft_split(str_input, ' ');
 	str_line = malloc(sizeof(char) * 1);
+	if (str_line == NULL)
+		return ;
 	fpointer = open(str_split[1], 256);
 	while (str_line != NULL)
 	{
