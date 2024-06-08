@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 18:16:47 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 01:04:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	is_limiter(char *limiter, char *input)
 		return (0);
 	if (ft_strlen(limiter) != ft_strlen(input))
 		return (0);
- 	return ft_strncmp(input, limiter, ft_strlen(limiter)) == 0;
+	return (!ft_strncmp(input, limiter, ft_strlen(limiter)));
 }
 
 static int	write_one_string(char *str, t_builtin_info info)
@@ -30,10 +30,10 @@ static int	write_one_string(char *str, t_builtin_info info)
 	ch = 0;
 	while (str[ch] && str[ch] != '$')
 		ft_printf("%c", str[ch++]);
-	while(str[ch] && str[ch] == '$')
+	while (str[ch] && str[ch] == '$')
 	{
 		len = 1;
-		while (str[ch+len] && str[ch+len] != '$')
+		while (str[ch + len] && str[ch + len] != '$')
 			len++;
 		sub_expr = ft_substr(str, ch, len);
 		if (!sub_expr)
@@ -91,7 +91,8 @@ int	heredoc_fill(t_com_input *heredoc, t_builtin_info info)
 		&& status_code(GET, -1) != STOP_HEREDOC)
 	{
 		heredoc_input(heredoc, input, fd, info);
-		if (!(input = readline("> ")))
+		input = readline("> ");
+		if (!input)
 			return (close(fd), 2);
 	}
 	close(fd);
@@ -117,5 +118,3 @@ t_com_input	*make_heredoc_input(char *limiter)
 		return (free_heredoc_input(input));
 	return (input);
 }
-
-

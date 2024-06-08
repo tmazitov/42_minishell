@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:50:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/05/07 15:51:08 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 01:01:23 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input.h"
 
-char	*heredoc_temp_filepath()
+char	*heredoc_temp_filepath(void)
 {
 	static int	temp_file_num;
 	char		*num_str;

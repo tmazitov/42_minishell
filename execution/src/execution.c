@@ -6,29 +6,41 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 13:57:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 02:34:20 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
 
+static int	run_prep(t_com_queue *commands, t_envlist **envlist, \
+	t_varlist **varlist)
+{
+	int	status;
 
+	status = run_heredocs(commands, envlist, varlist);
+	if (status)
+		return (status);
+	status_code(SET, STOP_HEREDOC);
+	status = run_infiles(commands);
+	if (status)
+		return (status);
+	return (status);
+}
 
 /// @brief Run executable commands one by one
 /// @param commands Commands queue
 /// @param envp Environment parameters
 /// @return If each one command executed successfully return 0.
 /// @return If create of child proccess in failed return -1.
-static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **varlist)
+static int	run_commands(t_com_queue *commands, t_envlist **envlist, \
+	t_varlist **varlist)
 {
 	t_com_node		*command;
 	int				status;
 	t_builtin_info	info;
 
-	if ((status = run_heredocs(commands, envlist, varlist))) 
-		return (status);
-	status_code(SET, STOP_HEREDOC);
-	if ((status = run_infiles(commands)))
+	status = run_prep(commands, envlist, varlist);
+	if (status)
 		return (status);
 	status_code(SET, IN_CMD);
 	info.env = envlist;
@@ -39,13 +51,15 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 		return (single_builtin(command, &info));
 	while (command)
 	{
-		if (command->name && 
-			(status = run_command_proc(command, &info)))
+		if (command->name)
+			status = run_command_proc(command, &info);
+		if (status)
 			return (status);
 		command = command->next;
 	}
 	return (0);
 }
+
 /// @brief Wait executable commands unt
 /// @param commands Commands queue
 /// @param count Length of the command queue
@@ -79,7 +93,6 @@ static int	wait_commands(t_com_queue *commands)
 	return (status);
 }
 
-
 /// @brief Execute each one command from the AST tree
 /// @param tree AST tree of commands
 /// @param envlist List of the environment parameters
@@ -93,7 +106,8 @@ int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 
 	if (!tree || !*tree)
 		return (status_code(SET, 1));
-	if (!(commands = make_ast_q(tree)))
+	commands = make_ast_q(tree);
+	if (!commands)
 		return (status_code(SET, 1));
 	if (make_queue_relationship(commands) != 0)
 		return (free_queue(commands), status_code(SET, 1));

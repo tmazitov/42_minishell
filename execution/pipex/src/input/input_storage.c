@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:48:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 16:15:27 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 01:03:54 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	infile_amount(char *com_string)
 	while (1)
 	{
 		if (*temp_com == '\0')
-			break;
+			break ;
 		if (temp_com == com_string && temp_com[0] == '<' && temp_com[1] == ' ')
 		{
 			amount++;
@@ -50,7 +50,7 @@ static int	heredoc_amount(char *com_string)
 	while (1)
 	{
 		if (*temp_com == '\0')
-			break;
+			break ;
 		heredoc = ft_strnstr(temp_com, "<<", ft_strlen(temp_com));
 		if (!heredoc)
 			break ;
@@ -61,8 +61,9 @@ static int	heredoc_amount(char *com_string)
 }
 
 t_com_input_storage	*make_input_storage(char **com_line)
-{	
+{
 	t_com_input_storage	*storage;
+	int					total;
 
 	storage = malloc(sizeof(t_com_input_storage));
 	if (!storage)
@@ -73,7 +74,8 @@ t_com_input_storage	*make_input_storage(char **com_line)
 	storage->total_amount = storage->file_amount + storage->heredoc_amount;
 	if (storage->total_amount == 0)
 		return (storage);
-	storage->content = malloc(sizeof(t_com_input*) * (storage->total_amount + 1));
+	total = storage->total_amount;
+	storage->content = malloc(sizeof(t_com_input *) * (total + 1));
 	if (!storage->content)
 		return (storage);
 	if (fill_input_storage(storage, *com_line))
@@ -85,7 +87,7 @@ t_com_input_storage	*make_input_storage(char **com_line)
 
 void	close_all_input(t_com_input_storage *st)
 {
-	int 		counter;
+	int			counter;
 	t_com_input	*input;
 
 	counter = 0;
@@ -99,5 +101,3 @@ void	close_all_input(t_com_input_storage *st)
 		input = st->content[counter];
 	}
 }
-
-

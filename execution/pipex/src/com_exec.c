@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:47:34 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 00:17:11 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void panic(t_builtin_info *info, int status)
+static void	panic(t_builtin_info *info, int status)
 {
 	free_queue(info->q);
 	ft_free_env(info->env);
@@ -23,7 +23,7 @@ static void panic(t_builtin_info *info, int status)
 	exit(status);
 }
 
-static void duper(t_com_node *command)
+static void	duper(t_com_node *command)
 {
 	t_log_chan	*pipe_input;
 	t_log_chan	*pipe_output;
@@ -67,9 +67,8 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	duper(command);
 	closer(command);
 	status = 0;
-	if (command->builtin) {
+	if (command->builtin)
 		panic(info, ft_builtins(command->builtin, info));
-	}
 	envp = ft_env_converter(info->env);
 	if (!envp)
 		panic(info, 1);
