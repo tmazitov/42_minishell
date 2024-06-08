@@ -17,8 +17,29 @@
 # include "../parsing/includes/parse.h"
 # include <string.h>
 # include "../execution/pipex/chan/chan.h"
-# include "../execution/pipex/src/input/input.h"
+# include "../execution/signals/includes/signals.h"
 # include "../execution/pipex/src/output/output.h"
+
+typedef enum {
+	INFILE = 1,
+	HEREDOC = 2,
+}		t_input_src;
+
+typedef struct	s_com_input {
+	t_input_src	src;
+	int			fd;
+	char		*filepath;
+	char		*limiter;
+}		t_com_input;
+
+typedef struct	s_com_input_storage
+{
+	int				file_amount;
+	int				total_amount;
+	int				heredoc_amount;
+	t_com_input		**content;
+}		t_com_input_storage;
+
 
 typedef struct s_com_node
 {
@@ -149,6 +170,9 @@ void		*free_queue_relationship(t_com_queue *queue);
 void		ft_free_var(t_varlist **varlist);
 void		ft_free_env(t_envlist **envlist);
 void		ft_free_sortedenv(t_sorted_envlist **sorted_envlist);
+void		*free_input_storage(t_com_input_storage *st);
+void	*free_file_input(t_com_input *input);
+void	*free_heredoc_input(t_com_input *input);
 #endif //BUILTINTS_H
 
 //$0 – The name of the Bash script.

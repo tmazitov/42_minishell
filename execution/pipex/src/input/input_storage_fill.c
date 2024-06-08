@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:12:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 17:19:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 14:17:07 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	fill_input_storage(t_com_input_storage *st,char *com_string)
 	return (0);
 }
 
-int	fill_command_heredoc(t_com_input_storage *storage)
+int	fill_command_heredoc(t_com_input_storage *storage, t_builtin_info info)
 {
 	int			counter;
 	t_com_input	*input;
@@ -89,7 +89,7 @@ int	fill_command_heredoc(t_com_input_storage *storage)
 		if (input->src == HEREDOC)
 		{
 			status_code(SET, IN_HEREDOC);
-			if ((status = heredoc_fill(input)))
+			if ((status = heredoc_fill(input, info)))
 				return (status);
 		}
 		counter++;

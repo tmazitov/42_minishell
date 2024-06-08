@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:54:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 15:54:13 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:59:12 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 # include "../utils/utils.h"
 # include "../../../libft/get_next_line.h"
 # include "../../../libft/ft_printf.h"
-# include "../../../builtins/builtins.h"
-# include "../../signals/includes/signals.h"
 # include "input/input.h"
 # include "output/output.h"
 
@@ -45,15 +43,15 @@ t_com_node	*get_node_by_pid(t_com_queue *queue, pid_t pid);
 // MULTIPROCCESSING
 int			run_command_proc(t_com_node *command, t_builtin_info *info);
 // INPUT FILE
-int			add_input(t_com_queue *queue, char *input_path);
-int			check_input(char *input_path);
-t_log_chan	*make_input(char *input_path);
+// int			add_input(t_com_queue *queue, char *input_path);
+// int			check_input(char *input_path);
+// t_log_chan	*make_input(char *input_path);
 
 // OUTPUT FILE
-int			add_output(t_com_queue *queue, char *output_path);
-t_log_chan	*make_output(char *output_path);
+// int			add_output(t_com_queue *queue, char *output_path);
+// t_log_chan	*make_output(char *output_path);
 
 // HEREDOC
-t_log_chan	*make_heredoc(char **com_payload);
+// t_log_ chan	*make_heredoc(char **com_payload);
 
 #endif

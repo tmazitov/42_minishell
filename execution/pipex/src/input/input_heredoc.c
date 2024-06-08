@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 18:47:07 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:16:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,61 @@ static int	is_limiter(char *limiter, char *input)
  	return ft_strncmp(input, limiter, ft_strlen(limiter)) == 0;
 }
 
-int	heredoc_fill(t_com_input *heredoc)
+static int	write_one_string(char *str, t_builtin_info info)
+{
+	int		ch;
+	int		len;
+	char	*sub_expr;
+
+	ch = 0;
+	while (str[ch] && str[ch] != '$')
+		ft_printf("%c", str[ch++]);
+	while(str[ch] && str[ch] == '$')
+	{
+		len = 1;
+		while (str[ch+len] && str[ch+len] != '$')
+			len++;
+		sub_expr = ft_substr(str, ch, len);
+		if (!sub_expr)
+			return (1);
+		ft_printexpansion(sub_expr, 1, *info.env, *info.var);
+		free(sub_expr);
+		ch += len;
+	}
+	return (0);
+}
+
+static int	heredoc_input(t_com_input *heredoc, char *input, int fd, \
+	t_builtin_info info)
+{
+	char	*exp;
+	char	**tokens;
+	int		temp_out;
+	int		counter;
+
+	temp_out = 0;
+	(void)temp_out;
+	tokens = ft_split(input, ' ');
+	if (!tokens)
+		return (free(input), 1);
+	dup2(fd, STDOUT_FILENO);
+	counter = 0;
+	while (tokens[counter])
+	{
+		if (write_one_string(tokens[counter], info))
+		{
+			dup2(temp_out, STDOUT_FILENO);
+			return (free_pointer(tokens), free(input), 1);
+		}
+		ft_printf(" ");
+		counter++;
+	}
+	ft_printf("\n");
+	dup2(temp_out, STDOUT_FILENO);
+	return (free_pointer(tokens), free(input), 0);
+}
+
+int	heredoc_fill(t_com_input *heredoc, t_builtin_info info)
 {
 	char	*input;
 	char	*limiter;
@@ -36,9 +90,7 @@ int	heredoc_fill(t_com_input *heredoc)
 		&& !is_limiter(limiter, input) 
 		&& status_code(GET, -1) != STOP_HEREDOC)
 	{
-		write(fd, input, ft_strlen(input));
-		write(fd, "\n", 1);
-		free(input);
+		heredoc_input(heredoc, input, fd, info);
 		if (!(input = readline("> ")))
 			return (close(fd), 2);
 	}
@@ -66,18 +118,4 @@ t_com_input	*make_heredoc_input(char *limiter)
 	return (input);
 }
 
-void	*free_heredoc_input(t_com_input *input)
-{
-	if (!input)
-		return (NULL);
-	if (input->fd > 0)
-		close(input->fd);
-	if (access(input->filepath, R_OK) != -1)
-		unlink(input->filepath);
-	if (input->limiter)
-		free(input->limiter);
-	if (input->filepath)
-		free(input->filepath);
-	free(input);
-	return (0);
-}
+

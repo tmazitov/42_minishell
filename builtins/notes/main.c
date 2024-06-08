@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else if (ft_strncmp(argv_split[0], "echo", 4) == 0)
 	{
-		ft_echo(argv[1], envlist, varlist);
+		ft_echo(argv[1], 0, envlist, varlist);
 	}
 	else if (ft_strncmp(argv_split[0], "unset", 5) == 0)
 	{

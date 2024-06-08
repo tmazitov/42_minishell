@@ -85,7 +85,7 @@ void	ft_printdquotes(char *str, t_envlist *envlist, t_varlist *varlist)
 				ft_printf("%c", str[len++]);
 			else if (str[len + 1] == '?')
 			{
-				ft_printf("0");
+				ft_printf("%d", status_code(GET_HISTORY, -1));
 				len += 2;
 			}
 			else
