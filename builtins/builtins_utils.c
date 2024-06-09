@@ -19,7 +19,6 @@ int	ft_builtins(char *str, t_builtin_info *info)
 	// t_varlist	*var_head;
 
 	env_head = NULL;
-	ft_printf("str_input: %s\n", str);
 	if ((*info->env) != NULL)
 		env_head = *info->env;
 	if (ft_compname("echo", str))
@@ -50,8 +49,6 @@ bool	ft_compname(char *str1, char *str2)
 	char	**out;
 
 	out = ft_split(str2, ' ');
-	ft_printf("out[0]: %s\n", out[0]);
-	printf("strlen: %zu\n", ft_strlen(out[0]));
 	if (ft_strncmp(str1, out[0], ft_strlen(out[0])) == 0 && \
 		(ft_strlen(str1) == ft_strlen(out[0])))
 		return (free_pointer(out), true);

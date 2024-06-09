@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 05:49:20 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 08:04:56 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,28 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 		mode = ft_selectmode(str[count], mode);
 		if (str[count] == '$' && mode == 1)
 		{
-			varname = ft_getvarname(str, ++count);
-			out = ft_mergedollar_b(varname, out, envlist, varlist);
-			count += ft_countvarname(&str[count]);
+			if (str[count + 1] == '?')
+			{
+				out = ft_mergevarval(NULL, out, \
+					ft_itoa(status_code(GET_HISTORY, -1)));
+				count += 2;
+			}
+			else if ((ft_isspace(str[count + 1]) == 0) && (str[count + 1] != '\"'))
+			{
+				varname = ft_getvarname(str, ++count);
+				if (!varname)
+					count += ft_countvarname(&str[count]);
+				else
+				{
+					out = ft_mergedollar_b(varname, out, envlist, varlist);
+					count += ft_countvarname(&str[count]) - 1;
+				}
+			}
+			else if ((ft_isspace(str[count + 1]) == 1) || (str[count + 1] == '\"'))
+			{
+				out = ft_mergevarval(NULL, out, "$");
+				count++;
+			}
 		}
 		else
 			out = ft_mergedollar_a(str, out, count++);

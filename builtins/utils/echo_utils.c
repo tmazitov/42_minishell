@@ -81,21 +81,7 @@ void	ft_printdquotes(char *str, t_envlist *envlist, t_varlist *varlist)
 	str++;
 	while (str[len] != '\0')
 	{
-		// if (str[len] == '$')
-		// {
-		// 	if (str[len + 1] == ' ' || str[len + 1] == '\"')
-		// 		ft_printf("%c", str[len++]);
-		// 	else if (str[len + 1] == '?')
-		// 	{
-		// 		ft_printf("%d", status_code(GET_HISTORY, -1));
-		// 		len += 2;
-		// 	}
-		// 	else
-		// 	{
-		// 		ft_printexpansion(str, ++len, envlist, varlist);
-		// 		len += ft_countvarname(&str[len]);
-		// 	}
-		// }
+		// ft_printf("str[%d]: %c\n", len, str[len]);
 		if (str[len] != '\"')
 			write(1, &str[len++], 1);
 		else

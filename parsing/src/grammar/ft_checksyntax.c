@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 01:02:16 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 07:47:00 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,32 @@ bool	ft_checksyntax(t_tokens *tokens)
 	if (!ft_checkparenthesis(tokens))
 		return (false);
 	return (true);
+}
+
+int	ft_checkquotes_grammar(char *str)
+{
+	int		index;
+	char	c;
+
+	index = -1;
+	c = '0';
+	while (str[++index])
+	{
+		ft_printf("str[%d]: %c\n", index, str[index]);
+		if (str[index] == '\"' && c == '0')
+			c = '\"';
+		else if (str[index] == '\'' && c == '0')
+			c = '\'';
+		else if (str[index] && str[index] == '\'' && c != '0')
+			c = '0';
+		else if (str[index] && str[index] == '\"' && c != '0')
+			c = '0';
+	}
+	if (c != '0')
+		return (ft_printf("bash: syntex error, uneven number of %c quotes\n" \
+			, c), 0);
+	else
+		return (1);
 }
 
 int	ft_checksquotes(char *str)

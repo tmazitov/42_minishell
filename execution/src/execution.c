@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 05:48:59 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 07:49:53 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, \
 		return (single_builtin(command, &info));
 	while (command)
 	{
+		ft_printf("command->builtin: %s\n", command->builtin);
+		ft_printf("command->name: %s\n", command->name);
 		if (command->name || command->builtin)
 			status = run_command_proc(command, &info);
 		if (status)

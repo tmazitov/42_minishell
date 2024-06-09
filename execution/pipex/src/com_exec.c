@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 05:51:46 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 06:40:21 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	duper(command);
 	closer(command);
 	status = 0;
-	ft_printf("command->builtin: %s\n", command->builtin);
 	if (command->builtin)
 		panic(info, ft_builtins(command->builtin, info));
 	envp = ft_env_converter(info->env);
@@ -82,7 +81,6 @@ int	run_command_proc(t_com_node *command, t_builtin_info *info)
 {
 	pid_t	proc_id;
 
-	ft_printf("command->builtin: %s\n", command->builtin);
 	if (!info->env || !info->var || !info->q)
 		return (1);
 	proc_id = fork();

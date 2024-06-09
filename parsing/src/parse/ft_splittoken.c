@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 05:20:32 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 06:54:21 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**ft_splittoken(char *str)
 
 	spval = malloc(sizeof(t_splitvalues));
 	spval->index = 0;
-	if (ft_checksquotes(str) == 0)
+	if (ft_checkquotes_grammar(str) == 0)
 		return (NULL);
 	out = safe_dp_malloc(1);
 	if (out == NULL)
