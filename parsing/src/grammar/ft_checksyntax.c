@@ -34,7 +34,6 @@ int	ft_checkquotes_grammar(char *str)
 	c = '0';
 	while (str[++index])
 	{
-		ft_printf("str[%d]: %c\n", index, str[index]);
 		if (str[index] == '\"' && c == '0')
 			c = '\"';
 		else if (str[index] == '\'' && c == '0')

@@ -33,8 +33,7 @@ char	*ft_checkoperator(char *c)
 			index += ft_checknextchar(c, index);
 			len += 2;
 		}
-		else if ((c[index] == '|') || (c[index] == '(') || \
-			(c[index] == ')'))
+		else if ((c[index] == '|'))
 			len += 2;
 		index++;
 	}
@@ -71,8 +70,7 @@ char	*ft_tokenize(char *out, char *c, int len)
 			i = ft_handleredir(out, c, i, o);
 			o += 2;
 		}
-		else if ((c[i - o] == '|') || (c[i - o] == '(') || (c[i - o] == ')') \
-			|| (c[i - o] == '&') || ((c[i - o] == ';')))
+		else if ((c[i - o] == '|'))
 		{
 			i = ft_handleoper(out, c, i, o);
 			o += 2;

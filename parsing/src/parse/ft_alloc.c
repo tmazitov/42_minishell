@@ -37,10 +37,11 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 		out[count] = s[count];
 		count++;
 	}
-	out[count] = input;
+	out[count] = ft_strdup(input);
 	count++;
 	out[count] = NULL;
 	free(s);
+	free(input);
 	return (out);
 }
 
@@ -51,7 +52,7 @@ char	**safe_dp_malloc(int len)
 	out = (char **)malloc(sizeof(char *) * len);
 	if (out == NULL)
 		return (NULL);
-	if (len == (sizeof(char) * 1))
+	if (len == 1)
 		out[0] = NULL;
 	return (out);
 }

@@ -40,7 +40,7 @@ bool	user_input_is_valid(char *user_input);
 bool	is_sh_file(char *user_input);
 bool	is_single_command(int argc, char **argv);
 void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlist);
-void	ft_checkdollar(t_astnodes *rootnode, t_envlist *envlist, t_varlist *varlist);
+void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, t_varlist *varlist);
 char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist);
 char	*ft_mergedollar_a(char *str, char *out, int count);
 char	*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \

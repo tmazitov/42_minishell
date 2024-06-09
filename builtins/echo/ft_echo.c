@@ -24,21 +24,15 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 	cmd_split = ft_splittoken_setvar(str);
 	cmd_split = str_token(cmd_split);
 	ft_printf("str echo input: %s\n", str);
-	if ((cmd_split[len] != NULL) && ft_strncmp(cmd_split[len], "-n", 2) == 0)
+	if ((cmd_split[len] != NULL) && ft_compname("-n", cmd_split[len]) == 0)
 		len++;
 	while (cmd_split[len] != NULL)
 	{
-		// ft_printf("cmd_split[%d]: %s\n", len, cmd_split[len]);
 		ft_printparams(str, cmd_split[len], envlist, varlist);
 		str = ft_strstr(str, cmd_split[len]);
 		len++;
-		// ft_printf("cmd_split[%d]: %s\n", len, cmd_split[len]);
-		// ft_printf("str: %s\n", str);
 		if ((cmd_split[len] != NULL))
 		{
-			// ft_printf("address len: %p\n", &cmd_split[len]);
-			// ft_printf("address len + 1: %p\n", &cmd_split[len + 1]);
-			// ft_printf("difference: %d\n", &cmd_split[len] - &cmd_split[len + 1]);
 			if ((size_t)(ft_strstr(str, cmd_split[len]) > \
 				(ft_strstr(str, cmd_split[len - 1])) + \
 				ft_strlen(cmd_split[len - 1]) + 1))
@@ -46,7 +40,7 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 			str = ft_strstr(str, cmd_split[len]);
 		}
 	}
-	if (!((cmd_split[1] != NULL) && ft_strncmp(cmd_split[1], "-n", 2) == 0))
+	if (!((cmd_split[1] != NULL) && ft_compname("-n", cmd_split[1]) == 0))
 		ft_printf("\n");
 	free_pointer(cmd_split);
 }

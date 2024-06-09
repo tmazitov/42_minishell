@@ -21,6 +21,7 @@ char	**str_token(char **str_input)
 {
 	char			**out;
 	int				count;
+	char			*str_operator;
 
 	out = safe_dp_malloc(1);
 	if (out == NULL)
@@ -30,7 +31,10 @@ char	**str_token(char **str_input)
 	while (str_input[count] != NULL)
 	{
 		if (str_input[count][0] != '\"' && str_input[count][0] != '\'')
-			out = ft_handletokens(out, ft_checkoperator(str_input[count]));
+		{
+			str_operator = ft_checkoperator(str_input[count]);
+			out = ft_handletokens(out, str_operator);
+		}
 		else
 			out = ft_realloc_dp(out, str_input[count], ft_strlen_dp(out) + 1);
 		count++;
@@ -56,6 +60,7 @@ char	**ft_handletokens(char **outdp, char *str)
 	count = 0;
 	while (count < token_count)
 	{
+		ft_printf("strtoken split: %s\n", str_split[count]);
 		outdp = ft_realloc_dp(outdp, str_split[count], ft_strlen_dp(outdp) + 1);
 		count++;
 	}

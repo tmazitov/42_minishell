@@ -83,13 +83,11 @@ bool	handlestring_cond(char *str, int index)
 char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
-	char	**out_temp;
 	char	*str_temp;
 	int		start;
 
 	start = *index;
 	out = in;
-	out_temp = NULL;
 	while (handlestring_cond(str, *index))
 		*index += 1;
 	str_temp = ft_assignstring(str, start, *index);
@@ -163,12 +161,12 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
 	char	*str_temp;
-	char	c;
+	// char	c;
 	int		start;
 
 	if (str[*index] == '$')
 		(*index)++;
-	c = str[*index];
+	// c = str[*index];
 	start = *index;
 	*index += 1;
 	out = in;

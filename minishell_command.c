@@ -46,28 +46,28 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 	else
 	{
 		root = parse_input(user_input);
-		ft_checkdollar(root, *envlist, *varlist);
+		ft_checkdollar(&root, *envlist, *varlist);
 		free(user_input);
 		if (!root)
 			return ;
+		ft_printf("\n----------------- PRINT AST ---------------\n");
+		print_ast(root, 0);
+		ft_printf("--------------------------------------------\n");
 		execute(&root, envlist, varlist);
 		if (root)
 			ft_free_ast(root);
 	}
 }
 
-void	ft_checkdollar(t_astnodes *rootnode, t_envlist *envlist, \
+void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, \
 	t_varlist *varlist)
 {
-	int	i;
-
-	if (rootnode == NULL)
+	if ((*rootnode) == NULL)
 		return ;
-	i = 0;
-	if (!(rootnode->left) && !(rootnode->right))
-		rootnode->value = ft_expanddollar(rootnode->value, envlist, varlist);
-	ft_checkdollar(rootnode->left, envlist, varlist);
-	ft_checkdollar(rootnode->right, envlist, varlist);
+	if (!((*rootnode)->left) && !((*rootnode)->right))
+		(*rootnode)->value = ft_expanddollar((*rootnode)->value, envlist, varlist);
+	ft_checkdollar((rootnode)->left, envlist, varlist);
+	ft_checkdollar((rootnode)->right, envlist, varlist);
 }
 
 char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
@@ -101,8 +101,9 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 				else
 				{
 					out = ft_mergedollar_b(varname, out, envlist, varlist);
-					count += ft_countvarname(&str[count]) - 1;
+					count += ft_countvarname(&str[count]);
 				}
+				free(varname);
 			}
 			else if ((ft_isspace(str[count + 1]) == 1) || (str[count + 1] == '\"'))
 			{
