@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:00:36 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 14:17:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 02:38:52 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@ int	run_infiles(t_com_queue *commands)
 	int			status;
 
 	command = get_first(commands);
-	while(command)
+	while (command)
 	{
-		if (command->input 
-			&& (status = open_command_infile(command->input)))
+		if (command->input)
+			status = open_command_infile(command->input);
+		if (command->input && status)
 			return (1);
 		command = command->next;
 	}
 	return (0);
 }
 
-int	run_heredocs(t_com_queue *commands, t_envlist **env,t_varlist **var)
+int	run_heredocs(t_com_queue *commands, t_envlist **env, t_varlist **var)
 {
 	t_com_node		*command;
 	int				status;
@@ -40,10 +41,11 @@ int	run_heredocs(t_com_queue *commands, t_envlist **env,t_varlist **var)
 	info.var = var;
 	info.q = NULL;
 	command = get_first(commands);
-	while(command)
+	while (command)
 	{
-		if (command->input 
-			&& (status = fill_command_heredoc(command->input, info)))
+		if (command->input)
+			status = fill_command_heredoc(command->input, info);
+		if (command->input && status)
 			return (status);
 		command = command->next;
 	}

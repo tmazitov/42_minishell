@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   minishell_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 19:05:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 00:16:21 by tmazitov         ###   ########.fr       */
+/*   Created: 2024/06/09 04:00:35 by tmazitov          #+#    #+#             */
+/*   Updated: 2024/06/09 04:25:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "chan.h"
+#include "minishell.h"
 
-void	*free_log_chan(t_log_chan *chan)
+t_envlist	*prepare_env(t_envlist **env, char **envp)
 {
-	int	counter;
+	return ((*env = ft_init_env(envp)));
+}
 
-	if (!chan)
-		return (NULL);
-	counter = 0;
-	while (chan->side && counter < chan->side_count)
-	{
-		if (chan->side[counter] != -1)
-			close(chan->side[counter]);
-		counter++;
-	}
-	if (chan->side)
-		free(chan->side);
-	free(chan);
-	return (NULL);
+t_varlist	*prepare_var(t_varlist **var)
+{
+	return ((*var = ft_init_var()));
+}
+
+void	graceful_finish(t_envlist **env, t_varlist **var)
+{
+	rl_clear_history();
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+	ft_free_env(env);
+	ft_free_var(var);
 }

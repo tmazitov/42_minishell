@@ -6,12 +6,15 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/09 01:29:33 by emaravil         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/09 02:27:41 by tmazitov         ###   ########.fr       */
+>>>>>>> 76995f6f30c16213484b53ae881eb1d190d565fd
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/execution.h"
-
 
 /// @brief Make executable commands by AST tree
 /// @param tree AST tree of commands 
@@ -57,7 +60,11 @@ int	ast_q_length(t_com_queue *q)
 		return (0);
 	node = get_first(q);
 	length = 0;
+<<<<<<< HEAD
 	while (node)
+=======
+	while (node) 
+>>>>>>> 76995f6f30c16213484b53ae881eb1d190d565fd
 	{
 		if (node->name)
 			length++;

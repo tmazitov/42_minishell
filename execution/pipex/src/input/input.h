@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:26:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 16:01:17 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 00:19:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ int					file_input_open(t_com_input *input);
 
 t_com_input			*make_heredoc_input(char *limiter);
 void				*free_heredoc_input(t_com_input *input);
-char				*heredoc_temp_filepath();
+char				*heredoc_temp_filepath(void);
 int					heredoc_fill(t_com_input *heredoc, t_builtin_info info);
 
 // Input storage
 
 t_com_input_storage	*make_input_storage(char **com_string);
-int					fill_input_storage(t_com_input_storage *st, char *com_string);
+int					fill_input_storage(t_com_input_storage *st, \
+										char *com_string);
 int					remove_com_line_input(char **com);
 void				close_all_input(t_com_input_storage *st);
 // Utils
 
 t_com_input			*get_last_input(t_com_input_storage *storage);
-int					fill_command_heredoc(t_com_input_storage *storage, t_builtin_info info);
+int					fill_command_heredoc(t_com_input_storage *storage, \
+											t_builtin_info info);
 int					open_command_infile(t_com_input_storage *storage);
 #endif

@@ -6,13 +6,12 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:54:17 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/27 20:08:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 02:25:14 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "../../../libft/get_next_line.h"
-
 
 static char	*make_separator(void)
 {

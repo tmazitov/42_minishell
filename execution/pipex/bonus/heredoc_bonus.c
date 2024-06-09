@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:43:52 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/21 18:31:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 00:16:10 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main_bonus.h"
-
 
 /// @brief compares string 1 and string 2 if equal. 
 /// @param str1 input string 1

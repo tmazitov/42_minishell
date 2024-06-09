@@ -6,7 +6,11 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/08 22:05:52 by emaravil         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/09 02:26:44 by tmazitov         ###   ########.fr       */
+>>>>>>> 76995f6f30c16213484b53ae881eb1d190d565fd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +43,13 @@ t_com_node	*make_builtin_node(char **com)
 	if (!node)
 		return (NULL);
 	init_node(node);
-	if (ft_strchr(*com, '<') && !(node->input = make_input_storage(com)))
+	if (ft_strchr(*com, '<'))
+		node->input = make_input_storage(com);
+	if (ft_strchr(*com, '<') && !node->input)
 		return (free_node(node));
-	if (ft_strchr(*com, '>') && !(node->output = make_output_storage(com)))
+	if (ft_strchr(*com, '>'))
+		node->output = make_output_storage(com);
+	if (ft_strchr(*com, '>') && !node->output)
 		return (free_node(node));
 	node->builtin = ft_substr(*com, 0, ft_strlen(*com));
 	if (!node->builtin)

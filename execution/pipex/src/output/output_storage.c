@@ -6,12 +6,9 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 13:40:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 16:52:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 02:20:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "output.h"
-
 
 #include "output.h"
 
@@ -26,7 +23,7 @@ static int	outfile_amount(char *com_string)
 	while (1)
 	{
 		if (*temp_com == '\0')
-			break;
+			break ;
 		if (temp_com == com_string && temp_com[0] == '>' && temp_com[1] == ' ')
 		{
 			amount++;
@@ -53,7 +50,7 @@ static int	append_outfile_amount(char *com_string)
 	while (1)
 	{
 		if (*temp_com == '\0')
-			break;
+			break ;
 		heredoc = ft_strnstr(temp_com, ">>", ft_strlen(temp_com));
 		if (!heredoc)
 			break ;
@@ -64,8 +61,9 @@ static int	append_outfile_amount(char *com_string)
 }
 
 t_com_output_storage	*make_output_storage(char **com_line)
-{	
+{
 	t_com_output_storage	*storage;
+	int						total;
 
 	storage = malloc(sizeof(t_com_output_storage));
 	if (!storage)
@@ -76,7 +74,8 @@ t_com_output_storage	*make_output_storage(char **com_line)
 	storage->total_amount = storage->file_amount + storage->append_amount;
 	if (storage->total_amount == 0)
 		return (storage);
-	storage->content = malloc(sizeof(t_com_output*) * (storage->total_amount + 1));
+	total = storage->total_amount;
+	storage->content = malloc(sizeof(t_com_output *) * (total + 1));
 	if (!storage->content)
 		return (free_output_storage(storage));
 	if (fill_output_storage(storage, *com_line))
@@ -88,7 +87,7 @@ t_com_output_storage	*make_output_storage(char **com_line)
 
 void	close_all_output(t_com_output_storage *st)
 {
-	int 		counter;
+	int				counter;
 	t_com_output	*output;
 
 	counter = 0;
@@ -105,7 +104,7 @@ void	close_all_output(t_com_output_storage *st)
 
 void	*free_output_storage(t_com_output_storage *st)
 {
-	int 		counter;
+	int				counter;
 	t_com_output	*output;
 
 	if (!st)

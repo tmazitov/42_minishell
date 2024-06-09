@@ -6,13 +6,11 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:03:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/06 18:21:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 23:57:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/signals.h"
-
-
 
 int	event(void)
 {
@@ -67,14 +65,14 @@ void	sigquit_handler(int signum)
 	}
 }
 
-void	setup_read_interrupter()
+void	setup_read_interrupter(void)
 {
 	rl_catch_signals = 0;
 	rl_event_hook = event;
 	signal(SIGINT, sigint_handler);
 }
 
-void	setup_shell_quit()
+void	setup_shell_quit(void)
 {
 	rl_catch_signals = 0;
 	rl_event_hook = event;

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 04:55:29 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 05:49:54 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*ft_cleaninput(char *str);
-char	*ft_cleaninput_b(char *str);
-int		run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
-int 	run_single_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
+char		*ft_cleaninput(char *str);
+char		*ft_cleaninput_b(char *str);
+int			run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
+int 		run_single_command(char *user_input, t_envlist **envlist, t_varlist **varlist);
 
+t_varlist	*prepare_var(t_varlist **var);
+t_envlist	*prepare_env(t_envlist **env, char **envp);
+char		*prepare_single_command(char *user_input);
+char		*prepare_user_input();
+void		graceful_finish(t_envlist **env, t_varlist **var);
 
 char	*prepare_single_command(char *user_input);
 char	*prepare_user_input();

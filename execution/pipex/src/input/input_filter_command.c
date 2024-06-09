@@ -6,81 +6,78 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:37:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/05 19:53:18 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 02:16:03 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "input.h"
 // #include <stdio.h>
 
-static char	*ft_strjoin_clean(char *str1, char *str2)
+static char	*merge(char *str1, char *str2, char **result)
 {
-	char	*result;
-
-	result = ft_strjoin(str1, str2);
+	*result = ft_strjoin(str1, str2);
 	if (str1)
 		free(str1);
 	if (str2)
 		free(str2);
-	return (result);
+	return (*result);
 }
 
-static int	skip_redir(char *line, int start)
+static int	skip(char *line, int *start)
 {
 	int	counter;
 
-	counter = start;
+	counter = *start;
 	while (line[counter] && line[counter] == '<')
 		counter++;
+	*start = counter;
 	if (!line[counter])
 		return (counter);
+	*start += 1;
 	return (counter + 1);
 }
 
-static int	skip_redir_arg(char *line, int start)
+static int	skip_arg(char *line, int *start)
 {
-	int counter;
+	int	counter;
 
-	counter = start;
+	counter = *start;
 	while (line[counter] && line[counter] != ' ')
 		counter++;
+	*start = counter;
 	if (!line[counter])
 		return (counter);
+	*start += 1;
 	return (counter + 1);
 }
 
 int	remove_com_line_input(char **com)
 {
-	int		start;
+	int		s;
 	int		end;
 	char	*line;
 	char	*temp;
-	char	*result;
+	char	*r;
 
 	line = *com;
-	start = 0;
 	temp = NULL;
-	result = ft_substr("", 0, 0);
-	if (!result)
+	r = ft_calloc((s = 0) + 1, sizeof(char));
+	if (!r)
 		return (1);
-	while (line[start])
+	while (line[s])
 	{
-		end = start;
+		end = s;
 		while (line[end] && line[end] != '<')
 			end++;
-		if (end-start != 0 
-			&& !(temp = ft_strjoin_clean(result, ft_substr(*com, start, end-start))))
-			return (free(result), 1);
+		if (end - s != 0 && !(merge(r, ft_substr(*com, s, end - s), &temp)))
+			return (free(r), 1);
 		if (temp)
-			result = temp;
-		if (!line[(start = end)]
-			|| !line[(start = skip_redir(line, start))]
-			|| !line[(start = skip_redir_arg(line, start))])
+			r = temp;
+		s = end;
+		if (!line[s] || !line[skip(line, &s)] || !line[skip_arg(line, &s)])
 			break ;
 	}
-	free(*com);
-	*com = result;
-	return (0);
+	return (free(*com), (*com = r), 0);
 }
 
 // int main(int ac, char *av[])
