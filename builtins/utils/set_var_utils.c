@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 01:28:29 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:53:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ char	**ft_handlestring_setvar(char **in, char *str, \
 	}
 	else
 		out = ft_realloc_dp(out, str_temp, token_count + 1);
+	free(str_temp);
 	return (out);
 }

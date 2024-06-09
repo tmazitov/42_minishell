@@ -67,7 +67,7 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
 	}
-	free(var);
+	free_pointer(var);
 	return (out);
 }
 
@@ -76,6 +76,7 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	*varname;
 	char	*varvalue;
 
+	ft_printf("address str: %p\n", &str);
 	varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
 	varvalue = ft_splitequalsign(ft_strchr(str, '='), \
 		ft_strchr(str, '\0'), envlist, varlist);
@@ -89,9 +90,9 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	else
 	{
-		ft_setvarlist(strdup(varname), strdup(varvalue), 1, varlist);
+		ft_setvarlist(ft_strdup(varname), ft_strdup(varvalue), 1, varlist);
 		if (ft_checkvarenv(varname, *envlist))
-			ft_setenvlist(strdup(varname), strdup(varvalue), 1, envlist);
+			ft_setenvlist(ft_strdup(varname), ft_strdup(varvalue), 1, envlist);
 		free(varname);
 		free(varvalue);
 	}
@@ -110,19 +111,23 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*envlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) == 0) && (ft_strlen((*envlist)->varname) == ft_strlen(varname)))
+		if (ft_compname(varname, (*envlist)->varname))
 		{
+			free((*envlist)->value);
 			(*envlist)->value = varvalue;
+			free(varname);
 			return (2);
 		}
 		else if ((*envlist)->next == NULL)
 		{
 			(*envlist)->next = ft_create_env(NULL, varname, varvalue);
+			free(varname);
 			return (1);
 		}
 		else
 			(*envlist) = (*envlist)->next;
 	}
+	free(varname);
 	return (3);
 }
 
@@ -138,19 +143,23 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*varlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) == 0) && (ft_strlen((*varlist)->varname) == ft_strlen(varname)))
+		if (ft_compname(varname, (*varlist)->varname))
 		{
+			free((*varlist)->value);
 			(*varlist)->value = varvalue;
+			free(varname);
 			return (2);
 		}
 		else if ((*varlist)->next == NULL)
 		{
 			(*varlist)->next = ft_create_var(varname, varvalue);
+			free(varname);
 			return (1);
 		}
 		else
 			(*varlist) = (*varlist)->next;
 	}
+	free(varname);
 	return (3);
 }
 
@@ -167,6 +176,8 @@ char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
 	if (*start == '=' && start < end)
 	{
 		start++;
+		ft_printf("address start: %p\n", &start);
+		ft_printf("address end: %p\n", &end);
 		var = ft_splitvarvalue(start, envlist, varlist);
 	}
 	else
@@ -183,6 +194,7 @@ char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
 		}
 		var[count] = '\0';
 	}
+	ft_printf("var %s\n", var);
 	return (var);
 }
 
@@ -191,6 +203,7 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 	char	**cmd_split;
 	int		len;
 	char	*out;
+	char	*str_temp;
 
 	len = 0;
 	out = malloc(sizeof(char) * 1);
@@ -203,13 +216,19 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 	{
 		ft_printf("str: %s\n", cmd_split[len]);
 		if (cmd_split[len][0] == '\'')
-			out = ft_mergevarval(start, out, \
-				ft_getvaluesquotes(cmd_split[len]));
+		{
+			str_temp = ft_getvaluesquotes(cmd_split[len]);
+			out = ft_mergevarval(start, out, str_temp);
+			free(str_temp);
+		}
 		else if (cmd_split[len][0] == '\"' || cmd_split[len][0] == '$')
-			out = ft_mergevarval(start, out, \
-				ft_getvaluedquotes(cmd_split[len], envlist, varlist));
+		{
+			str_temp = ft_getvaluedquotes(cmd_split[len], envlist, varlist);
+			out = ft_mergevarval(start, out, str_temp);
+			free(str_temp);
+		}
 		else
-			out = ft_mergevarval(start, out, cmd_split[len]);
+			out = ft_mergevarval(start, out, ft_strdup(cmd_split[len]));
 		len++;
 	}
 	free_pointer(cmd_split);
@@ -226,6 +245,7 @@ char	*ft_mergevarval(char *str, char *s1, char *s2)
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	out = ft_copyvarvalues(s1, s2, len1, len2);
+	free(s1);
 	return (out);
 }
 
@@ -249,7 +269,6 @@ char	*ft_copyvarvalues(char *s1, char *s2, size_t len1, size_t len2)
 		out[index] = s2[index - len1];
 		index++;
 	}
-	free(s1);
 	out[index] = '\0';
 	return (out);
 }

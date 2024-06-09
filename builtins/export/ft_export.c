@@ -21,7 +21,7 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 
 	var_head = *varlist;
 	index = 0;
-	var = ft_splittoken(str);
+	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handleexportsplit(str, var);
 	ft_printf("inside export A\n");
@@ -96,7 +96,7 @@ char	**ft_handleexportsplit(char *str, char **var)
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
 	}
-	free(var);
+	free_pointer(var);
 	return (out);
 }
 

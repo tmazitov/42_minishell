@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 08:04:56 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:58:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,29 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 	else
 	{
 		root = parse_input(user_input);
-		ft_checkdollar(&root, *envlist, *varlist);
+		root = ft_setroot(&root, *envlist, *varlist);
 		free(user_input);
 		if (!root)
 			return ;
-		ft_printf("\n----------------- PRINT AST ---------------\n");
-		print_ast(root, 0);
-		ft_printf("--------------------------------------------\n");
+		// ft_printf("root->value %s\n", root->value);
 		execute(&root, envlist, varlist);
 		if (root)
 			ft_free_ast(root);
 	}
+}
+
+t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
+	t_varlist *varlist)
+{
+	t_astnodes	*out;
+
+	out = *rootnode;
+	ft_checkdollar(rootnode, envlist, varlist);
+	*rootnode = out;
+	ft_printf("\n----------------- PRINT AST ---------------\n");
+	print_ast(*rootnode, 0);
+	ft_printf("--------------------------------------------\n");
+	return (out);
 }
 
 void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, \
@@ -66,8 +78,8 @@ void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, \
 		return ;
 	if (!((*rootnode)->left) && !((*rootnode)->right))
 		(*rootnode)->value = ft_expanddollar((*rootnode)->value, envlist, varlist);
-	ft_checkdollar((rootnode)->left, envlist, varlist);
-	ft_checkdollar((rootnode)->right, envlist, varlist);
+	ft_checkdollar(&(*rootnode)->left, envlist, varlist);
+	ft_checkdollar(&(*rootnode)->right, envlist, varlist);
 }
 
 char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)

@@ -23,8 +23,7 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 	len = 1;
 	cmd_split = ft_splittoken_setvar(str);
 	cmd_split = str_token(cmd_split);
-	ft_printf("str echo input: %s\n", str);
-	if ((cmd_split[len] != NULL) && ft_compname("-n", cmd_split[len]) == 0)
+	if ((cmd_split[len] != NULL) && ft_compname("-n", cmd_split[len]))
 		len++;
 	while (cmd_split[len] != NULL)
 	{
@@ -40,7 +39,7 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 			str = ft_strstr(str, cmd_split[len]);
 		}
 	}
-	if (!((cmd_split[1] != NULL) && ft_compname("-n", cmd_split[1]) == 0))
+	if (!((cmd_split[1] != NULL) && ft_compname("-n", cmd_split[1])))
 		ft_printf("\n");
 	free_pointer(cmd_split);
 }

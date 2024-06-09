@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 21:35:04 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:21:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 	char		*payload;
 
 	payload = ft_substr(node->value, 0, ft_strlen(node->value));
-	if (!payload)
-		return (1);
+	if (!payload || !*payload)
+		return (free(payload), 1);
 	new_node = NULL;
 	if (ft_checkcmd(payload))
 		new_node = add_builtin_node(q, &payload);

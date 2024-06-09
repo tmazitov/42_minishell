@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 01:45:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:28:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_tokens	*token_out(char *str)
 	token_input = tokenize_input(str_split);
 	if (token_input == NULL)
 		return (free_pointer(str_split), NULL);
-	return (token_input);
+	return (free_pointer(str_split), token_input);
 }
 
 void	ft_free_tokens(t_tokens *tokens)

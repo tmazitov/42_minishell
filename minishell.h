@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 05:49:54 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:54:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlis
 void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, t_varlist *varlist);
 char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist);
 char	*ft_mergedollar_a(char *str, char *out, int count);
+
+t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
+			t_varlist *varlist);
 char	*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
 	    t_varlist *varlist);
 int	    ft_selectmode(char c, int mode);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 22:04:07 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:18:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	**psplit;
 	char	*path;
 
-	psplit = ft_splittoken(str);
+	psplit = ft_splittoken_setvar(str);
 	psplit = str_token(psplit);
 	psplit = ft_handlecdsplit(str, psplit);
 	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
@@ -74,7 +74,8 @@ char	**ft_handlecdsplit(char *str, char **var)
 	index = -1;
 	while (var[count] != NULL)
 	{
-		if ((count > 0) && (var[count][0] != '\"' || \
+		ft_printf("str: %s var[%d]: %s\n", str, count, var[count]);
+		if ((count > 0) && (var[count][0] != '\"' && \
 			var[count][0] != '\'') && ((size_t)(ft_strstr(str, var[count]) - \
 			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
 		{
@@ -86,8 +87,9 @@ char	**ft_handlecdsplit(char *str, char **var)
 			index++;
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
+		ft_printf("out[%d]: %s\n", index, out[index]);
 	}
-	free(var);
+	free_pointer(var);
 	return (out);
 }
 
@@ -111,6 +113,7 @@ char	*ft_copystring(char *str)
 	int		count;
 	int		offset;
 
+	ft_printf("cd input: %s\n", str);
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);

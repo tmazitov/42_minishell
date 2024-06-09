@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_alloc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:18:20 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 02:55:55 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:02:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	**ft_realloc_dp(char **s, char *input, int len)
 	count++;
 	out[count] = NULL;
 	free(s);
-	free(input);
 	return (out);
 }
 
