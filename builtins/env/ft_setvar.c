@@ -28,7 +28,9 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (0);
 	while (var[index] != NULL)
 	{
+		ft_printf("var[%d]: %s\n", index, var[index]);
 		out = ft_setvarname(var[index], envlist, varlist);
+		ft_printf("out: %d\n", out);
 		if (out == 0)
 			return (ft_printf("%s: command not found\n", var[index]), 0);
 		index++;
@@ -51,6 +53,7 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 	index = -1;
 	while (var[count] != NULL)
 	{
+		ft_printf("split var[%d]: %s\n", count, var[count]);
 		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) - \
 			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
 		{
@@ -60,7 +63,12 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 		else if ((count > 0) && (size_t)(ft_strstr(str, var[count]) - \
 			ft_strstr(str, var[count - 1])) > ft_strlen(var[count - 1]) && \
 			(!ft_strchr(var[count], '=')))
-			return (ft_printf("%s: command not found\n", var[count]), NULL);
+		{
+			ft_printf("enter here\n");
+			ft_printf("%s: command not found\n", var[count]);
+			free_pointer(out);
+			return (free_pointer(var), NULL);
+		}
 		else
 		{
 			index++;
@@ -82,6 +90,7 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 		ft_strchr(str, '\0'), envlist, varlist);
 	if (!varname || !ft_checkvarname(varname))
 	{
+		printf("NULL\n");
 		if (varname)
 			free(varname);
 		if (varvalue)
@@ -113,6 +122,7 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 	{
 		if (ft_compname(varname, (*envlist)->varname))
 		{
+			ft_printf("setenvlist enter\n");
 			free((*envlist)->value);
 			(*envlist)->value = varvalue;
 			free(varname);
@@ -121,12 +131,12 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 		else if ((*envlist)->next == NULL)
 		{
 			(*envlist)->next = ft_create_env(NULL, varname, varvalue);
-			free(varname);
 			return (1);
 		}
 		else
 			(*envlist) = (*envlist)->next;
 	}
+	free(varvalue);
 	free(varname);
 	return (3);
 }
@@ -145,6 +155,7 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 	{
 		if (ft_compname(varname, (*varlist)->varname))
 		{
+			ft_printf("setvarlist enter\n");
 			free((*varlist)->value);
 			(*varlist)->value = varvalue;
 			free(varname);
@@ -153,12 +164,12 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 		else if ((*varlist)->next == NULL)
 		{
 			(*varlist)->next = ft_create_var(varname, varvalue);
-			free(varname);
 			return (1);
 		}
 		else
 			(*varlist) = (*varlist)->next;
 	}
+	free(varvalue);
 	free(varname);
 	return (3);
 }
@@ -228,7 +239,11 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 			free(str_temp);
 		}
 		else
-			out = ft_mergevarval(start, out, ft_strdup(cmd_split[len]));
+		{
+			str_temp = ft_strdup(cmd_split[len]);
+			out = ft_mergevarval(start, out, str_temp);
+			free(str_temp);
+		}
 		len++;
 	}
 	free_pointer(cmd_split);

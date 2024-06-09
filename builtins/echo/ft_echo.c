@@ -34,7 +34,7 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 		{
 			if ((size_t)(ft_strstr(str, cmd_split[len]) > \
 				(ft_strstr(str, cmd_split[len - 1])) + \
-				ft_strlen(cmd_split[len - 1]) + 1))
+				ft_strlen(cmd_split[len - 1])))
 				ft_printf(" ");
 			str = ft_strstr(str, cmd_split[len]);
 		}
@@ -74,7 +74,7 @@ void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
 		ft_printf("$");
 		return ;
 	}
-	else if (str[index] == '?')
+	else if (ft_compname("$?", str))
 	{
 		ft_printf("%d", status_code(GET_HISTORY, -1));
 		while (str[index + 1] != ' ' && str[index + 1] != '\0')

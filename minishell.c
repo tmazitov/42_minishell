@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 04:11:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 04:22:36 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 23:38:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	run_single_command(char *user_input, t_envlist **envlist, \
 							t_varlist **varlist)
 {
 	user_input = prepare_single_command(user_input);
-	if ((!user_input && status_code(GET, -1) == 130) 
-		|| !user_input_is_valid(user_input)) 
+	if ((!user_input && status_code(GET, -1) == 130)
+		|| !user_input_is_valid(user_input))
 	{
 		if (user_input)
 			free(user_input);

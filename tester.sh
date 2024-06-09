@@ -1,7 +1,6 @@
 ### ECHO ####
 
 ### HANDLED ####
-echo hello world
 echo "hello world"
 echo 'hello world'
 echo hello'world'
@@ -16,15 +15,16 @@ echo "exit_code ->$? user ->$USER home -> $HOME"
 echo 'exit_code ->$? user ->$USER home -> $HOME'
 echo "$"
 echo '$'
-echo $
 echo $?
 echo $?HELLO
+echo $
 
+echo $'1234var'
 echo $ '1234var'
-
+echo hello world
+echo hello""world
 echo hello$1world
 echo $"$var"
-echo $'1234var'
 echo $eli hello$eli
 echo $1
 echo $2
@@ -42,7 +42,8 @@ echo $USER 'hello "$USER" world' $USER
 
 ### NOT HANDLED ###
 ##################
-echo hello""world
+
+
 echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
 echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 
@@ -75,11 +76,12 @@ var=$HOME
 var="hello world"
 var='hello world'
 var='hello world' A
-###############
-
-### NOT HANDLED ###
 var=hello world=hello
 var= 12345
+$echo var
+###############----------------------------
+
+### NOT HANDLED ###
 ###################
 
 ### EXPORT ###

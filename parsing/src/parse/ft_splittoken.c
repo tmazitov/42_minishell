@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 16:59:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 22:18:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,16 +166,25 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 {
 	char	**out;
 	char	*str_temp;
-	// char	c;
+	char	c;
 	int		start;
 
 	if (str[*index] == '$')
 		(*index)++;
+	c = str[*index];
 	start = *index;
 	*index += 1;
 	out = in;
-	while ((str[*index] != '\0'))
+	while ((str[*index] != '\0') && str[*index] != c)
 		*index += 1;
+	if (str[*index] == c)
+		*index += 1;
+	else
+	{
+		ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
+		free_pointer(out);
+		return (NULL);
+	}
 	str_temp = ft_assignstring(str, start, *index);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	free(str_temp);

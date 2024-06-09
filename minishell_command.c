@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 15:58:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 23:42:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 		free(user_input);
 		if (!root)
 			return ;
-		// ft_printf("root->value %s\n", root->value);
+		ft_printf("root->value |%s|\n", root->value);
 		execute(&root, envlist, varlist);
 		if (root)
 			ft_free_ast(root);
@@ -65,9 +65,9 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 	out = *rootnode;
 	ft_checkdollar(rootnode, envlist, varlist);
 	*rootnode = out;
-	ft_printf("\n----------------- PRINT AST ---------------\n");
+	ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
 	print_ast(*rootnode, 0);
-	ft_printf("--------------------------------------------\n");
+	ft_printf("-----------------------------------------------------\n");
 	return (out);
 }
 
@@ -77,9 +77,36 @@ void	ft_checkdollar(t_astnodes **rootnode, t_envlist *envlist, \
 	if ((*rootnode) == NULL)
 		return ;
 	if (!((*rootnode)->left) && !((*rootnode)->right))
+	{
 		(*rootnode)->value = ft_expanddollar((*rootnode)->value, envlist, varlist);
+		(*rootnode)->value = ft_cleanvalue((*rootnode)->value);
+	}
 	ft_checkdollar(&(*rootnode)->left, envlist, varlist);
 	ft_checkdollar(&(*rootnode)->right, envlist, varlist);
+}
+
+char	*ft_cleanvalue(char *str)
+{
+	size_t	len;
+	char	*out;
+	char	*str_temp;
+
+	str_temp = str;
+	len = 0;
+	while (ft_isspace(*str) > 0)
+		str++;
+	out = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!out)
+		return (NULL);
+	ft_bzero(out, ft_strlen(str) + 1);
+	while (str[len] != '\0' && str[len] != '\n')
+	{
+		out[len] = str[len];
+		len++;
+	}
+	out[len] = '\0';
+	free(str_temp);
+	return (out);
 }
 
 char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
@@ -105,7 +132,14 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 					ft_itoa(status_code(GET_HISTORY, -1)));
 				count += 2;
 			}
-			else if ((ft_isspace(str[count + 1]) == 0) && (str[count + 1] != '\"'))
+			else if ((((str[count + 1]) == '\0') || (ft_isspace(str[count + 1]) > 0) || (str[count + 1] != '\"')) && !(((ft_isdigit(str[count + 1]) > 0) || \
+					((ft_isalpha(str[count + 1]) > 0)) || str[count + 1] == '_')))
+			{
+				out = ft_mergevarval(NULL, out, "$");
+				count++;
+			}
+			else if ((ft_isspace(str[count + 1]) == 0) && (str[count + 1] != '\"') && ((ft_isdigit(str[count + 1]) > 0) || \
+					((ft_isalpha(str[count + 1]) > 0)) || str[count + 1] == '_'))
 			{
 				varname = ft_getvarname(str, ++count);
 				if (!varname)
@@ -116,11 +150,6 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 					count += ft_countvarname(&str[count]);
 				}
 				free(varname);
-			}
-			else if ((ft_isspace(str[count + 1]) == 1) || (str[count + 1] == '\"'))
-			{
-				out = ft_mergevarval(NULL, out, "$");
-				count++;
 			}
 		}
 		else

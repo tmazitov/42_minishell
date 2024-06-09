@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:50:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 18:21:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 23:44:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	make_q_command(t_com_queue *q, t_astnodes *node)
 	else if ((payload[0] == '$') && !ft_checkcmd(payload))
 		new_node = add_builtin_node(q, &payload);
 	else
+	{
+		ft_printf("payload: %s\n", payload);
 		new_node = add_node(q, &payload);
+	}
 	free(payload);
 	if (!new_node)
 		return (1);

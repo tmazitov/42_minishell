@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 15:54:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 23:39:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 char	*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
 	    t_varlist *varlist);
 int	    ft_selectmode(char c, int mode);
+char	*ft_cleanvalue(char *str);
 #endif // MINISHELL_H
