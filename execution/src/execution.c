@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:34:20 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 05:46:17 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, \
 		return (single_builtin(command, &info));
 	while (command)
 	{
-		if (command->name)
+		if (command->name || command->builtin)
 			status = run_command_proc(command, &info);
 		if (status)
 			return (status);
