@@ -28,6 +28,7 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./utils/ft_free_env.c \
 					./utils/ft_free_sortedenv.c \
 					./utils/ft_free_var.c \
+					./utils/set_var_utils.c \
 					./cd/ft_cd.c \
 					./env/ft_setvar.c \
 					./env/ft_unsetvar.c \

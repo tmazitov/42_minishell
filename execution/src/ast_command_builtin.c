@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 18:55:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 22:05:52 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

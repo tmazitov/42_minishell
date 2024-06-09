@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 13:57:12 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/09 05:37:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, t_varlist **
 		return (single_builtin(command, &info));
 	while (command)
 	{
+		ft_printf("command: %s\n", command->builtin);
 		if (command->name && 
 			(status = run_command_proc(command, &info)))
 			return (status);
@@ -93,6 +94,9 @@ int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 
 	if (!tree || !*tree)
 		return (status_code(SET, 1));
+	ft_printf("\n----------------- PRINT AST ---------------\n");
+	print_ast(*tree, 0);
+	ft_printf("--------------------------------------------\n");
 	if (!(commands = make_ast_q(tree)))
 		return (status_code(SET, 1));
 	if (make_queue_relationship(commands) != 0)

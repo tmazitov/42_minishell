@@ -19,6 +19,7 @@ int	ft_builtins(char *str, t_builtin_info *info)
 	// t_varlist	*var_head;
 
 	env_head = NULL;
+	ft_printf("str_input: %s\n", str);
 	if ((*info->env) != NULL)
 		env_head = *info->env;
 	if (ft_compname("echo", str))
@@ -39,8 +40,6 @@ int	ft_builtins(char *str, t_builtin_info *info)
 		ft_exit(str, info);
 	else if (ft_compname("varrr", str))
 		ft_printvar(info->var);
-	else if (str[0] == '$')
-		ft_handle_dollar(str, *info->env, *info->var);
 	if (env_head != NULL)
 		*info->env = env_head;
 	return (0);
@@ -51,6 +50,8 @@ bool	ft_compname(char *str1, char *str2)
 	char	**out;
 
 	out = ft_split(str2, ' ');
+	ft_printf("out[0]: %s\n", out[0]);
+	printf("strlen: %zu\n", ft_strlen(out[0]));
 	if (ft_strncmp(str1, out[0], ft_strlen(out[0])) == 0 && \
 		(ft_strlen(str1) == ft_strlen(out[0])))
 		return (free_pointer(out), true);
@@ -75,21 +76,21 @@ void	ft_handle_dollar(char *str, t_envlist *envlist, t_varlist *varlist)
 
 bool	ft_checkcmd(char *str)
 {
-	if (ft_strncmp(str, "echo", 4) == 0)
+	if (ft_compname("echo", str))
 		return (true);
-	else if (ft_strncmp(str, "unset", 5) == 0)
+	else if (ft_compname("unset", str))
 		return (true);
-	else if (ft_strncmp(str, "export", 6) == 0)
+	else if (ft_compname("export", str))
 		return (true);
-	else if (ft_strncmp(str, "env", 3) == 0)
+	else if (ft_compname("env", str))
 		return (true);
-	else if (ft_strncmp(str, "cd", 2) == 0)
+	else if (ft_compname("cd", str))
 		return (true);
-	else if (ft_strncmp(str, "exit", 4) == 0)
+	else if (ft_compname("exit", str))
 		return (true);
-	else if (ft_strncmp(str, "varrr", 5) == 0)
+	else if (ft_compname("varrr", str))
 		return (true);
-	else if (ft_strncmp(str, "pwd", 3) == 0 || (ft_strncmp(str, "PWD", 3) == 0))
+	else if (ft_compname("pwd", str) || ft_compname("PWD", str))
 		return (true);
 	else
 		return (false);

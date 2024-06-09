@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 20:57:55 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 05:20:32 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,56 @@
 /// @return double pointer of tokens.
 char	**ft_splittoken(char *str)
 {
-	t_splitvalues	spval;
+	t_splitvalues	*spval;
 	char			**out;
 
-	spval.index = 0;
+	spval = malloc(sizeof(t_splitvalues));
+	spval->index = 0;
+	if (ft_checksquotes(str) == 0)
+		return (NULL);
 	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
-	spval.token_count = 0;
-	while (str[spval.index] != '\0')
+	spval->token_count = 0;
+	while (str[spval->index] != '\0')
 	{
-		while (str[spval.index] && (ft_isspace(str[spval.index]) > 0))
-			spval.index++;
-		if (str[spval.index] && !(ft_isspace(str[spval.index])) && \
-			str[spval.index] != '\'' && str[spval.index] != '\"' && \
-			!(str[spval.index] == '$' && str[spval.index + 1] == '\"') && \
-			!(str[spval.index] == '$' && str[spval.index + 1] == '\''))
-			out = ft_handlestring(out, str, &spval.index, \
-			(++spval.token_count));
-		if (str[spval.index] == '\'' || str[spval.index] == '\"' || \
-			(str[spval.index] == '$' && str[spval.index + 1] == '\"') || \
-			(str[spval.index] == '$' && str[spval.index + 1] == '\''))
-			out = ft_handlequotes(out, str, &spval.index, \
-			(spval.token_count + 2));
+		while (str[spval->index] && (ft_isspace(str[spval->index]) > 0))
+			spval->index++;
+		out = ft_checkstring(out, str, spval);
+		out = ft_checkquotes(out, str, spval);
 	}
+	free(spval);
 	return (out);
+}
+
+char	**ft_checkquotes(char **out, char *str, t_splitvalues *spval)
+{
+	if (str[spval->index] == '\'' || str[spval->index] == '\"' || \
+		(str[spval->index] == '$' && str[spval->index + 1] == '\"') || \
+		(str[spval->index] == '$' && str[spval->index + 1] == '\''))
+		out = ft_handlequotes(out, str, &spval->index, \
+		(spval->token_count + 2));
+	return (out);
+}
+
+char	**ft_checkstring(char **out, char *str, t_splitvalues *spval)
+{
+	if (str[spval->index] && !(ft_isspace(str[spval->index])) && \
+		str[spval->index] != '\'' && str[spval->index] != '\"' && \
+		!(str[spval->index] == '$' && str[spval->index + 1] == '\"') && \
+		!(str[spval->index] == '$' && str[spval->index + 1] == '\''))
+		out = ft_handlestring(out, str, &spval->index, \
+			(++spval->token_count));
+	return (out);
+}
+
+bool	handlestring_cond(char *str, int index)
+{
+	if (!(str[index] != '\0'))
+		return (false);
+	if (!(!(ft_isspace(str[index]))))
+		return (false);
+	return (true);
 }
 
 /// @brief handles unqouted strings excluding spaces then reallocates memory
@@ -65,22 +90,10 @@ char	**ft_handlestring(char **in, char *str, int *index, int token_count)
 	start = *index;
 	out = in;
 	out_temp = NULL;
-	while (str[*index] != '\0' && !(ft_isspace(str[*index])) && \
-		str[*index] != '\'' && str[*index] != '\"' && !(str[*index] == '$' && \
-		str[(*index) + 1] == '\"') && !(str[*index] == '$' && \
-		str[(*index) + 1] == '\''))
+	while (handlestring_cond(str, *index))
 		*index += 1;
 	str_temp = ft_assignstring(str, start, *index);
-	if (ft_strchr(str_temp, '$'))
-	{
-		out_temp = ft_splitstring(str_temp);
-		start = 0;
-		while (out_temp[start] != NULL)
-			out = ft_realloc_dp(out, out_temp[start++], token_count + 1);
-		free(out_temp);
-	}
-	else
-		out = ft_realloc_dp(out, str_temp, token_count + 1);
+	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	return (out);
 }
 
@@ -94,7 +107,7 @@ char	**ft_splitstring(char *str)
 	int		start;
 	char	*str_temp;
 
-	out = safe_dp_malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
 	index = 0;
@@ -159,16 +172,17 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 	start = *index;
 	*index += 1;
 	out = in;
-	while (str[*index] != '\0' && str[*index] != c)
+	// while (str[*index] != '\0' && str[*index] != c)
+	while ((str[*index] != '\0'))
 		*index += 1;
-	if (str[*index] == c)
-		*index += 1;
-	else
-	{
-		ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
-		free_pointer(out);
-		return (NULL);
-	}
+	// if (str[*index] == c)
+	// 	*index += 1;
+	// else
+	// {
+	// 	ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
+	// 	free_pointer(out);
+	// 	return (NULL);
+	// }
 	str_temp = ft_assignstring(str, start, *index);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	return (out);

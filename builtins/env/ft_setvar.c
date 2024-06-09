@@ -14,14 +14,14 @@
 
 int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	int			out;
-	char		**var;
-	int			index;
-	t_varlist	*var_head;
+	int		out;
+	char	**var;
+	int		index;
+	t_varlist *var_head;
 
 	index = 0;
 	var_head = *varlist;
-	var = ft_splittoken(str);
+	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handlesetvarsplit(str, var);
 	if (!var)
@@ -44,7 +44,7 @@ char	**ft_handlesetvarsplit(char *str, char **var)
 	int		count;
 	int		index;
 
-	out = safe_dp_malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
 	count = 0;
@@ -110,9 +110,7 @@ int	ft_setenvlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*envlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*envlist)->varname, \
-			ft_strlen((*envlist)->varname)) == 0) && \
-			(ft_strlen((*envlist)->varname) == ft_strlen(varname)))
+		if ((ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->varname)) == 0) && (ft_strlen((*envlist)->varname) == ft_strlen(varname)))
 		{
 			(*envlist)->value = varvalue;
 			return (2);
@@ -140,9 +138,7 @@ int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
 	}
 	while ((*varlist) != NULL && overwrite > 0)
 	{
-		if ((ft_strncmp(varname, (*varlist)->varname, \
-			ft_strlen((*varlist)->varname)) == 0) && \
-			(ft_strlen((*varlist)->varname) == ft_strlen(varname)))
+		if ((ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->varname)) == 0) && (ft_strlen((*varlist)->varname) == ft_strlen(varname)))
 		{
 			(*varlist)->value = varvalue;
 			return (2);
@@ -177,6 +173,8 @@ char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
 	{
 		len = (end - start + 1);
 		var = malloc(sizeof(char) * (len));
+		if (var == NULL)
+			return (NULL);
 		ft_bzero(var, len);
 		while (start < end && count < len - 1)
 		{
@@ -197,12 +195,13 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 	len = 0;
 	out = malloc(sizeof(char) * 1);
 	out[0] = '\0';
-	cmd_split = ft_splittoken(start);
+	cmd_split = ft_splittoken_setvar(start);
 	if (!cmd_split)
 		return (NULL);
 	cmd_split = str_token(cmd_split);
 	while (cmd_split[len] != NULL)
 	{
+		ft_printf("str: %s\n", cmd_split[len]);
 		if (cmd_split[len][0] == '\'')
 			out = ft_mergevarval(start, out, \
 				ft_getvaluesquotes(cmd_split[len]));

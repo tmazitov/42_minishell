@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:46:43 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/23 16:16:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/09 04:23:30 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*ft_realloc(void *ptr, size_t len)
 		return (NULL);
 	}
 	new_ptr = malloc(len);
+	ft_bzero(new_ptr, len);
 	if (!new_ptr)
 		return (NULL);
 	old_size = ft_strlen(ptr);

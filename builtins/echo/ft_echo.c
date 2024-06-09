@@ -21,10 +21,11 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 	int		len;
 
 	len = 1;
-	cmd_split = ft_splittoken(str);
+	cmd_split = ft_splittoken_setvar(str);
 	cmd_split = str_token(cmd_split);
 	if ((cmd_split[len] != NULL) && ft_strncmp(cmd_split[len], "-n", 2) == 0)
 		len++;
+	ft_printf("echo input: %s\n", str);
 	while (cmd_split[len] != NULL)
 	{
 		ft_printparams(str, cmd_split[len], envlist, varlist);
@@ -68,7 +69,7 @@ void	ft_printexpansion(char *str, int index, t_envlist *envlist, \
 	char	*varname;
 	char	*expanded_val;
 
-	if (ft_strncmp("$", str, ft_strlen(str)) == 0)
+	if (ft_compname("$", str))
 	{
 		ft_printf("$");
 		return ;

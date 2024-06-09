@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:11:16 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/03 17:13:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/08 21:41:33 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_free_ast_temp(t_astnodes *rootnode)
 {
 	if (rootnode == NULL)
 		return ;
-	ft_printf("%s\n", rootnode->value);
 	free(rootnode->value);
 	ft_free_ast_temp(rootnode->left);
 	ft_free_ast_temp(rootnode->right);

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 20:11:22 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 05:28:03 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlis
 	if (is_sh_file(user_input))
 	{
 		ft_openshfile(user_input);
-		free(user_input);		
+		free(user_input);
 	}
 	else
 	{
-		// ft_printf("different_execute\n");
 		root = parse_input(user_input);
+		ft_checkdollar(root, *envlist, *varlist);
 		free(user_input);
 		if (!root)
 			return ;
@@ -53,4 +53,77 @@ void	different_execute(char *user_input, t_envlist **envlist, t_varlist **varlis
 		if (root)
 			ft_free_ast(root);
 	}
+}
+
+void	ft_checkdollar(t_astnodes *rootnode, t_envlist *envlist, \
+	t_varlist *varlist)
+{
+	int	i;
+
+	if (rootnode == NULL)
+		return ;
+	i = 0;
+	if (!(rootnode->left) && !(rootnode->right))
+		rootnode->value = ft_expanddollar(rootnode->value, envlist, varlist);
+	ft_checkdollar(rootnode->left, envlist, varlist);
+	ft_checkdollar(rootnode->right, envlist, varlist);
+}
+
+char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
+{
+	char	*varname;
+	int		count;
+	char	*out;
+	int		mode;
+
+	out = (char *)ft_calloc(1, sizeof(char));
+	if (out == NULL)
+		return (NULL);
+	count = 0;
+	mode = 1;
+	while (str[count])
+	{
+		mode = ft_selectmode(str[count], mode);
+		if (str[count] == '$' && mode == 1)
+		{
+			varname = ft_getvarname(str, ++count);
+			out = ft_mergedollar_b(varname, out, envlist, varlist);
+			count += ft_countvarname(&str[count]);
+		}
+		else
+			out = ft_mergedollar_a(str, out, count++);
+	}
+	free(str);
+	return (out);
+}
+
+int	ft_selectmode(char c, int mode)
+{
+	if (c == '\'' && mode == 1)
+		mode = 0;
+	else if (c == '\'' && mode == 0)
+		mode = 1;
+	return (mode);
+}
+
+char	*ft_mergedollar_a(char *str, char *out, int count)
+{
+	size_t	outlen;
+
+	out = ft_realloc(out, ft_strlen(out) + 2);
+	outlen = ft_strlen(out);
+	out[outlen] = str[count];
+	out[outlen + 1] = '\0';
+	return (out);
+}
+
+char	*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
+	t_varlist *varlist)
+{
+	char	*varvalue;
+
+	varvalue = ft_getenv(varname, envlist, varlist);
+	if (varvalue != NULL && *varvalue)
+		out = ft_mergevarval(NULL, out, varvalue);
+	return (out);
 }

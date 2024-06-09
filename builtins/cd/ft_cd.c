@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 19:11:45 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/08 22:04:07 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**ft_handlecdsplit(char *str, char **var)
 	int		count;
 	int		index;
 
-	out = safe_dp_malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
 	count = 0;

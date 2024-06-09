@@ -24,10 +24,13 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 	var = ft_splittoken(str);
 	var = str_token(var);
 	var = ft_handleexportsplit(str, var);
+	ft_printf("inside export A\n");
 	if (ft_strlen_dp(var) == 1)
 		ft_printexport(envlist, varlist);
+	ft_printf("inside export B\n");
 	while (var[++index] != NULL)
 	{
+		ft_printf("inside export C\n");
 		varname = var[index];
 		if (ft_strchr(varname, '=') && (ft_strlen(varname) > 1))
 			varname = ft_splitequalsign(varname, ft_strchr(varname, '='), \
@@ -73,7 +76,7 @@ char	**ft_handleexportsplit(char *str, char **var)
 	int		count;
 	int		index;
 
-	out = safe_dp_malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
 	count = 0;

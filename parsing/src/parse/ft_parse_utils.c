@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:27:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 20:58:41 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/09 00:55:15 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	ft_strlen_dp(char **s)
 	int	count;
 
 	count = 0;
-	// if (s == NULL)
-	// 	return (0);
 	while (s[count] != NULL)
 	{
 		count++;

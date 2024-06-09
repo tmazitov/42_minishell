@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 20:45:05 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/08 22:04:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**str_token(char **str_input)
 	char			**out;
 	int				count;
 
-	out = safe_dp_malloc(sizeof(char *) * 1);
+	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
 	out[0] = NULL;

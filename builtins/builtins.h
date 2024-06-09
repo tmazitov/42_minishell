@@ -110,6 +110,10 @@ int					ft_setvar(char *str, t_envlist **envlist, \
 					t_varlist **varlist);
 int					ft_setvarname(char *str, t_envlist **envlist, \
 					t_varlist **varlist);
+char				**ft_splittoken_setvar(char *str);
+bool				handlestring_cond_setvar(char *str, int index);
+char				**ft_handlestring_setvar(char **in, char *str, \
+					int *index, int token_count);
 char				**ft_handlesetvarsplit(char *str, char **var);
 char				*ft_splitvarvalue(char *start, t_envlist **envlist, \
 					t_varlist **varlist);
