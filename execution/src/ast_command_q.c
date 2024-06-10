@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_command_q.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:52:25 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 16:25:23 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:28:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ast_q_length(t_com_queue *q)
 	length = 0;
 	while (node)
 	{
-		if (node->name)
+		if (node->name || node->builtin)
 			length++;
 		node = node->next;
 	}

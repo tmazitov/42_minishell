@@ -6,13 +6,13 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:16:43 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 16:29:35 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:30:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*check_absolute_path(char *path, t_envlist **envlist)
+static char	*check_absolute_path(char *path)
 {
 	int	ok;
 
@@ -31,7 +31,7 @@ char	*command_path(t_com_node *command, t_envlist **envlist)
 		return (NULL);
 	path = find_path(envlist);
 	if (ft_strnstr(command->name, "./", 3))
-		command->path = check_absolute_path(command->name, envlist);
+		command->path = check_absolute_path(command->name);
 	else if (!path)
 		return (NULL);
 	else
