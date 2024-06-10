@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:12:01 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 01:03:37 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:41:30 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	fill_command_heredoc(t_com_input_storage *storage, t_builtin_info info)
 	t_com_input	*input;
 	int			status;
 
+	if (!storage)
+		return (0);
 	counter = 0;
 	input = storage->content[counter];
 	while (input)

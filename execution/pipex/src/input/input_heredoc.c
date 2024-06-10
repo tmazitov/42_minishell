@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 01:04:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:19:26 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	heredoc_fill(t_com_input *heredoc, t_builtin_info info)
 		return (1);
 	limiter = heredoc->limiter;
 	input = readline("> ");
-	while (input 
-		&& !is_limiter(limiter, input) 
+	while (input
+		&& !is_limiter(limiter, input)
 		&& status_code(GET, -1) != STOP_HEREDOC)
 	{
 		heredoc_input(heredoc, input, fd, info);
