@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 10:39:58 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/04/29 15:23:49 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:18:08 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	make_exec_commands(char **argv, int com_count, char **envp)
 	output_path = argv[com_count + 2];
 	if (check_heredoc(argv[1]))
 		commands = make_queue(argv + 3, com_count - 1);
-	else 
+	else
 		commands = make_queue(argv + 2, com_count);
 	if (!commands)
 		panic("make command queue error", 1);

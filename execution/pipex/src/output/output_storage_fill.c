@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 10:00:26 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:22:33 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:19:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_output_dest	take_next_output_dest(char **com_string)
 	temp = *com_string;
 	while (temp[counter])
 	{
-		if (temp[counter] == '>') 
+		if (temp[counter] == '>')
 		{
 			*com_string = temp + counter + 2;
 			if (temp[counter + 1] == '>')

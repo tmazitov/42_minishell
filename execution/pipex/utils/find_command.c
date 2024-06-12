@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:54:17 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:25:14 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:19:47 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*check_path(char *path, char *command_name)
 	ok = access(command_path, X_OK);
 	if (ok == -1)
 		return (free(command_path), NULL);
-	return (command_path); 
+	return (command_path);
 }
 
 char	*find_command_path(char *command_name, char *env_path)

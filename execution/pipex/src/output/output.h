@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:48:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:19:09 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:19:15 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,21 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-typedef enum dest{
+typedef enum dest
+{
 	OUTFILE = 3,
 	APPENDFILE = 4
 }		t_output_dest;
 
-typedef struct s_com_output {
+typedef struct s_com_output
+{
 	t_output_dest	src;
 	int				fd;
 	char			*filepath;
 }		t_com_output;
 
-typedef struct s_com_output_storage {
+typedef struct s_com_output_storage
+{
 	int				file_amount;
 	int				append_amount;
 	int				total_amount;

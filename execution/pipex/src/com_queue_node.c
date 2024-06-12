@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:24:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:17:38 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,35 @@ static void	init_node(t_com_node *node)
 	node->args = NULL;
 }
 
+static int	init_redirection(t_com_node *node, char **input)
+{
+	char	**t;
+	int		ctn;
+
+	t = ft_splittoken(*input);
+	if (!t)
+		return (0);
+	ctn = -1;
+	while (t[++ctn])
+	{
+		if (!node->input && \
+			(!ft_strncmp(t[ctn], "<", 2) || !ft_strncmp(t[ctn], "<<", 3)))
+		{
+			node->input = make_input_storage(input);
+			if (!node->input)
+				return (free_pointer(t), 0);
+		}
+		if (!node->output && \
+			(!ft_strncmp(t[ctn], ">", 2) || !ft_strncmp(t[ctn], ">>", 3)))
+		{
+			node->output = make_output_storage(input);
+			if (!node->output)
+				return (free_pointer(t), 0);
+		}
+	}
+	return (free_pointer(t), 1);
+}
+
 t_com_node	*make_node(char **com)
 {
 	t_com_node	*node;
@@ -40,13 +69,7 @@ t_com_node	*make_node(char **com)
 	if (!node)
 		return (NULL);
 	init_node(node);
-	if (ft_strchr(*com, '<'))
-		node->input = make_input_storage(com);
-	if (ft_strchr(*com, '<') && !node->input)
-		return (free_node(node));
-	if (ft_strchr(*com, '>'))
-		node->output = make_output_storage(com);
-	if (ft_strchr(*com, '>') && !node->output)
+	if (!init_redirection(node, com))
 		return (free_node(node));
 	node->args = ftt_split(*com, ' ');
 	if (!node->args)

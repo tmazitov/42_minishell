@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:03:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 23:57:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:19:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sigquit_handler(int signum)
 		rl_done = 1;
 		write(STDERR_FILENO, "Quit: ", 6);
 		ft_putnbr_fd(signum, STDERR_FILENO);
-		write(STDERR_FILENO, "\n", 1); 
+		write(STDERR_FILENO, "\n", 1);
 		return ;
 	}
 }
