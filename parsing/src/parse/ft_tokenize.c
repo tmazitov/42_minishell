@@ -23,17 +23,20 @@ char	*ft_checkoperator(char *c)
 	int		index;
 	size_t	len;
 	char	*out;
+	int		mode;
 
 	len = ft_strlen(c);
 	index = 0;
+	mode = 1;
 	while (c[index] != '\0')
 	{
-		if ((c[index] == '<') || (c[index] == '>'))
+		mode = ft_modeoperator(c[index], mode);
+		if (((c[index] == '<') || (c[index] == '>')) && mode == 1)
 		{
 			index += ft_checknextchar(c, index);
 			len += 2;
 		}
-		else if ((c[index] == '|'))
+		else if ((c[index] == '|') && mode == 1)
 			len += 2;
 		index++;
 	}
@@ -43,6 +46,15 @@ char	*ft_checkoperator(char *c)
 	out = ft_tokenize(out, c, len);
 	free(c);
 	return (out);
+}
+
+int	ft_modeoperator(char c, int mode)
+{
+	if ((c == '\'' || c == '\"') && mode == 1)
+		mode = 0;
+	else if ((c == '\'' || c == '\"') && mode == 0)
+		mode = 1;
+	return (mode);
 }
 
 /// @brief checks operator character (<,>,|,(,),) from the input string, 
@@ -59,18 +71,21 @@ char	*ft_tokenize(char *out, char *c, int len)
 {
 	int	i;
 	int	o;
+	int	mode;
 
 	i = -1;
 	o = 0;
+	mode = 1;
 	while (++i < len)
 	{
-		if ((c[i - o] == '<') || (c[i - o] == '>') || \
-			((ft_isdigit(c[i - o]) > 0) && (ft_checkpid(c, i, o))))
+		mode = ft_modeoperator(c[i - o], mode);
+		if (((c[i - o] == '<') || (c[i - o] == '>') || \
+			((ft_isdigit(c[i - o]) > 0) && (ft_checkpid(c, i, o)))) && mode == 1)
 		{
 			i = ft_handleredir(out, c, i, o);
 			o += 2;
 		}
-		else if ((c[i - o] == '|'))
+		else if (((c[i - o] == '|')) && mode == 1)
 		{
 			i = ft_handleoper(out, c, i, o);
 			o += 2;

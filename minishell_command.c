@@ -115,6 +115,7 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 	int		count;
 	char	*out;
 	int		mode;
+	char	*str_temp;
 
 	out = (char *)ft_calloc(1, sizeof(char));
 	if (out == NULL)
@@ -128,8 +129,9 @@ char	*ft_expanddollar(char *str, t_envlist *envlist, t_varlist *varlist)
 		{
 			if (str[count + 1] == '?')
 			{
-				out = ft_mergevarval(NULL, out, \
-					ft_itoa(status_code(GET_HISTORY, -1)));
+				str_temp = ft_itoa(status_code(GET_HISTORY, -1));
+				out = ft_mergevarval(NULL, out, str_temp);
+				free(str_temp);
 				count += 2;
 			}
 			else if ((((str[count + 1]) == '\0') || (ft_isspace(str[count + 1]) > 0) || (str[count + 1] != '\"')) && !(((ft_isdigit(str[count + 1]) > 0) || \

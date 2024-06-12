@@ -58,11 +58,15 @@ char	**ft_handletokens(char **outdp, char *str)
 	int		token_count;
 	int		count;
 
-	str_split = ft_split(str, ' ');
+	ft_printf("handletokens str: %s\n", str);
+	// str_split = ft_split(str, ' ');
+	str_split = ft_splittoken(str);
+	// str_split = ft_handlesplittoken(str, str_split);
 	token_count = ft_strlen_dp(str_split);
 	count = 0;
 	while (count < token_count)
 	{
+		ft_printf("str_split[%d]: %s\n", count, str_split[count]);
 		outdp = ft_realloc_dp(outdp, str_split[count], ft_strlen_dp(outdp) + 1);
 		free(str_split[count]);
 		count++;

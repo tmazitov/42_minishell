@@ -24,6 +24,8 @@ char	**ft_splittoken(char *str)
 	char			**out;
 
 	spval = malloc(sizeof(t_splitvalues));
+	if (spval == NULL)
+		return (NULL);
 	spval->index = 0;
 	if (ft_checkquotes_grammar(str) == 0)
 		return (NULL);
@@ -39,6 +41,37 @@ char	**ft_splittoken(char *str)
 		out = ft_checkquotes(out, str, spval);
 	}
 	free(spval);
+	out = ft_handlesplittoken(str, out);
+	ft_printf("out: %s\n", out[0]);
+	return (out);
+}
+
+char	**ft_handlesplittoken(char *str, char **var)
+{
+	char	**out;
+	int		count;
+	int		index;
+
+	out = safe_dp_malloc(1);
+	if (out == NULL)
+		return (NULL);
+	count = 0;
+	index = -1;
+	while (var[count] != NULL)
+	{
+		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) - \
+			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
+		{
+			out[index] = ft_mergesplittoken(str, out[index], var[count]);
+			str = ft_strstr(str, var[count++]);
+		}
+		else
+		{
+			index++;
+			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
+		}
+	}
+	free_pointer(var);
 	return (out);
 }
 
@@ -68,6 +101,10 @@ bool	handlestring_cond(char *str, int index)
 	if (!(str[index] != '\0'))
 		return (false);
 	if (!(!(ft_isspace(str[index]))))
+		return (false);
+	if ((str[index] == '\''))
+		return (false);
+	if ((str[index] == '\"'))
 		return (false);
 	return (true);
 }

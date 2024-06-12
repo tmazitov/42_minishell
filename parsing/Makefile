@@ -22,6 +22,7 @@ PARSE_SRCS	=	./src/parse/ft_parse.c \
 				./src/parse/ft_toktoast.c \
 				./src/parse/ft_strtoken.c \
 				./src/parse/ft_splittoken.c \
+				./src/parse/ft_mergesplittoken.c \
 				./src/parse/ft_parse_utils.c \
 				./src/parse/ft_checknextchar.c \
 				./src/grammar/ft_checksyntax.c \

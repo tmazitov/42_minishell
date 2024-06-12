@@ -94,6 +94,9 @@ char		*enum_word(t_tokentype tokentype);
 int			ft_checkcbrackets(char *str);
 
 char		**ft_splittoken(char *str);
+char		**ft_handlesplittoken(char *str, char **var);
+char		*ft_mergesplittoken(char *str, char *s1, char *s2);
+char		*ft_copyvarsplittoken(char *s1, char *s2, size_t len1, size_t len2);
 char		**safe_dp_malloc(int len);
 char		**ft_handlestring(char **in, char *str, \
 			int *index, int token_count);
@@ -108,6 +111,7 @@ char		*ft_assignstring(char *str, int start, int end);
 char		**ft_realloc_dp(char **s, char *input, int len);
 
 char		*ft_checkoperator(char *c);
+int			ft_modeoperator(char c, int mode);
 char		*ft_tokenize(char *out, char *c, int len);
 bool		ft_checkpid(char *c, int index, int offset);
 int			ft_handleredir(char *out, char *c, int index, int offset);
