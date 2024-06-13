@@ -25,10 +25,12 @@ char	**ft_handlesplittoken(char *str, char **var)
 	index = -1;
 	while (var[count] != NULL)
 	{
-		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) - \
-			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
+		if ((count > 0) && ((size_t)(ft_strstr(str + ft_strlen(var[count - \
+		1]), var[count]) - ft_strstr(str, var[count - 1])) == \
+		ft_strlen(var[count - 1])))
 		{
 			out[index] = ft_mergesplittoken(str, out[index], var[count]);
+			str = str + ft_strlen(var[count - 1]);
 			str = ft_strstr(str, var[count++]);
 		}
 		else
@@ -37,8 +39,7 @@ char	**ft_handlesplittoken(char *str, char **var)
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
 	}
-	free_pointer(var);
-	return (out);
+	return (free_pointer(var), out);
 }
 
 char	**ft_checkquotes(char **out, char *str, t_splitvalues *spval)
