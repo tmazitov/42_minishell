@@ -12,11 +12,9 @@
 
 #include "./builtins.h"
 
-// int	ft_builtins(char *str, t_envlist **envlist, t_varlist **varlist)
 int	ft_builtins(char *str, t_builtin_info *info)
 {
 	t_envlist	*env_head;
-	// t_varlist	*var_head;
 
 	env_head = NULL;
 	if ((*info->env) != NULL)
@@ -29,7 +27,16 @@ int	ft_builtins(char *str, t_builtin_info *info)
 		ft_unsetvarname(str, info->env, info->var);
 	else if (ft_compname("export", str))
 		ft_export(str, info->env, info->var);
-	else if (ft_compname("env", str))
+	else
+		ft_builtins_b(str, info);
+	if (env_head != NULL)
+		*info->env = env_head;
+	return (0);
+}
+
+void	ft_builtins_b(char	*str, t_builtin_info *info)
+{
+	if (ft_compname("env", str))
 		ft_printenv(*info->env, *info->var);
 	else if (ft_compname("cd", str))
 		ft_cd(str, info->env, info->var);
@@ -39,9 +46,6 @@ int	ft_builtins(char *str, t_builtin_info *info)
 		ft_exit(str, info);
 	else if (ft_compname("varrr", str))
 		ft_printvar(info->var);
-	if (env_head != NULL)
-		*info->env = env_head;
-	return (0);
 }
 
 bool	ft_compname(char *str1, char *str2)
@@ -67,7 +71,6 @@ void	ft_handle_dollar(char *str, t_envlist *envlist, t_varlist *varlist)
 	value = ft_strdup(ft_getenv(varname, envlist, varlist));
 	if (value == NULL)
 		return ;
-	ft_printf("varnaEme: %s value: %s\n", varname, value);
 	free(value);
 }
 

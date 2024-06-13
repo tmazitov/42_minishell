@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/05/22 21:34:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:42:54 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,18 @@ void	ft_printexport(t_envlist **envlist, t_varlist **varlist)
 	ft_free_sortedenv(&sorted_envlist);
 	*envlist = env_head;
 	*varlist = var_head;
+}
+
+bool	ft_checkvarlist(char *varname, t_varlist *varlist)
+{
+	while (varlist != NULL && varlist->varname != NULL)
+	{
+		if (ft_compname(varname, varlist->varname))
+		{
+			return (true);
+		}
+		else
+			varlist = varlist->next;
+	}
+	return (false);
 }

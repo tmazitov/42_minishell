@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 07:47:00 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:53:21 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,33 +114,4 @@ bool	ft_checkparenthesis(t_tokens *tokens)
 	}
 	else
 		return (true);
-}
-
-bool	ft_checkparam(t_tokens *tokens)
-{
-	int	index;
-
-	while ((tokens) != NULL)
-	{
-		index = 0;
-		while ((tokens)->value[index] != '\0' && (tokens)->value[0] != \
-			'\"' && (tokens)->value[0] != '\'')
-		{
-			if ((tokens)->value[index] == '$')
-			{
-				if ((tokens)->value[index + 1] != '\0' && \
-					((ft_isalpha((tokens)->value[index + 1]) == 0) && \
-					((tokens)->value[index + 1]) != '_') && \
-					(ft_isdigit((tokens)->value[index + 1])) == 0 && \
-					(tokens)->value[index + 1] != '?')
-				{
-					ft_printf("bash: syntax error, wrong parameter name\n");
-					return (false);
-				}
-			}
-			index++;
-		}
-		tokens = tokens->next;
-	}
-	return (true);
 }

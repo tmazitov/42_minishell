@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 00:55:46 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 18:39:58 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:57:23 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,15 @@ char	*merge_string(char *s1, char *s2)
 	free(s1);
 	out[index] = '\0';
 	return (out);
+}
+
+int	ft_modeoperator(char c, int mode)
+{
+	if ((c == '\'' || c == '\"') && mode == 1)
+		mode = 0;
+	else if ((c == '\'' || c == '\"') && mode == 0)
+		mode = 1;
+	return (mode);
 }
 
 void	print_ast(t_astnodes *rootnode, int depth)

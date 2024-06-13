@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 19:11:06 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/23 00:25:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 16:55:48 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
 
 /// @brief checks if char c is in the string
 /// @param s string input

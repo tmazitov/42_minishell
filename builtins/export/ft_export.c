@@ -14,9 +14,9 @@
 
 int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	char	**var;
-	int		index;
-	char	*varname;
+	char		**var;
+	int			index;
+	char		*varname;
 	t_varlist	*var_head;
 
 	var_head = *varlist;
@@ -24,13 +24,10 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handleexportsplit(str, var);
-	ft_printf("inside export A\n");
 	if (ft_strlen_dp(var) == 1)
 		ft_printexport(envlist, varlist);
-	ft_printf("inside export B\n");
 	while (var[++index] != NULL)
 	{
-		ft_printf("inside export C\n");
 		varname = var[index];
 		if (ft_strchr(varname, '=') && (ft_strlen(varname) > 1))
 			varname = ft_splitequalsign(varname, ft_strchr(varname, '='), \
@@ -49,8 +46,8 @@ int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
 {
 	int	out;
 
-	if ((!ft_strchr(str_input, '=') && !ft_checkvarlist(str_input, *varlist)) || \
-		(ft_strchr(str_input, '=')))
+	if ((!ft_strchr(str_input, '=') && !ft_checkvarlist(str_input, *varlist)) \
+		|| (ft_strchr(str_input, '=')))
 	{
 		if (!ft_strchr(str_input, '=') && !ft_checkvarlist(str_input, *varlist))
 		{
@@ -96,10 +93,8 @@ char	**ft_handleexportsplit(char *str, char **var)
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
 	}
-	free_pointer(var);
-	return (out);
+	return (free_pointer(var), out);
 }
-
 
 void	ft_exportvar(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
@@ -134,28 +129,12 @@ bool	ft_checkvarenv(char *varname, t_envlist *envlist)
 {
 	while (envlist != NULL && envlist->varname != NULL)
 	{
-		if ((ft_strncmp(varname, envlist->varname, \
-			ft_strlen(envlist->varname)) == 0) && (ft_strlen(envlist->varname) == ft_strlen(varname)))
+		if (ft_compname(varname, envlist->varname))
 		{
 			return (true);
 		}
 		else
 			envlist = envlist->next;
-	}
-	return (false);
-}
-
-bool	ft_checkvarlist(char *varname, t_varlist *varlist)
-{
-	while (varlist != NULL && varlist->varname != NULL)
-	{
-		if ((ft_strncmp(varname, varlist->varname, \
-			ft_strlen(varlist->varname)) == 0) && (ft_strlen(varlist->varname) == ft_strlen(varname)))
-		{
-			return (true);
-		}
-		else
-			varlist = varlist->next;
 	}
 	return (false);
 }

@@ -40,3 +40,24 @@ int	ft_update_envlist(char *path, char *currdir, t_envlist **envlist)
 		(*envlist) = ft_create_env(NULL, "OLDPWD", oldpwd_value);
 	return (1);
 }
+
+char	*ft_expandhomepath(char **path_split, t_envlist *envlist, \
+	t_varlist *varlist)
+{
+	char	*path;
+	char	*homepath;
+	char	**newpath_split;
+	size_t	tot_len;
+
+	newpath_split = ft_split(path_split[1], '~');
+	homepath = ft_getenv("HOME", envlist, varlist);
+	tot_len = (ft_strlen(homepath) + ft_strlen(newpath_split[0]) + 1);
+	path = (char *)malloc(sizeof(char) * tot_len);
+	ft_memset(path, 0, tot_len);
+	ft_strlcat(path, homepath, ft_strlen(homepath) + 1);
+	ft_strlcat(path, newpath_split[0], ft_strlen(homepath) + \
+		ft_strlen(newpath_split[0]) + 1);
+	path[ft_strlen(homepath) + ft_strlen(newpath_split[0])] = '\0';
+	free_pointer(newpath_split);
+	return (path);
+}

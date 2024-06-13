@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/05 20:02:43 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:30:44 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_exit(char *str, t_builtin_info *info)
 		{
 			ft_printf("bash: exit: %s: numeric argument required\n", \
 				str_split[1]);
-			break;
+			break ;
 		}
 		count++;
 	}

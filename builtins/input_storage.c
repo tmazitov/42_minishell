@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_storage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 16:00:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/08 16:05:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:39:10 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*free_input_storage(t_com_input_storage *st)
 {
-	int 		counter;
+	int			counter;
 	t_com_input	*input;
 
 	if (!st)

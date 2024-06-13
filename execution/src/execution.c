@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 17:43:56 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:36:38 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static int	run_commands(t_com_queue *commands, t_envlist **envlist, \
 		return (single_builtin(command, &info));
 	while (command)
 	{
-		ft_printf("command: %s\n", command->name);
 		if (command->name || command->builtin)
 			status = run_command_proc(command, &info);
 		if (status)

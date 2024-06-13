@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtoken.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 17:33:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 13:25:48 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,11 @@ char	**ft_handletokens(char **outdp, char *str)
 	int		token_count;
 	int		count;
 
-	ft_printf("handletokens str: %s\n", str);
-	// str_split = ft_split(str, ' ');
 	str_split = ft_splittoken(str);
-	// str_split = ft_handlesplittoken(str, str_split);
 	token_count = ft_strlen_dp(str_split);
 	count = 0;
 	while (count < token_count)
 	{
-		ft_printf("str_split[%d]: %s\n", count, str_split[count]);
 		outdp = ft_realloc_dp(outdp, str_split[count], ft_strlen_dp(outdp) + 1);
 		free(str_split[count]);
 		count++;

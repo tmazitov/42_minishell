@@ -20,6 +20,8 @@ LDFLAGS			=	-L./libft -lft
 MINISHELL_SRCS	=	minishell.c \
 					minishell_info.c \
 					minishell_command.c \
+					minishell_command_utils.c \
+					minishell_expanddollar.c \
 					minishell_command_prep.c 
 					
 MINISHELL_OBJS 	=	$(MINISHELL_SRCS:.c=.o)

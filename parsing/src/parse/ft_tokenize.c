@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:14:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 18:27:06 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:34:54 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ char	*ft_checkoperator(char *c)
 	int		mode;
 
 	len = ft_strlen(c);
-	index = 0;
+	index = -1;
 	mode = 1;
-	while (c[index] != '\0')
+	while (c[++index] != '\0')
 	{
 		mode = ft_modeoperator(c[index], mode);
 		if (((c[index] == '<') || (c[index] == '>')) && mode == 1)
@@ -38,7 +38,6 @@ char	*ft_checkoperator(char *c)
 		}
 		else if ((c[index] == '|') && mode == 1)
 			len += 2;
-		index++;
 	}
 	out = (char *)malloc(sizeof(char) * (len + 1));
 	if (!out)
@@ -46,15 +45,6 @@ char	*ft_checkoperator(char *c)
 	out = ft_tokenize(out, c, len);
 	free(c);
 	return (out);
-}
-
-int	ft_modeoperator(char c, int mode)
-{
-	if ((c == '\'' || c == '\"') && mode == 1)
-		mode = 0;
-	else if ((c == '\'' || c == '\"') && mode == 0)
-		mode = 1;
-	return (mode);
 }
 
 /// @brief checks operator character (<,>,|,(,),) from the input string, 
@@ -79,17 +69,11 @@ char	*ft_tokenize(char *out, char *c, int len)
 	while (++i < len)
 	{
 		mode = ft_modeoperator(c[i - o], mode);
-		if (((c[i - o] == '<') || (c[i - o] == '>') || \
-			((ft_isdigit(c[i - o]) > 0) && (ft_checkpid(c, i, o)))) && mode == 1)
-		{
-			i = ft_handleredir(out, c, i, o);
-			o += 2;
-		}
+		if (((c[i - o] == '<') || (c[i - o] == '>') || ((ft_isdigit(c[i - o]) \
+			> 0) && (ft_checkpid(c, i, o)))) && mode == 1)
+			i = ft_handleredir(out, c, i, &o);
 		else if (((c[i - o] == '|')) && mode == 1)
-		{
-			i = ft_handleoper(out, c, i, o);
-			o += 2;
-		}
+			i = ft_handleoper(out, c, i, &o);
 		else
 			out[i] = c[i - o];
 	}
@@ -141,13 +125,13 @@ bool	ft_checkpid(char *c, int index, int offset)
 /// @param offset offset to the old string from the new string based
 /// on the added spaces
 /// @return end index of the new pointer/string
-int	ft_handleoper(char *out, char *c, int index, int offset)
+int	ft_handleoper(char *out, char *c, int index, int *offset)
 {
 	out[index] = ' ';
-	offset++;
+	(*offset)++;
 	index++;
-	out[index] = c[index - offset];
-	offset++;
+	out[index] = c[index - *offset];
+	(*offset)++;
 	index++;
 	out[index] = ' ';
 	return (index);
@@ -162,27 +146,27 @@ int	ft_handleoper(char *out, char *c, int index, int offset)
 /// @param offset offset to the old string from the new string based on
 /// the added spaces
 /// @return end index of the new pointer/string
-int	ft_handleredir(char *out, char *c, int index, int offset)
+int	ft_handleredir(char *out, char *c, int index, int *offset)
 {
 	int	redir_type;
 
 	out[index] = ' ';
-	offset++;
-	while (ft_isdigit(c[++index - offset]) != 0)
-		out[index] = c[index - offset];
-	out[index] = c[index - offset];
-	redir_type = ft_checknextchar(c, index - offset);
+	(*offset)++;
+	while (ft_isdigit(c[++index - *offset]) != 0)
+		out[index] = c[index - *offset];
+	out[index] = c[index - *offset];
+	redir_type = ft_checknextchar(c, index - *offset);
 	if (redir_type == 1)
 	{
 		index++;
-		out[index] = c[index - offset];
+		out[index] = c[index - *offset];
 	}
 	if (redir_type == 2)
 	{
 		index++;
-		out[index] = c[index - offset];
+		out[index] = c[index - *offset];
 	}
-	offset++;
+	(*offset)++;
 	index++;
 	out[index] = ' ';
 	return (index);

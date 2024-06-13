@@ -81,7 +81,6 @@ void	ft_printdquotes(char *str, t_envlist *envlist, t_varlist *varlist)
 	str++;
 	while (str[len] != '\0')
 	{
-		// ft_printf("str[%d]: %c\n", len, str[len]);
 		if (str[len] != '\"')
 			write(1, &str[len++], 1);
 		else

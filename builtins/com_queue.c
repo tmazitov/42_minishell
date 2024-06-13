@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_queue.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:25:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 18:55:44 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:43:54 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_com_node	*get_first(t_com_queue *q)
 	return (iter);
 }
 
-
 void	*free_queue_relationship(t_com_queue *q)
 {
 	t_com_node	*command;
@@ -83,7 +82,6 @@ void	*free_queue_relationship(t_com_queue *q)
 	return (NULL);
 }
 
-
 void	*free_queue(t_com_queue *q)
 {
 	t_com_node	*first;
@@ -104,4 +102,3 @@ void	*free_queue(t_com_queue *q)
 	free(q);
 	return (NULL);
 }
-

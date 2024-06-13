@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sortenv_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 22:11:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/30 23:26:01 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 14:49:00 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_copyvalues(char **var_split, char *var_newsplit)
 	return (var_newsplit);
 }
 
-t_envlist	*ft_create_env(char ** var_split, char *varname, char *varvalue)
+t_envlist	*ft_create_env(char **var_split, char *varname, char *varvalue)
 {
 	t_envlist	*varnames;
 
@@ -80,12 +80,11 @@ t_sorted_envlist	*ft_create_sortedenv(char *varname, char *varvalue)
 	return (varnames);
 }
 
-
 void	ft_printenvp(char **envp)
 {
-	int	count;
-	char *result;
-	char **varname;
+	int		count;
+	char	*result;
+	char	**varname;
 
 	count = 0;
 	varname = ft_split(envp[0], '=');

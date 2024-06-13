@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 22:09:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 16:53:43 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	**ft_handlestring_setvar(char **in, char *str, \
 	out_temp = NULL;
 	while (handlestring_cond_setvar(str, *index))
 		*index += 1;
-	ft_printf("index: %d\n", *index);
 	str_temp = ft_assignstring(str, start, *index);
 	if (ft_strchr(str_temp, '$'))
 	{
@@ -92,4 +91,11 @@ char	**ft_handlestring_setvar(char **in, char *str, \
 		out = ft_realloc_dp(out, str_temp, token_count + 1);
 	free(str_temp);
 	return (out);
+}
+
+void	ft_splitcond_b(char **out, char **var, char *str)
+{
+	ft_printf("%s: command not found\n", str);
+	free_pointer(out);
+	free_pointer(var);
 }

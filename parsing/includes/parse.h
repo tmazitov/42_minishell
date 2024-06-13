@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 06:55:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:32:21 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ char		*ft_checkoperator(char *c);
 int			ft_modeoperator(char c, int mode);
 char		*ft_tokenize(char *out, char *c, int len);
 bool		ft_checkpid(char *c, int index, int offset);
-int			ft_handleredir(char *out, char *c, int index, int offset);
-int			ft_handleoper(char *out, char *c, int index, int offset);
+int			ft_handleredir(char *out, char *c, int index, int *offset);
+int			ft_handleoper(char *out, char *c, int index, int *offset);
 
 char		**str_token(char **str);
 char		**ft_handletokens(char **outdp, char *str);

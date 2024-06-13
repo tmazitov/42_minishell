@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 23:49:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 13:36:35 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	run_command_proc(t_com_node *command, t_builtin_info *info)
 {
 	pid_t	proc_id;
 
-	ft_printf("command: %s\n", command->name);
 	if (!info->env || !info->var || !info->q)
 		return (1);
 	proc_id = fork();

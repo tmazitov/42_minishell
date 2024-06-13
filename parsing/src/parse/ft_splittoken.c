@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splittoken.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 22:18:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 13:55:39 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,71 +42,7 @@ char	**ft_splittoken(char *str)
 	}
 	free(spval);
 	out = ft_handlesplittoken(str, out);
-	ft_printf("out: %s\n", out[0]);
 	return (out);
-}
-
-char	**ft_handlesplittoken(char *str, char **var)
-{
-	char	**out;
-	int		count;
-	int		index;
-
-	out = safe_dp_malloc(1);
-	if (out == NULL)
-		return (NULL);
-	count = 0;
-	index = -1;
-	while (var[count] != NULL)
-	{
-		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) - \
-			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
-		{
-			out[index] = ft_mergesplittoken(str, out[index], var[count]);
-			str = ft_strstr(str, var[count++]);
-		}
-		else
-		{
-			index++;
-			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
-		}
-	}
-	free_pointer(var);
-	return (out);
-}
-
-char	**ft_checkquotes(char **out, char *str, t_splitvalues *spval)
-{
-	if (str[spval->index] == '\'' || str[spval->index] == '\"' || \
-		(str[spval->index] == '$' && str[spval->index + 1] == '\"') || \
-		(str[spval->index] == '$' && str[spval->index + 1] == '\''))
-		out = ft_handlequotes(out, str, &spval->index, \
-		(spval->token_count + 2));
-	return (out);
-}
-
-char	**ft_checkstring(char **out, char *str, t_splitvalues *spval)
-{
-	if (str[spval->index] && !(ft_isspace(str[spval->index])) && \
-		str[spval->index] != '\'' && str[spval->index] != '\"' && \
-		!(str[spval->index] == '$' && str[spval->index + 1] == '\"') && \
-		!(str[spval->index] == '$' && str[spval->index + 1] == '\''))
-		out = ft_handlestring(out, str, &spval->index, \
-			(++spval->token_count));
-	return (out);
-}
-
-bool	handlestring_cond(char *str, int index)
-{
-	if (!(str[index] != '\0'))
-		return (false);
-	if (!(!(ft_isspace(str[index]))))
-		return (false);
-	if ((str[index] == '\''))
-		return (false);
-	if ((str[index] == '\"'))
-		return (false);
-	return (true);
 }
 
 /// @brief handles unqouted strings excluding spaces then reallocates memory
@@ -148,7 +84,6 @@ char	**ft_splitstring(char *str)
 		return (NULL);
 	index = 0;
 	start = 0;
-	str_temp = NULL;
 	while (str[index] != '\0')
 	{
 		if (str[index] == '$')

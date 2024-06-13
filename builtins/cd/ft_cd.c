@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 17:18:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:47:18 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	{
 		path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
 		if (path == NULL)
-		{
-			ft_printf("bash: cd: OLDPWD not set\n");
-			return (NULL);
-		}
+			return (ft_printf("bash: cd: OLDPWD not set\n"), NULL);
 		ft_printf("%s\n", path);
 	}
 	else if (psplit[1][0] == '$')
@@ -74,7 +71,6 @@ char	**ft_handlecdsplit(char *str, char **var)
 	index = -1;
 	while (var[count] != NULL)
 	{
-		ft_printf("str: %s var[%d]: %s\n", str, count, var[count]);
 		if ((count > 0) && (var[count][0] != '\"' && \
 			var[count][0] != '\'') && ((size_t)(ft_strstr(str, var[count]) - \
 			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
@@ -87,10 +83,8 @@ char	**ft_handlecdsplit(char *str, char **var)
 			index++;
 			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
 		}
-		ft_printf("out[%d]: %s\n", index, out[index]);
 	}
-	free_pointer(var);
-	return (out);
+	return (free_pointer(var), out);
 }
 
 char	*ft_cdexpandpath(char *pathstr, t_envlist **envlist, \
@@ -113,7 +107,6 @@ char	*ft_copystring(char *str)
 	int		count;
 	int		offset;
 
-	ft_printf("cd input: %s\n", str);
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);
@@ -131,26 +124,5 @@ char	*ft_copystring(char *str)
 		count++;
 	}
 	path[count] = '\0';
-	return (path);
-}
-
-char	*ft_expandhomepath(char **path_split, t_envlist *envlist, \
-	t_varlist *varlist)
-{
-	char	*path;
-	char	*homepath;
-	char	**newpath_split;
-	size_t	tot_len;
-
-	newpath_split = ft_split(path_split[1], '~');
-	homepath = ft_getenv("HOME", envlist, varlist);
-	tot_len = (ft_strlen(homepath) + ft_strlen(newpath_split[0]) + 1);
-	path = (char *)malloc(sizeof(char) * tot_len);
-	ft_memset(path, 0, tot_len);
-	ft_strlcat(path, homepath, ft_strlen(homepath) + 1);
-	ft_strlcat(path, newpath_split[0], ft_strlen(homepath) + \
-		ft_strlen(newpath_split[0]) + 1);
-	path[ft_strlen(homepath) + ft_strlen(newpath_split[0])] = '\0';
-	free_pointer(newpath_split);
 	return (path);
 }

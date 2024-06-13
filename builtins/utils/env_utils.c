@@ -90,48 +90,6 @@ char	*ft_env_to_string(t_envlist *envlist)
 	return (env_string);
 }
 
-void	*free_envlist(t_envlist *envlist)
-{
-	if (envlist->next)
-		free_envlist(envlist->next);
-	free(envlist->value);
-	free(envlist->varname);
-	return (NULL);
-}
-
-char	**ft_env_converter(t_envlist **envlist)
-{
-	char	**converted;
-	int		length;
-	t_envlist	*node;
-
-	if (!envlist)
-		return (NULL);
-	length = 0;
-	node = *envlist;
-	while (node)
-	{
-		length++;
-		node = node->next;
-	}
-	converted = malloc(sizeof(char *) * (length + 1));
-	if (!converted)
-		return (NULL);
-	node = *envlist;
-	length = 0;
-	while (node)
-	{
-		converted[length] = ft_env_to_string(node);
-		if (!converted[length]) // ADD FREE
-			return (NULL);
-		length++;
-		node = node->next;
-	}
-	converted[length] = NULL;
-	return (converted);
-}
-
-
 // t_sorted_envlist  *ft_init_sortedenv(char **envp)
 // {
 // 	int			        count;
