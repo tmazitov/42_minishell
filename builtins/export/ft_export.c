@@ -76,22 +76,22 @@ char	**ft_handleexportsplit(char *str, char **var)
 	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
-	count = 0;
+	count = -1;
 	index = -1;
-	while (var[count] != NULL)
+	while (var[++count] != NULL)
 	{
-		if ((count > 0) && (var[count][0] != '\"' || \
-			var[count][0] != '\'') && ((size_t)(ft_strstr(str, var[count]) - \
-			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
-		{
+		if ((count > 0) && (var[count][0] != '\"' && \
+			var[count][0] != '\'') && ((size_t)(ft_strstr(str + ft_strlen \
+			(var[count - 1]), var[count]) - ft_strstr(str, var[count - 1])) \
+			== ft_strlen(var[count - 1])))
 			out[index] = ft_mergevarval(str, out[index], var[count]);
-			str = ft_strstr(str, var[count++]);
-		}
 		else
 		{
 			index++;
-			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
+			out = ft_realloc_dp(out, var[count], ft_strlen_dp(out) + 1);
 		}
+		if (count > 0)
+			str = ft_strstr(str + ft_strlen(var[count - 1]), var[count]);
 	}
 	return (free_pointer(var), out);
 }

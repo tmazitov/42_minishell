@@ -17,31 +17,30 @@
 /// @param str string in format "echo arg1 arg2 arg3 ..."
 void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 {
-	char	**cmd_split;
+	char	**c;
 	int		len;
 
 	len = 1;
-	cmd_split = ft_splittoken_setvar(str);
-	cmd_split = str_token(cmd_split);
-	if ((cmd_split[len] != NULL) && ft_compname("-n", cmd_split[len]))
+	c = ft_splittoken_setvar(str);
+	c = str_token(c);
+	if ((c[len] != NULL) && ft_compname("-n", c[len]))
 		len++;
-	while (cmd_split[len] != NULL)
+	while (c[len] != NULL)
 	{
-		ft_printparams(str, cmd_split[len], envlist, varlist);
-		str = ft_strstr(str, cmd_split[len]);
+		ft_printparams(str, c[len], envlist, varlist);
+		str = ft_strstr(str, c[len]);
 		len++;
-		if ((cmd_split[len] != NULL))
+		if ((c[len] != NULL))
 		{
-			if ((size_t)(ft_strstr(str + ft_strlen(cmd_split[len - 1]), \
-				cmd_split[len]) > (ft_strstr(str, cmd_split[len - 1])) + \
-				ft_strlen(cmd_split[len - 1])))
+			if ((size_t)(ft_strstr(str + ft_strlen(c[len - 1]), c[len]) > \
+				(ft_strstr(str, c[len - 1])) + ft_strlen(c[len - 1])))
 				ft_printf(" ");
-			str = ft_strstr(str + ft_strlen(cmd_split[len - 1]), cmd_split[len]);
+			str = ft_strstr(str + ft_strlen(c[len - 1]), c[len]);
 		}
 	}
-	if (!((cmd_split[1] != NULL) && ft_compname("-n", cmd_split[1])))
+	if (!((c[1] != NULL) && ft_compname("-n", c[1])))
 		ft_printf("\n");
-	free_pointer(cmd_split);
+	free_pointer(c);
 }
 
 /// @brief print the arguments of echo

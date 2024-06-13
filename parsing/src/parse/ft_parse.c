@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 19:34:37 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 02:45:05 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,9 @@ t_tokens	*token_out(char *str)
 {
 	char		**str_split;
 	t_tokens	*token_input;
-	int			count;
 
-	count = 0;
 	str_split = NULL;
 	str_split = ft_splittoken(str);
-	while (str_split[count])
-	{
-		ft_printf("str_split after splittoken[%d]: %s\n", count, str_split[count]);
-		count++;
-	}
 	if (!str_split)
 		return (NULL);
 	str_split = str_token(str_split);
