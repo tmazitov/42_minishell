@@ -74,14 +74,15 @@ bool	ft_checkshfile(char *str)
 	if (ft_strncmp(cmd, str_split[0], ft_strlen(cmd)) != 0)
 		return (free_pointer(str_split), false);
 	if (!ft_check_args(str_split))
-	{
-		parse_input(str);
 		return (free_pointer(str_split), false);
-	}
 	else if (!check_fd(str_split[1]))
 		return (free_pointer(str_split), false);
-	else
+	else if ((ft_strlen_dp(str_split) > 1) && \
+		(ft_strncmp(cmd, str_split[0], ft_strlen(str_split[0])) == 0 && \
+		(ft_strlen(cmd) == ft_strlen(str_split[0]))))
 		return (free_pointer(str_split), true);
+	else
+		return (false);
 }
 
 /// @brief open sh file and read the contents. then parse each line of command
@@ -101,7 +102,6 @@ void	ft_openshfile(char *str_input)
 	{
 		free(str_line);
 		str_line = get_next_line(fpointer);
-		parse_input(str_line);
 	}
 	free_pointer(str_split);
 	free(str_line);

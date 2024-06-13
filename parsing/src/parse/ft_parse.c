@@ -29,6 +29,7 @@ t_astnodes	*parse_input(char *str)
 	if (ft_shellgrammar(token_input) && ft_checksyntax(token_input))
 	{
 		root = ft_parsetokens(&token_input);
+		ft_print_tokens_test(token_head, root);
 		if (root == NULL)
 			return (ft_free_tokens(token_input), NULL);
 	}
@@ -40,9 +41,16 @@ t_tokens	*token_out(char *str)
 {
 	char		**str_split;
 	t_tokens	*token_input;
+	int			count;
 
+	count = 0;
 	str_split = NULL;
 	str_split = ft_splittoken(str);
+	while (str_split[count])
+	{
+		ft_printf("str_split after splittoken[%d]: %s\n", count, str_split[count]);
+		count++;
+	}
 	if (!str_split)
 		return (NULL);
 	str_split = str_token(str_split);

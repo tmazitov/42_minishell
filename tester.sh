@@ -23,9 +23,7 @@ echo $'1234var'
 echo $ '1234var'
 echo hello world
 echo hello""world
-echo hello$1world
 echo $"$var"
-echo $eli hello$eli
 echo $1
 echo $2
 echo $3
@@ -38,14 +36,16 @@ echo $9
 echo "hello '$USER' world"
 echo "a$H b"
 echo $USER 'hello "$USER" world' $USER
+echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
+echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 ###############
 
 ### NOT HANDLED ###
+echo $eli hello$eli
+echo hello$1world
 ##################
 
 
-echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
-echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 
 ### PWD ####
 

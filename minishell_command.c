@@ -54,6 +54,10 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 	info.env = &envlist;
 	info.var = &varlist;
 	ft_checkdollar(rootnode, &info);
+	*rootnode = out;
+	ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
+	print_ast(*rootnode, 0);
+	ft_printf("-----------------------------------------------------\n");
 	return (out);
 }
 
@@ -64,6 +68,7 @@ void	ft_checkdollar(t_astnodes **rootnode, t_builtin_info *info)
 	if (!((*rootnode)->left) && !((*rootnode)->right))
 	{
 		(*rootnode)->value = ft_expanddollar((*rootnode)->value, info);
+		ft_printf("(*rootnode)->value %s\n", (*rootnode)->value);
 		(*rootnode)->value = ft_cleanvalue((*rootnode)->value);
 	}
 	ft_checkdollar(&(*rootnode)->left, info);

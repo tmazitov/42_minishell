@@ -15,27 +15,27 @@
 char	**ft_handlesetvarsplit(char *str, char **var)
 {
 	char	**out;
-	int		count;
+	int		c;
 	int		index;
 
 	out = safe_dp_malloc(1);
 	if (out == NULL)
 		return (NULL);
-	count = 0;
+	c = 0;
 	index = -1;
-	while (var[count] != NULL)
+	while (var[c] != NULL)
 	{
-		if (ft_splitcond(str, var[count], var[count - 1], count) == 1)
+		if ((c > 0) && ft_splitcond(str, var[c], var[c - 1], c) == 1)
 		{
-			out[index] = ft_mergevarval(str, out[index], var[count]);
-			str = ft_strstr(str, var[count++]);
+			out[index] = ft_mergevarval(str, out[index], var[c]);
+			str = ft_strstr(str, var[c++]);
 		}
-		else if (ft_splitcond(str, var[count], var[count - 1], count) > 1)
-			return (ft_splitcond_b(out, var, var[count]), NULL);
+		else if ((c > 0) && ft_splitcond(str, var[c], var[c - 1], c) > 1)
+			return (ft_splitcond_b(out, var, var[c]), NULL);
 		else
 		{
 			index++;
-			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
+			out = ft_realloc_dp(out, var[c++], ft_strlen_dp(out) + 1);
 		}
 	}
 	return (free_pointer(var), out);

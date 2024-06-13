@@ -66,10 +66,8 @@ int	ft_unsetenv_b(char *varname, t_envlist **envlist, t_varlist **varlist)
 int	ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist)
 {
 	t_envlist	*head;
-	t_envlist	*prev_env;
 	t_envlist	*curr_env;
 
-	prev_env = NULL;
 	head = (*envlist);
 	if ((*envlist) != NULL && (*envlist)->varname != NULL && \
 		ft_strncmp(varname, (*envlist)->varname, ft_strlen((*envlist)->\
@@ -113,10 +111,8 @@ int	ft_unsetvar_b(char *varname, t_varlist **varlist)
 int	ft_unsetvar(char *varname, t_varlist **varlist)
 {
 	t_varlist	*head;
-	t_varlist	*prev_var;
 	t_varlist	*curr_var;
 
-	prev_var = NULL;
 	head = (*varlist);
 	if ((*varlist) != NULL && (*varlist)->varname != NULL && \
 		ft_strncmp(varname, (*varlist)->varname, ft_strlen((*varlist)->\

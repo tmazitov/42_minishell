@@ -23,19 +23,27 @@ char	**ft_handlesplittoken(char *str, char **var)
 		return (NULL);
 	count = 0;
 	index = -1;
+	ft_printf("ft_handlesplittoken str: %s\n", str);
 	while (var[count] != NULL)
 	{
-		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) - \
-			ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
+		ft_printf("1var[%d]: %s\n", count, var[count]);
+		ft_printf("1str: %s\n", str);
+		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) \
+			 ==  ft_strstr(str, var[count - 1])) + ft_strlen(var[count - 1])))
 		{
+			ft_printf("2var[%d]: %s\n", count, var[count]);
+			ft_printf("2var[%d]: %s\n", count - 1, var[count - 1]);
 			out[index] = ft_mergesplittoken(str, out[index], var[count]);
-			str = ft_strstr(str, var[count++]);
+			// str = ft_strstr(str, var[count++]);
 		}
 		else
 		{
 			index++;
-			out = ft_realloc_dp(out, var[count++], ft_strlen_dp(out) + 1);
+			out = ft_realloc_dp(out, var[count], ft_strlen_dp(out) + 1);
 		}
+		ft_printf("out[%d]: %s\n", index, out[index]);
+		str = ft_strstr(str, var[count]);
+		count++;
 	}
 	free_pointer(var);
 	return (out);
