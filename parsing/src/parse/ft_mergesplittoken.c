@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:16 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:16:34 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,24 @@ char	*ft_copyvarsplittoken(char *s1, char *s2, size_t len1, size_t len2)
 
 bool	ft_checknextsplit(char *str, char *prevvar, char *currvar)
 {
+	char	*str_temp;
+
 	if (((size_t)(ft_strstr(str + ft_strlen(prevvar), \
 		currvar) - ft_strstr(str, prevvar)) == ft_strlen(prevvar)))
 		return (true);
 	else if (ft_strstr(prevvar, currvar))
 	{
-		prevvar = ft_strstr(prevvar, currvar);
-		while (*prevvar)
+		str_temp = ft_strstr(prevvar, currvar);
+		prevvar = ft_strstr(str, str_temp);
+		while (*prevvar == *str_temp)
 		{
-			if (!(prevvar + 1))
+			if (*(prevvar + 1) != *(str_temp + 1))
 				break ;
 			prevvar++;
+			str_temp++;
 		}
-		if ((prevvar) && ((size_t)((&prevvar) - (&currvar)) == 1))
+		currvar = ft_strstr(prevvar, currvar);
+		if ((prevvar) && (((ft_strlen(prevvar) - ft_strlen(currvar)) == 1)))
 			return (true);
 		else
 			return (false);

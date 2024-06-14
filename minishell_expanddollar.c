@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:08:56 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 20:33:41 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 21:19:20 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,12 @@ char	*ft_expanddollar_c(char *str, char *out, int *count, \
 int	ft_expanddollar_cond(char c)
 {
 	if (c == '?')
-	{
-		ft_printf("cond 1\n");
 		return (1);
-	}
 	else if ((((c) == '\0') || (ft_isspace(c) > 0) || (c != '\"')) \
 		&& !(((ft_isdigit(c) > 0) || ((ft_isalpha(c) > 0)) || c == '_')))
-	{
-		ft_printf("cond 2\n");
 		return (2);
-	}
 	else if ((ft_isspace(c) == 0) && (c != '\"') && ((ft_isdigit(c) > 0) \
 		|| ((ft_isalpha(c) > 0)) || c == '_'))
-	{
-		ft_printf("cond 3\n");
 		return (3);
-	}
-	ft_printf("cond 0\n");
 	return (0);
 }
