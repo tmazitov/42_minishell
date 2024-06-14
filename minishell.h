@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/13 18:38:57 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:01:39 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 			t_varlist *varlist);
 char		*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
 			t_varlist *varlist);
-int			ft_selectmode(char c, int mode);
+int			ft_selectmode(char c, char mode);
 char		*ft_cleanvalue(char *str);
 #endif // MINISHELL_H

@@ -31,9 +31,8 @@ echo $6
 echo $7
 echo $8
 echo $9
-echo "hello '$USER' world"
-echo "a$H b"
 echo $USER 'hello "$USER" world' $USER
+echo "a$H b"
 echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
 echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
 echo hello"'$'"
@@ -43,6 +42,7 @@ echo hello$1world
 ###############
 
 ### NOT HANDLED ###
+echo "hello '$USER' world"
 echo "exit_code ->$? user ->$USER home -> $HOME"
 ##################
 

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 13:56:22 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:49:16 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,27 @@ char	*ft_copyvarsplittoken(char *s1, char *s2, size_t len1, size_t len2)
 	}
 	out[index] = '\0';
 	return (out);
+}
+
+bool	ft_checknextsplit(char *str, char *prevvar, char *currvar)
+{
+	if (((size_t)(ft_strstr(str + ft_strlen(prevvar), \
+		currvar) - ft_strstr(str, prevvar)) == ft_strlen(prevvar)))
+		return (true);
+	else if (ft_strstr(prevvar, currvar))
+	{
+		prevvar = ft_strstr(prevvar, currvar);
+		while (*prevvar)
+		{
+			if (!(prevvar + 1))
+				break ;
+			prevvar++;
+		}
+		if ((prevvar) && ((size_t)((&prevvar) - (&currvar)) == 1))
+			return (true);
+		else
+			return (false);
+	}
+	else
+		return (false);
 }

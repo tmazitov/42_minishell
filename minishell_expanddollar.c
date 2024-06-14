@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:08:56 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:41:17 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:19:56 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_expanddollar(char *str, t_builtin_info *info)
 {
 	int		count;
 	char	*out;
-	int		mode;
+	char	mode;
 
 	out = (char *)ft_calloc(1, sizeof(char));
 	if (out == NULL)
@@ -26,7 +26,8 @@ char	*ft_expanddollar(char *str, t_builtin_info *info)
 	while (str[count])
 	{
 		mode = ft_selectmode(str[count], mode);
-		if (str[count] == '$' && mode == 1 && str[count + 1] != '\"')
+		ft_printf("mode: %c\n", mode);
+		if (str[count] == '$' && mode != '\'' && str[count + 1] != '\"')
 		{
 			if (ft_expanddollar_cond(str[count + 1]) == 1)
 				out = ft_expanddollar_a(out, &count);
@@ -80,17 +81,21 @@ int	ft_expanddollar_cond(char c)
 {
 	if (c == '?')
 	{
+		ft_printf("cond 1\n");
 		return (1);
 	}
 	else if ((((c) == '\0') || (ft_isspace(c) > 0) || (c != '\"')) \
 		&& !(((ft_isdigit(c) > 0) || ((ft_isalpha(c) > 0)) || c == '_')))
 	{
+		ft_printf("cond 2\n");
 		return (2);
 	}
 	else if ((ft_isspace(c) == 0) && (c != '\"') && ((ft_isdigit(c) > 0) \
 		|| ((ft_isalpha(c) > 0)) || c == '_'))
 	{
+		ft_printf("cond 3\n");
 		return (3);
 	}
+	ft_printf("cond 0\n");
 	return (0);
 }

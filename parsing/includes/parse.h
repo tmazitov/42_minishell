@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 14:32:21 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:34:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int			ft_checkcbrackets(char *str);
 
 char		**ft_splittoken(char *str);
 char		**ft_handlesplittoken(char *str, char **var);
+bool		ft_checknextsplit(char *str, char *prevvar, char *currvar);
 char		*ft_mergesplittoken(char *str, char *s1, char *s2);
 char		*ft_copyvarsplittoken(char *s1, char *s2, size_t len1, size_t len2);
 char		**safe_dp_malloc(int len);

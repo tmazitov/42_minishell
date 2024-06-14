@@ -6,18 +6,22 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:02:33 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 13:23:19 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:20:56 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_selectmode(char c, int mode)
+int	ft_selectmode(char c, char mode)
 {
 	if (c == '\'' && mode == 1)
-		mode = 0;
-	else if (c == '\'' && mode == 0)
+		mode = '\'';
+	else if (c == '\'' && mode == '\'')
 		mode = 1;
+	else if (c == '\"' && mode == '\"')
+		mode = 1;
+	else if (c == '\"' && mode == 1)
+		mode = '\"';
 	return (mode);
 }
 

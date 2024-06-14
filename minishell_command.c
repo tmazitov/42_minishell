@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/14 15:43:01 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:55:31 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,7 @@ char	*ft_cleanvalue(char *str)
 	index = 0;
 	while (str[len] != '\0' && str[len] != '\n')
 	{
-		// if (str[len] != '\"' && str[len] != '\'')
 		out[len - index] = str[len];
-		// else
-		// 	index++;
 		len++;
 	}
 	out[len] = '\0';
