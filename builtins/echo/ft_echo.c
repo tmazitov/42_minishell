@@ -51,8 +51,6 @@ void	ft_printparams(char *str, char *cmd_split, t_envlist *envlist, \
 	(void)str;
 	if (cmd_split[0] == '\'')
 		ft_printsquotes(cmd_split);
-	// else if (cmd_split[0] == '$')
-	// 	ft_printexpansion(cmd_split, 1, envlist, varlist);
 	else if (cmd_split[0] == '\"')
 		ft_printdquotes(cmd_split, envlist, varlist);
 	else
