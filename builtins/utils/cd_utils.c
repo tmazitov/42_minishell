@@ -61,3 +61,32 @@ char	*ft_expandhomepath(char **path_split, t_envlist *envlist, \
 	free_pointer(newpath_split);
 	return (path);
 }
+
+char	*ft_cdcleanvalue(char *str)
+{
+	size_t	len;
+	size_t	index;
+	char	*out;
+	char	*str_temp;
+
+	str_temp = str;
+	len = 0;
+	while (ft_isspace(*str) > 0)
+		str++;
+	out = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!out)
+		return (NULL);
+	ft_bzero(out, ft_strlen(str) + 1);
+	index = 0;
+	while (str[len] != '\0' && str[len] != '\n')
+	{
+		if (str[len] != '\"' && str[len] != '\'')
+			out[len - index] = str[len];
+		else
+			index++;
+		len++;
+	}
+	out[len] = '\0';
+	free(str_temp);
+	return (out);
+}

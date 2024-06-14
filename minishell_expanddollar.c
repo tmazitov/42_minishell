@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:08:56 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 18:40:46 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:41:17 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_expanddollar(char *str, t_builtin_info *info)
 	while (str[count])
 	{
 		mode = ft_selectmode(str[count], mode);
-		if (str[count] == '$' && mode == 1)
+		if (str[count] == '$' && mode == 1 && str[count + 1] != '\"')
 		{
 			if (ft_expanddollar_cond(str[count + 1]) == 1)
 				out = ft_expanddollar_a(out, &count);

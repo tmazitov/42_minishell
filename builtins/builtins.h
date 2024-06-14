@@ -203,6 +203,7 @@ char				*ft_getpath(char *str, t_envlist **envlist, \
 					t_varlist **varlist);
 char				*ft_expandhomepath(char **path_split, \
 					t_envlist *envlist, t_varlist *varlist);
+char				*ft_cdcleanvalue(char *str);
 char				*ft_copystring(char *str);
 
 void				ft_exit(char *str, t_builtin_info *info);

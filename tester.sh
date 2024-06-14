@@ -11,9 +11,7 @@ echo "aspas ->'"
 echo "aspas -> ' "
 echo 'aspas ->"'
 echo 'aspas -> " '
-echo "exit_code ->$? user ->$USER home -> $HOME"
 echo 'exit_code ->$? user ->$USER home -> $HOME'
-echo "$"
 echo '$'
 echo $?
 echo $?HELLO
@@ -38,11 +36,14 @@ echo "a$H b"
 echo $USER 'hello "$USER" world' $USER
 echo '> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<'
 echo "> >> < * ? [ ] | ; [ ] || && ( ) & # $ \ <<"
+echo hello"'$'"
+echo "$"
+echo $eli hello$eli
+echo hello$1world
 ###############
 
 ### NOT HANDLED ###
-echo $eli hello$eli
-echo hello$1world
+echo "exit_code ->$? user ->$USER home -> $HOME"
 ##################
 
 

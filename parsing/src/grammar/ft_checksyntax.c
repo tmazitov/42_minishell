@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 13:53:21 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:44:08 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ bool	ft_checksyntax(t_tokens *tokens)
 	if (!tokens)
 		return (false);
 	if (!ft_checkstart(tokens))
-		return (false);
-	if (!ft_checkparam(tokens))
-		return (false);
-	if (!ft_checkparenthesis(tokens))
 		return (false);
 	return (true);
 }
@@ -38,9 +34,9 @@ int	ft_checkquotes_grammar(char *str)
 			c = '\"';
 		else if (str[index] == '\'' && c == '0')
 			c = '\'';
-		else if (str[index] && str[index] == '\'' && c != '0')
+		else if (str[index] && str[index] == '\'' && c == '\'')
 			c = '0';
-		else if (str[index] && str[index] == '\"' && c != '0')
+		else if (str[index] && str[index] == '\"' && c == '\"')
 			c = '0';
 	}
 	if (c != '0')

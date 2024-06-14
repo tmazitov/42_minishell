@@ -15,6 +15,7 @@
 int	ft_builtins(char *str, t_builtin_info *info)
 {
 	t_envlist	*env_head;
+	char		*str_temp;
 
 	env_head = NULL;
 	if ((*info->env) != NULL)
@@ -26,7 +27,11 @@ int	ft_builtins(char *str, t_builtin_info *info)
 	else if (ft_compname("unset", str))
 		ft_unsetvarname(str, info->env, info->var);
 	else if (ft_compname("export", str))
-		ft_export(str, info->env, info->var);
+	{
+		str_temp = ft_cdcleanvalue(ft_strdup(str));
+		ft_export(str_temp, info->env, info->var);
+		free(str_temp);
+	}
 	else
 		ft_builtins_b(str, info);
 	if (env_head != NULL)

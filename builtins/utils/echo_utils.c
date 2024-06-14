@@ -35,6 +35,11 @@ int	ft_countvarname(char *varname)
 	int	count;
 
 	count = 0;
+	if ((ft_isdigit(varname[0]) > 0) || ((((ft_isalpha(*varname) == 0) && \
+		(*varname != '_')) && (ft_isdigit(*varname) == 0))))
+		return (1);
+	varname++;
+	count++;
 	while (*varname)
 	{
 		if (((ft_isalpha(*varname) == 0) && (*varname != '_')) && \

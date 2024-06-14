@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:52:06 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 02:49:12 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:08:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,23 @@ bool	ft_checkparam(t_tokens *tokens)
 
 	while ((tokens) != NULL)
 	{
-		index = 0;
-		while ((tokens)->value[index] != '\0' && (tokens)->value[0] != \
+		index = -1;
+		while ((tokens)->value[++index] != '\0' && (tokens)->value[0] != \
 			'\"' && (tokens)->value[0] != '\'')
 		{
 			if ((tokens)->value[index] == '$')
 			{
 				if ((tokens)->value[index + 1] != '\0' && \
 					((ft_isalpha((tokens)->value[index + 1]) == 0) && \
-					((tokens)->value[index + 1]) != '_') && \
-					(ft_isdigit((tokens)->value[index + 1])) == 0 && \
-					(tokens)->value[index + 1] != '?')
+					((tokens)->value[index + 1]) != '_') && (ft_isdigit \
+					((tokens)->value[index + 1])) == 0 && ((tokens)->value \
+					[index + 1] != '?') && ((tokens)->value[index + 1] \
+					!= '\'') && ((tokens)->value[index + 1] != '\"'))
 				{
 					ft_printf("bash: syntax error, wrong parameter name\n");
 					return (false);
 				}
 			}
-			index++;
 		}
 		tokens = tokens->next;
 	}

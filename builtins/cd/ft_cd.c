@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 02:55:20 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:55:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	psplit = ft_splittoken_setvar(str);
 	psplit = str_token(psplit);
 	psplit = ft_handlecdsplit(str, psplit);
+	psplit[1] = ft_cdcleanvalue(psplit[1]);
 	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
 		path = ft_copystring(ft_getenv("HOME", *envlist, *varlist));
 	else if (*psplit[1] == '~' && ft_strlen(psplit[1]) > 1)
@@ -71,10 +72,8 @@ char	**ft_handlecdsplit(char *str, char **var)
 	index = -1;
 	while (var[++count] != NULL)
 	{
-		if ((count > 0) && (var[count][0] != '\"' && \
-			var[count][0] != '\'') && ((size_t)(ft_strstr(str + ft_strlen \
-			(var[count - 1]), var[count]) - ft_strstr(str, var[count - 1])) \
-			== ft_strlen(var[count - 1])))
+		if ((count > 0) && ((size_t)(ft_strstr(str, var[count]) \
+			- ft_strstr(str, var[count - 1])) == ft_strlen(var[count - 1])))
 			out[index] = ft_mergevarval(str, out[index], var[count]);
 		else
 		{
