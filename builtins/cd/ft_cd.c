@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 15:55:51 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/15 21:41:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 	if (chdir(path) != 0)
 	{
 		ft_printf("bash: cd: %s: No such file or directory\n", path);
-		return (1);
+		return (free(path), 1);
 	}
 	ft_update_envlist(path, currdir, envlist);
 	return (1);
