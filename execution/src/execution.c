@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/13 13:36:38 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/15 21:15:49 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	execute(t_astnodes **tree, t_envlist **envlist, t_varlist **varlist)
 	}
 	free_queue_relationship(commands);
 	if (ast_q_length(commands) == 1 && get_first(commands)->builtin)
-		return (free_queue(commands), 0);
+		return (free_queue(commands), status_code(SET, 0));
 	status_code(SET, wait_commands(commands));
 	free_queue(commands);
 	return (0);
