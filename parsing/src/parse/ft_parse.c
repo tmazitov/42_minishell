@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 19:15:18 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:44:24 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_astnodes	*parse_input(char *str)
 	if (ft_shellgrammar(token_input) && ft_checksyntax(token_input))
 	{
 		root = ft_parsetokens(&token_input);
-		ft_print_tokens_test(token_head, root);
 		if (root == NULL)
 			return (ft_free_tokens(token_input), NULL);
 	}
