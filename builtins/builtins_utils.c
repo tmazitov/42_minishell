@@ -56,7 +56,7 @@ int	ft_builtins_b(char	*str, t_builtin_info *info)
 		exit_status = ft_export(str_temp, info->env, info->var);
 		free(str_temp);
 	}
-	return (0);
+	return (exit_status);
 }
 
 bool	ft_compname(char *str1, char *str2)
