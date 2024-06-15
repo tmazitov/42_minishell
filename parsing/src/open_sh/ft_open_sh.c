@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_sh.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/16 00:24:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/16 01:20:47 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ bool	ft_checkshfile(char *str)
 	{
 		str = ft_strstr(str_split[count], ".sh");
 		str_temp = ft_cleanopensh(str);
-		if (str_temp && ft_strstr(str_temp, ".sh") && (ft_strlen(str_temp) == 3))
+		if (str_temp && ft_strstr(str_temp, ".sh") && \
+			(ft_strlen(str_temp) == 3))
 		{
 			free(str_temp);
 			return (free_pointer(str_split), true);

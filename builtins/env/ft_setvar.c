@@ -37,9 +37,8 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 			break ;
 		}
 	}
-	free_pointer(var);
 	*varlist = var_head;
-	return (exit_status);
+	return (free_pointer(var), exit_status);
 }
 
 int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \

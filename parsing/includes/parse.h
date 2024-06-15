@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/15 23:55:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/16 01:20:32 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ bool		ft_checkiffile(char	*str);
 bool		check_fd(char *str);
 void		ft_openshfile(char *str_input);
 char		*ft_cleanopensh(char *str);
-
 
 // ############################### PARSE #############################
 

@@ -48,8 +48,6 @@ int	ft_builtins_b(char	*str, t_builtin_info *info)
 		ft_pwd(str);
 	else if (ft_compname("exit", str))
 		ft_exit(str, info);
-	else if (ft_compname("varrr", str))
-		ft_printvar(info->var);
 	else if (ft_compname("export", str))
 	{
 		str_temp = ft_cdcleanvalue(ft_strdup(str));

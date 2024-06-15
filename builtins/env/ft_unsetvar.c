@@ -57,7 +57,6 @@ int	ft_unsetenv_b(char *varname, t_envlist **envlist, t_varlist **varlist)
 		prev_env->next = (*envlist)->next;
 		free((*envlist)->varname);
 		free((*envlist)->value);
-		ft_printf("enter unset env 2\n");
 		free(curr_env);
 	}
 	return (1);
@@ -79,7 +78,6 @@ int	ft_unsetenv(char *varname, t_envlist **envlist, t_varlist **varlist)
 		free(curr_env->varname);
 		free(curr_env->value);
 		free(curr_env);
-		ft_printf("enter unset env\n");
 		return (2);
 	}
 	ft_unsetenv_b(varname, envlist, varlist);
@@ -124,7 +122,6 @@ int	ft_unsetvar(char *varname, t_varlist **varlist)
 		free(curr_var->varname);
 		free(curr_var->value);
 		free(curr_var);
-		ft_printf("enter unset var\n");
 		return (2);
 	}
 	ft_unsetvar_b(varname, varlist);
