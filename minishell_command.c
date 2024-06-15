@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/16 00:44:02 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:45:49 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 
 	if (is_sh_file(user_input))
 	{
-		ft_openshfile(user_input);
+		ft_printf("Error: sh file not allowed!\n");
 		free(user_input);
 	}
 	else

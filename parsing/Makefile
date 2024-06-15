@@ -28,6 +28,7 @@ PARSE_SRCS	=	./src/parse/ft_parse.c \
 				./src/grammar/ft_checksyntax.c \
 				./src/grammar/ft_checkgrammar.c \
 				./src/open_sh/ft_open_sh.c \
+				./src/open_sh/ft_cleanopensh.c \
 				./src/parse/ft_alloc.c \
 				./src/parse/ft_split_utils.c
 PARSE_OBJS	=	$(PARSE_SRCS:.c=.o)

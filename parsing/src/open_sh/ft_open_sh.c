@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_sh.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 18:29:16 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:24:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,29 @@ bool	check_fd(char *str)
 /// @return true if trying to open sh file, false if not
 bool	ft_checkshfile(char *str)
 {
-	char	*cmd;
 	char	**str_split;
+	char	*str_temp;
+	int		count;
 
-	cmd = "minishell";
+	count = 0;
 	if (!*str || !str)
 		return (false);
 	str_split = ft_split(str, ' ');
 	if (!str_split)
 		return (false);
-	if (ft_strncmp(cmd, str_split[0], ft_strlen(cmd)) != 0)
-		return (free_pointer(str_split), false);
-	if (!ft_check_args(str_split))
-		return (free_pointer(str_split), false);
-	else if (!check_fd(str_split[1]))
-		return (free_pointer(str_split), false);
-	else if ((ft_strlen_dp(str_split) > 1) && \
-		(ft_strncmp(cmd, str_split[0], ft_strlen(str_split[0])) == 0 && \
-		(ft_strlen(cmd) == ft_strlen(str_split[0]))))
-		return (free_pointer(str_split), true);
-	else
-		return (false);
+	while (str_split[count])
+	{
+		str = ft_strstr(str_split[count], ".sh");
+		str_temp = ft_cleanopensh(str);
+		if (str_temp && ft_strstr(str_temp, ".sh") && (ft_strlen(str_temp) == 3))
+		{
+			free(str_temp);
+			return (free_pointer(str_split), true);
+		}
+		free(str_temp);
+		count++;
+	}
+	return (free_pointer(str_split), false);
 }
 
 /// @brief open sh file and read the contents. then parse each line of command
