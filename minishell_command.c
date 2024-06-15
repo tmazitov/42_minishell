@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/14 19:55:31 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:10:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,14 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 {
 	t_astnodes		*root;
 
-	if (is_sh_file(user_input))
-	{
-		ft_openshfile(user_input);
-		free(user_input);
-	}
-	else
-	{
-		root = parse_input(user_input);
-		root = ft_setroot(&root, *envlist, *varlist);
-		free(user_input);
-		if (!root)
-			return ;
-		execute(&root, envlist, varlist);
-		if (root)
-			ft_free_ast(root);
-	}
+	root = parse_input(user_input);
+	root = ft_setroot(&root, *envlist, *varlist);
+	free(user_input);
+	if (!root)
+		return ;
+	execute(&root, envlist, varlist);
+	if (root)
+		ft_free_ast(root);
 }
 
 t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \

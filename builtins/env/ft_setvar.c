@@ -14,28 +14,31 @@
 
 int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	int			out;
 	char		**var;
 	int			index;
 	t_varlist	*var_head;
+	int			exit_status;
 
-	index = 0;
+	index = -1;
+	exit_status = 0;
 	var_head = *varlist;
 	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handlesetvarsplit(str, var);
 	if (!var)
 		return (0);
-	while (var[index] != NULL)
+	while (var[++index] != NULL)
 	{
-		out = ft_setvarname(var[index], envlist, varlist);
-		if (out == 0)
-			return (ft_printf("%s: command not found\n", var[index]), 127);
-		index++;
+		if (ft_setvarname(var[index], envlist, varlist) == 0)
+		{
+			ft_printf("%s: command not found\n", var[index]);
+			exit_status = 127;
+			break ;
+		}
 	}
 	free_pointer(var);
 	*varlist = var_head;
-	return (0);
+	return (exit_status);
 }
 
 int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \
