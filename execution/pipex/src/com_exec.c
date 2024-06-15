@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/15 23:07:55 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:37:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	panic(t_com_node *com, t_builtin_info *info, int status)
 	if (status == 127)
 	{
 		write(2, "minishell: ", 12);
-		write(2, com->name, ft_printf(com->name));
+		write(2, com->name, ft_strlen(com->name));
 		write(2, ": command not found\n", 21);
 	}
 	free_queue(info->q);
