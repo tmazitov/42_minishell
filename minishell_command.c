@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/15 23:10:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/15 23:24:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,22 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 {
 	t_astnodes		*root;
 
-	root = parse_input(user_input);
-	root = ft_setroot(&root, *envlist, *varlist);
-	free(user_input);
-	if (!root)
-		return ;
-	execute(&root, envlist, varlist);
-	if (root)
-		ft_free_ast(root);
+	if (is_sh_file(user_input))
+	{
+		ft_printf("Error: sh file not allowed!\n");
+		free(user_input);
+	}
+	else
+	{
+		root = parse_input(user_input);
+		root = ft_setroot(&root, *envlist, *varlist);
+		free(user_input);
+		if (!root)
+			return ;
+		execute(&root, envlist, varlist);
+		if (root)
+			ft_free_ast(root);
+	}
 }
 
 t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \

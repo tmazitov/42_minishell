@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_sh.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 18:29:16 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:33:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ bool	ft_checkshfile(char *str)
 	str_split = ft_split(str, ' ');
 	if (!str_split)
 		return (false);
+	str = ft_strstr(str, ".sh");
+	if (str && ft_strlen(str) == 3)
+		return (free_pointer(str_split), true);
 	if (ft_strncmp(cmd, str_split[0], ft_strlen(cmd)) != 0)
 		return (free_pointer(str_split), false);
 	if (!ft_check_args(str_split))
