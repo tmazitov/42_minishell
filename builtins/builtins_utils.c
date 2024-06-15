@@ -24,9 +24,9 @@ int	ft_builtins(char *str, t_builtin_info *info)
 	if (ft_compname("echo", str))
 		ft_echo(str, *info->env, *info->var);
 	else if (ft_strchr(str, '=') && !ft_checkcmd(str))
-		ft_setvar(str, info->env, info->var);
+		exit_status = ft_setvar(str, info->env, info->var);
 	else if (ft_compname("unset", str))
-		ft_unsetvarname(str, info->env, info->var);
+		exit_status = ft_unsetvarname(str, info->env, info->var);
 	else if (ft_compname("cd", str))
 		exit_status = ft_cd(str, info->env, info->var);
 	else
@@ -38,8 +38,10 @@ int	ft_builtins(char *str, t_builtin_info *info)
 
 int	ft_builtins_b(char	*str, t_builtin_info *info)
 {
-	char		*str_temp;
+	char	*str_temp;
+	int		exit_status;
 
+	exit_status = 0;
 	if (ft_compname("env", str))
 		ft_printenv(*info->env, *info->var);
 	else if (ft_compname("pwd", str) || ft_compname("PWD", str))
@@ -51,7 +53,7 @@ int	ft_builtins_b(char	*str, t_builtin_info *info)
 	else if (ft_compname("export", str))
 	{
 		str_temp = ft_cdcleanvalue(ft_strdup(str));
-		ft_export(str_temp, info->env, info->var);
+		exit_status = ft_export(str_temp, info->env, info->var);
 		free(str_temp);
 	}
 	return (0);

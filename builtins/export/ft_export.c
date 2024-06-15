@@ -38,7 +38,7 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 			free(varname);
 	}
 	*varlist = var_head;
-	return (free_pointer(var), 1);
+	return (free_pointer(var), 0);
 }
 
 int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \

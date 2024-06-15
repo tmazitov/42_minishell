@@ -30,12 +30,12 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 	{
 		out = ft_setvarname(var[index], envlist, varlist);
 		if (out == 0)
-			return (ft_printf("%s: command not found\n", var[index]), 0);
+			return (ft_printf("%s: command not found\n", var[index]), 127);
 		index++;
 	}
 	free_pointer(var);
 	*varlist = var_head;
-	return (1);
+	return (0);
 }
 
 int	ft_setvarlist(char *varname, char *varvalue, int overwrite, \

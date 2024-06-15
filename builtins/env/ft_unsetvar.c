@@ -28,7 +28,7 @@ int	ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 		if (!ft_checkvarname(var_split[count]))
 		{
 			ft_printf("unset: %s: invalid parameter name\n", var_split[count]);
-			return (free_pointer(var_split), 0);
+			return (free_pointer(var_split), 1);
 		}
 		if (ft_unsetenv(var_split[count++], envlist, varlist) != 2)
 			*varlist = head;
