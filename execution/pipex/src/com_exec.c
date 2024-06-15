@@ -3,17 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   com_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/13 13:36:35 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:07:55 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	panic(t_builtin_info *info, int status)
+static void	panic(t_com_node *com, t_builtin_info *info, int status)
 {
+	if (status == 127)
+	{
+		write(2, "minishell: ", 12);
+		write(2, com->name, ft_printf(com->name));
+		write(2, ": command not found\n", 21);
+	}
 	free_queue(info->q);
 	ft_free_env(info->env);
 	ft_free_var(info->var);
@@ -63,18 +69,18 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	if (command->name && !command->builtin)
 		command_path(command, info->env);
 	if (!command->path && !command->builtin)
-		panic(info, 127);
+		panic(command, info, 127);
 	duper(command);
 	closer(command);
 	status = 0;
 	if (command->builtin)
-		panic(info, ft_builtins(command->builtin, info));
+		panic(command, info, ft_builtins(command->builtin, info));
 	envp = ft_env_converter(info->env);
 	if (!envp)
-		panic(info, 1);
+		panic(command, info, 1);
 	status = execve(command->path, command->args, envp);
 	free_split(envp);
-	panic(info, status);
+	panic(command, info, status);
 }
 
 int	run_command_proc(t_com_node *command, t_builtin_info *info)
