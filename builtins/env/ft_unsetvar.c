@@ -20,7 +20,7 @@ int	ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 
 	var_split = ft_split(str, ' ');
 	if (ft_strlen_dp(var_split) == 1)
-		return (0);
+		return (free_pointer(var_split), 0);
 	count = 1;
 	while (var_split[count] != NULL)
 	{
