@@ -185,7 +185,7 @@ t_sorted_envlist	*insertsortedlist(t_sorted_envlist *head, \
 					t_sorted_envlist *newnode);
 
 int					ft_builtins(char *str, t_builtin_info *info);
-void				ft_builtins_b(char	*str, t_builtin_info *info);
+int					ft_builtins_b(char	*str, t_builtin_info *info);
 bool				ft_checkcmd(char *str);
 void				ft_handle_dollar(char *str, t_envlist *envlist, \
 					t_varlist *varlist);

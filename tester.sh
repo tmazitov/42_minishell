@@ -44,6 +44,7 @@ echo hello$1world
 ### NOT HANDLED ###
 echo "hello '$USER' world"
 echo "exit_code ->$? user ->$USER home -> $HOME"
+echo "exit_code ->$? user ->$USER home -> $HOME"
 ##################
 
 
