@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/15 21:41:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/15 21:53:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (free(path), 1);
 	}
 	ft_update_envlist(path, currdir, envlist);
-	return (1);
+	return (0);
 }
 
 char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
@@ -40,7 +40,8 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	psplit = ft_splittoken_setvar(str);
 	psplit = str_token(psplit);
 	psplit = ft_handlecdsplit(str, psplit);
-	psplit[1] = ft_cdcleanvalue(psplit[1]);
+	if (psplit[1])
+		psplit[1] = ft_cdcleanvalue(psplit[1]);
 	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
 		path = ft_copystring(ft_getenv("HOME", *envlist, *varlist));
 	else if (*psplit[1] == '~' && ft_strlen(psplit[1]) > 1)
