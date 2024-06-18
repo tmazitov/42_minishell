@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 04:11:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/15 23:42:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/18 17:59:27 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		user_input = prepare_user_input();
-		if (!user_input)
-			break ;
-		err_status = run_one_command(user_input, &envlist, &varlist);
-		status_code(SET_HISTORY, -1);
-		if (err_status)
-			break ;
+		if (user_input && *user_input != '\0')
+		{
+			err_status = run_one_command(user_input, &envlist, &varlist);
+			status_code(SET_HISTORY, -1);
+			if (err_status)
+				break ;
+		}
 	}
 	return (graceful_finish(&envlist, &varlist), 0);
 }

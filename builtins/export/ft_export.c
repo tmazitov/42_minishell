@@ -21,6 +21,7 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 
 	var_head = *varlist;
 	index = 0;
+	ft_printf("export str: |%s|\n", str);
 	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handleexportsplit(str, var);
@@ -32,8 +33,8 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 		if (ft_strchr(varname, '=') && (ft_strlen(varname) > 1))
 			varname = ft_splitequalsign(varname, ft_strchr(varname, '='), \
 				envlist, varlist);
-		if (ft_checkexport(varname, var[index], envlist, varlist) == 0)
-			return (free_pointer(var), 0);
+		if (ft_checkexport(varname, var[index], envlist, varlist) == 1)
+			return (free_pointer(var), 1);
 		if (ft_strchr(var[index], '=') && (ft_strlen(var[index]) > 1))
 			free(varname);
 	}
@@ -60,11 +61,11 @@ int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
 		if (out == 0 || !varname || (!ft_checkvarname(varname) && \
 			!(ft_strchr(varname, '='))) || (varname[0] == '='))
 			return (ft_printf("bash: export: '%s': not a valid identifier\n", \
-					varname), 0);
+					varname), 1);
 	}
 	if (!ft_checkvarenv(varname, *envlist))
 		ft_exportvar(varname, envlist, varlist);
-	return (1);
+	return (0);
 }
 
 char	**ft_handleexportsplit(char *str, char **var)
@@ -80,18 +81,15 @@ char	**ft_handleexportsplit(char *str, char **var)
 	index = -1;
 	while (var[++count] != NULL)
 	{
-		if ((count > 0) && (var[count][0] != '\"' && \
-			var[count][0] != '\'') && ((size_t)(ft_strstr(str + ft_strlen \
-			(var[count - 1]), var[count]) - ft_strstr(str, var[count - 1])) \
-			== ft_strlen(var[count - 1])))
+		ft_printf("ft_handleexportsplit var[%d] |%s|\n", count, var[count]);
+		if ((count > 0) && ft_checkexportsplit(str, var[count - 1], var[count]))
 			out[index] = ft_mergevarval(str, out[index], var[count]);
 		else
 		{
 			index++;
 			out = ft_realloc_dp(out, var[count], ft_strlen_dp(out) + 1);
 		}
-		if (count > 0)
-			str = ft_strstr(str + ft_strlen(var[count - 1]), var[count]);
+		ft_printf("ft_handleexportsplit out[%d] |%s|\n", index, out[index]);
 	}
 	return (free_pointer(var), out);
 }

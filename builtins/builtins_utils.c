@@ -30,7 +30,7 @@ int	ft_builtins(char *str, t_builtin_info *info)
 	else if (ft_compname("cd", str))
 		exit_status = ft_cd(str, info->env, info->var);
 	else
-		ft_builtins_b(str, info);
+		exit_status = ft_builtins_b(str, info);
 	if (env_head != NULL)
 		*info->env = env_head;
 	return (exit_status);
@@ -38,7 +38,7 @@ int	ft_builtins(char *str, t_builtin_info *info)
 
 int	ft_builtins_b(char	*str, t_builtin_info *info)
 {
-	char	*str_temp;
+	// char	*str_temp;
 	int		exit_status;
 
 	exit_status = 0;
@@ -47,12 +47,14 @@ int	ft_builtins_b(char	*str, t_builtin_info *info)
 	else if (ft_compname("pwd", str) || ft_compname("PWD", str))
 		ft_pwd(str);
 	else if (ft_compname("exit", str))
-		ft_exit(str, info);
+		exit_status = ft_exit(str, info);
+	else if (ft_compname("varrr", str))
+		ft_printvar(info->var);
 	else if (ft_compname("export", str))
 	{
-		str_temp = ft_cdcleanvalue(ft_strdup(str));
-		exit_status = ft_export(str_temp, info->env, info->var);
-		free(str_temp);
+		// str_temp = ft_cdcleanvalue(ft_strdup(str));
+		exit_status = ft_export(str, info->env, info->var);
+		// free(str_temp);
 	}
 	return (exit_status);
 }

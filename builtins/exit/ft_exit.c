@@ -6,13 +6,13 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 13:30:44 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:07:38 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-void	ft_exit(char *str, t_builtin_info *info)
+int	ft_exit(char *str, t_builtin_info *info)
 {
 	char	**str_split;
 	int		count;
@@ -38,4 +38,5 @@ void	ft_exit(char *str, t_builtin_info *info)
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
 	exit (EXIT_SUCCESS);
+	return (0);
 }

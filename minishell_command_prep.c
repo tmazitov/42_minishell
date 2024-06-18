@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command_prep.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:59:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 04:24:51 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:59:32 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

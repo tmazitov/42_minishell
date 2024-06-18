@@ -30,6 +30,7 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (0);
 	while (var[++index] != NULL)
 	{
+		ft_printf("var[%d] |%s|\n", index, var[index]);
 		if (ft_setvarname(var[index], envlist, varlist) == 0)
 		{
 			ft_printf("%s: command not found\n", var[index]);
@@ -74,7 +75,10 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 {
 	char	*varname;
 	char	*varvalue;
+	// char	*str_temp;
 
+	ft_printf("ft_setvarname str: |%s|\n", str);
+	// str = ft_cdcleanvalue(ft_strdup(str));
 	varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
 	varvalue = ft_splitequalsign(ft_strchr(str, '='), \
 		ft_strchr(str, '\0'), envlist, varlist);

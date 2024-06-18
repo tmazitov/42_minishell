@@ -38,6 +38,7 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./env/ft_env.c \
 					./pwd/ft_pwd.c \
 					./export/ft_export.c \
+					./export/ft_checkexportsplit.c \
 					./exit/ft_exit.c \
 					./builtins_utils.c \
 					./com_queue.c \

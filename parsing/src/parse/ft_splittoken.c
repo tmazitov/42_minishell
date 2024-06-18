@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 12:33:05 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:42:55 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 		return (NULL);
 	}
 	str_temp = ft_assignstring(str, start, *index);
+	ft_printf("ft_handlequotes str_temp: %s\n", str_temp);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	free(str_temp);
 	return (out);

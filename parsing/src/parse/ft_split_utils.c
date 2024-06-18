@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 13:52:06 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 21:17:32 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:50:45 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	**ft_handlesplittoken(char *str, char **var)
 	index = -1;
 	while (var[++count] != NULL)
 	{
-		if ((count > 0) && ft_checknextsplit(str, var[count - 1], var[count]))
+		if ((count > 0) && ft_checknextsplit(str, var[count - 1], var[count]) \
+			&& (!ft_strchr(var[count], '|')))
 		{
 			out[index] = ft_mergesplittoken(str, out[index], var[count]);
 			str = ft_strstr(str + ft_strlen(var[count - 1]), var[count]);

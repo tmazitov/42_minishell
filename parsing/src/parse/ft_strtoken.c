@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 01:12:36 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 13:25:48 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:35:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**str_token(char **str_input)
 	count = 0;
 	while (str_input[count] != NULL)
 	{
+		ft_printf("str token str_input[%d] |%s|\n", count, str_input[count]);
 		if (str_input[count][0] != '\"' && str_input[count][0] != '\'')
 		{
 			str_operator = ft_checkoperator(str_input[count]);

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/16 01:20:32 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:25:49 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char		**str_token(char **str);
 char		**ft_handletokens(char **outdp, char *str);
 t_tokens	*tokenize_input(char **str_token);
 t_tokens	*token_out(char *str);
+void		print_split(char **str_split);
 char		*ft_token_value(char *str_token);
 t_tokens	*ft_sethead_token(t_tokens *head, t_tokens *tail, t_tokens *token);
 

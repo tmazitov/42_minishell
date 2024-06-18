@@ -49,7 +49,7 @@ print:
 	@echo	"$(GREEN) libreadline.a directory: $(LIBREAD_DIR)$(DEFAULT)"
 	@echo	"$(GREEN) readline.h directory: $(LIBREAD_INC)$(DEFAULT)"
 
-all: print $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
+all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
 ifeq ($(UNAME), Darwin)
 CFLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)

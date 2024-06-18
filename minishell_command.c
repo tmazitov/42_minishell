@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/16 00:45:49 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:59:34 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 		root = parse_input(user_input);
 		root = ft_setroot(&root, *envlist, *varlist);
 		free(user_input);
+
 		if (!root)
 			return ;
 		execute(&root, envlist, varlist);
@@ -55,6 +56,9 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 	info.var = &varlist;
 	ft_checkdollar(rootnode, &info);
 	*rootnode = out;
+	ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
+	print_ast(*rootnode, 0);
+	ft_printf("-----------------------------------------------------\n");
 	return (out);
 }
 
@@ -66,6 +70,9 @@ void	ft_checkdollar(t_astnodes **rootnode, t_builtin_info *info)
 	{
 		(*rootnode)->value = ft_expanddollar((*rootnode)->value, info);
 		(*rootnode)->value = ft_cleanvalue((*rootnode)->value);
+		if (!ft_checkcmd((*rootnode)->value) && !((ft_strchr(\
+			(*rootnode)->value, '=') && !ft_checkcmd((*rootnode)->value))))
+			(*rootnode)->value = ft_cdcleanvalue((*rootnode)->value);
 	}
 	ft_checkdollar(&(*rootnode)->left, info);
 	ft_checkdollar(&(*rootnode)->right, info);

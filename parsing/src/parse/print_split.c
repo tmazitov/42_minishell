@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   print_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 22:10:51 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 18:32:26 by emaravil         ###   ########.fr       */
+/*   Created: 2024/06/18 17:52:00 by emaravil          #+#    #+#             */
+/*   Updated: 2024/06/18 19:50:53 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtins.h"
+#include "../../includes/parse.h"
 
-void	ft_printenv(t_envlist *envlist, t_varlist *varlist)
+void	print_split(char **str_split)
 {
-	while (envlist != NULL && envlist->varname != NULL)
+	int	count;
+
+	count = 0;
+	ft_printf("print_split\n");
+	while (str_split[count])
 	{
-		if (!(ft_checkvarlist(envlist->varname, varlist) && !*(envlist->value)))
-		{
-			ft_printf("%s", envlist->varname);
-			ft_printf("=|%s|", envlist->value);
-			ft_printf("\n");
-		}
-		envlist = envlist->next;
+		ft_printf("|%s|\n", str_split[count]);
+		count++;
 	}
 }

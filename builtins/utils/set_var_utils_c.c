@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:55:00 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 17:13:47 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:43:09 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
 		ft_bzero(var, len);
 		while (start < end && ++count < len - 1)
 			var[count] = start[count];
-		var[count] = '\0';
 	}
+	ft_printf("ft_splitequalsign var: |%s|\n", var);
 	return (var);
 }
 
@@ -98,6 +98,7 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 	while (cmd_split[len] != NULL)
 	{
 		out = ft_splitvarvalue_b(cmd_split[len], out, envlist, varlist);
+		ft_printf("split out |%s|\n", out);
 		len++;
 	}
 	free_pointer(cmd_split);

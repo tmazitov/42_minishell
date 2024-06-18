@@ -171,8 +171,10 @@ char				**ft_handleexportsplit(char *str, char **var);
 char				*ft_splittoname(char *str, t_envlist **envlist, \
 					t_varlist **varlist);
 void				ft_exportvar(char *varname, t_envlist **envlist, \
-	t_varlist **varlist);
+					t_varlist **varlist);
 void				ft_printexport(t_envlist **envlist, t_varlist **varlist);
+bool				ft_checkexportsplit(char *str, char *prevvar, \
+					char *currvar);
 bool				ft_checkvarenv(char *varname, t_envlist *envlist);
 bool				ft_checkvarlist(char *varname, t_varlist *varlist);
 
@@ -206,7 +208,7 @@ char				*ft_expandhomepath(char **path_split, \
 char				*ft_cdcleanvalue(char *str);
 char				*ft_copystring(char *str);
 
-void				ft_exit(char *str, t_builtin_info *info);
+int					ft_exit(char *str, t_builtin_info *info);
 void				*free_queue(t_com_queue *queue);
 t_com_node			*get_first(t_com_queue *q);
 void				*free_queue_relationship(t_com_queue *queue);

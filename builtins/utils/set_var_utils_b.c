@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:53:32 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/13 15:54:02 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:19:16 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*ft_getvaluedquotes(char *str, t_envlist **envlist, t_varlist **varlist)
 	int		offset;
 	int		count;
 
+	(void)envlist;
+	(void)varlist;
 	len = ft_strlen(str);
 	if (str[0] == '\"')
 		len--;
@@ -74,7 +76,6 @@ char	*ft_getvaluedquotes(char *str, t_envlist **envlist, t_varlist **varlist)
 			count++;
 		}
 	}
-	out = ft_expanddquotes(out, 0, envlist, varlist);
 	return (out);
 }
 
@@ -92,8 +93,7 @@ char	*ft_expanddquotes(char *str, int len, t_envlist **envlist, \
 	cmd = str_token(cmd);
 	while (cmd[len] != NULL)
 	{
-		if ((len > 0) && ((size_t)(ft_strstr(str_temp, cmd[len]) - \
-			ft_strstr(str_temp, cmd[len - 1])) > ft_strlen(cmd[len - 1])))
+		if ((len > 0) && ft_checkexportsplit(str_temp, cmd[len - 1], cmd[len]))
 			out = ft_mergevarval(str_temp, out, " ");
 		str_temp = ft_strstr(str_temp, cmd[len]);
 		if (cmd[len][0] != '$')
