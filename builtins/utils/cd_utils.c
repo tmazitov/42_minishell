@@ -12,23 +12,23 @@
 
 #include "../builtins.h"
 
-int	ft_update_envlist(char *path, char *currdir, t_envlist **envlist)
+int	ft_update_envlist(char *currdir, t_envlist **envlist)
 {
 	int		oldpwd_exist;
 	char	*oldpwd_value;
+	char	cdir[PATH_MAX];
 
 	oldpwd_exist = 0;
 	oldpwd_value = ft_copystring(currdir);
+	getcwd(cdir, sizeof(cdir));
 	while (*envlist != NULL)
 	{
-		if (ft_strncmp("PWD", (*envlist)->varname, \
-			ft_strlen((*envlist)->varname)) == 0)
+		if (ft_compname("PWD", (*envlist)->varname))
 		{
 			free((*envlist)->value);
-			(*envlist)->value = path;
+			(*envlist)->value = ft_copystring(cdir);
 		}
-		if (ft_strncmp("OLDPWD", (*envlist)->varname, \
-			ft_strlen((*envlist)->varname)) == 0)
+		if (ft_compname("OLDPWD", (*envlist)->varname))
 		{
 			oldpwd_exist = 1;
 			free((*envlist)->value);
@@ -89,4 +89,42 @@ char	*ft_cdcleanvalue(char *str)
 	out[len] = '\0';
 	free(str_temp);
 	return (out);
+}
+
+void	free_cd(char **str_split, char *path)
+{
+	free_pointer(str_split);
+	free(path);
+}
+
+char	**cd_split(char *str)
+{
+	char	**psplit;
+
+	if (str == NULL)
+		return (NULL);
+	psplit = ft_splittoken_setvar(str);
+	psplit = str_token(psplit);
+	psplit = ft_handlecdsplit(str, psplit);
+	return (psplit);
+}
+
+int	cdcheck_path(char *path)
+{
+	int	exit_status;
+
+	exit_status = 0;
+	if (path == NULL)
+		return (ft_printf("bash: cd: OLDPWD not set\n"), 1);
+	if (ft_strlen(path) > NAME_MAX)
+	{
+		ft_printf("bash: cd: %s: File name too long\n", path);
+		return (free(path), 1);
+	}
+	if (chdir(path) != 0)
+	{
+		ft_printf("bash: cd: %s: No such file or directory\n", path);
+		return (free(path), 1);
+	}
+	return (exit_status);
 }

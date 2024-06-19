@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 19:53:22 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:36:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	**ft_splittoken_setvar(char *str)
 	if (out == NULL)
 		return (NULL);
 	spval.token_count = 0;
-	ft_printf("ft_splittoken_setvar str: |%s|\n", str);
 	while (str[spval.index] != '\0')
 	{
 		while (str[spval.index] && (ft_isspace(str[spval.index]) > 0))
@@ -45,9 +44,6 @@ char	**ft_splittoken_setvar(char *str)
 			out = ft_handlequotes(out, str, &spval.index, \
 			(spval.token_count + 2));
 	}
-	ft_printf("ft_splittoken_setvar print_split\n");
-	print_split(out);
-	ft_printf("ft_splittoken_setvar print_split\n");
 	return (out);
 }
 

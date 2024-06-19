@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expanddollar.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:08:56 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 21:19:20 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 05:31:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 04:11:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/18 17:59:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 04:07:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (!prepare_var(&varlist))
 		return (1);
-	if (!prepare_env(&envlist, envp))
+	if (!prepare_env(&envlist, &varlist, envp))
 		return (ft_free_var(&varlist), 1);
 	if (is_single_command(argc, argv))
 		return (run_single_command(argv[2], &envlist, &varlist));
@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		user_input = prepare_user_input();
-		if (user_input && *user_input != '\0')
+		if (user_input)
 		{
 			err_status = run_one_command(user_input, &envlist, &varlist);
 			status_code(SET_HISTORY, -1);

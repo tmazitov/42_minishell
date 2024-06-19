@@ -63,6 +63,8 @@ bool	ft_compname(char *str1, char *str2)
 {
 	char	**out;
 
+	if (!str1 || !str2)
+		return (NULL);
 	out = ft_split(str2, ' ');
 	if (ft_strncmp(str1, out[0], ft_strlen(out[0])) == 0 && \
 		(ft_strlen(str1) == ft_strlen(out[0])))

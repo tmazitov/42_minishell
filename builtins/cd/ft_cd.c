@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/15 21:53:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 05:32:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 {
-	char	currdir[PATH_MAX];
-	char	*path;
+	char		currdir[PATH_MAX];
+	char		*path;
+	static int	pwd_stat;
 
-	if (ft_strlen(str) > NAME_MAX)
-		return (ft_printf("File name too long\n"), 0);
-	getcwd(currdir, sizeof(currdir));
-	path = ft_getpath(str, envlist, varlist);
-	if (path == NULL)
+	if (ft_checkvarenv("PWD", *envlist))
+		pwd_stat = 0;
+	if (str == NULL)
 		return (0);
-	if (chdir(path) != 0)
+	if (!ft_checkvarenv("PWD", *envlist) && pwd_stat == 0)
 	{
-		ft_printf("bash: cd: %s: No such file or directory\n", path);
-		return (free(path), 1);
+		pwd_stat = 1;
+		currdir[0] = '\0';
 	}
-	ft_update_envlist(path, currdir, envlist);
-	return (0);
+	else
+		getcwd(currdir, sizeof(currdir));
+	path = ft_getpath(str, envlist, varlist);
+	if (cdcheck_path(path) == 1)
+		return (1);
+	ft_update_envlist(currdir, envlist);
+	return (free(path), 0);
 }
 
 char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
@@ -37,9 +41,7 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	**psplit;
 	char	*path;
 
-	psplit = ft_splittoken_setvar(str);
-	psplit = str_token(psplit);
-	psplit = ft_handlecdsplit(str, psplit);
+	psplit = cd_split(str);
 	if (psplit[1])
 		psplit[1] = ft_cdcleanvalue(psplit[1]);
 	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
@@ -49,8 +51,10 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	else if (*psplit[1] == '-' && ft_strlen(psplit[1]) == 1)
 	{
 		path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
+		if (!*path)
+			return (free_cd(psplit, path), NULL);
 		if (path == NULL)
-			return (ft_printf("bash: cd: OLDPWD not set\n"), NULL);
+			return (free_pointer(psplit), NULL);
 		ft_printf("%s\n", path);
 	}
 	else if (psplit[1][0] == '$')

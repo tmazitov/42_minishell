@@ -122,7 +122,7 @@ void				ft_splitcond_b(char **out, char **var, char *str);
 char				*ft_splitvarvalue(char *start, t_envlist **envlist, \
 					t_varlist **varlist);
 char				*ft_splitvarvalue_b(char *str, char *out, \
-					t_envlist **envlist, t_varlist **varlist);				
+					t_envlist **envlist, t_varlist **varlist);
 char				*ft_copyvarvalues(char *s1, char *s2, size_t len1, \
 					size_t len2);
 char				*ft_mergevarval(char *str, char *s1, char *s2);
@@ -164,6 +164,7 @@ char				*ft_copyvalues(char **var_split, char *var_newsplit);
 
 int					ft_export(char *str, t_envlist **envlist, t_varlist \
 					**varlist);
+char				**ft_exportinput(char *str);
 int					ft_checkexport(char *varname, char *str_input, \
 					t_envlist **envlist, \
 					t_varlist **varlist);
@@ -199,16 +200,20 @@ int					ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
 char				**ft_handlecdsplit(char *str, char **var);
 char				*ft_cdexpandpath(char *pathstr, t_envlist **envlist, \
 					t_varlist **varlist);
-int					ft_update_envlist(char *path, char *currdir, \
-					t_envlist **envlist);
+int					ft_update_envlist(char *currdir, t_envlist **envlist);
 char				*ft_getpath(char *str, t_envlist **envlist, \
 					t_varlist **varlist);
 char				*ft_expandhomepath(char **path_split, \
 					t_envlist *envlist, t_varlist *varlist);
 char				*ft_cdcleanvalue(char *str);
 char				*ft_copystring(char *str);
+void				free_cd(char **str_split, char *path);
+char				**cd_split(char *str);
+int					cdcheck_path(char *path);
 
 int					ft_exit(char *str, t_builtin_info *info);
+int					exit_status_out(char **c);
+int					check_exitstatus(int n);
 void				*free_queue(t_com_queue *queue);
 t_com_node			*get_first(t_com_queue *q);
 void				*free_queue_relationship(t_com_queue *queue);

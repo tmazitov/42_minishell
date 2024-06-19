@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/14 20:01:39 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 04:06:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			run_single_command(char *user_input, t_envlist **envlist, \
 			t_varlist **varlist);
 
 t_varlist	*prepare_var(t_varlist **var);
-t_envlist	*prepare_env(t_envlist **env, char **envp);
+t_envlist	*prepare_env(t_envlist **env, t_varlist **varlist, char **envp);
 char		*prepare_single_command(char *user_input);
 char		*prepare_user_input(void);
 void		graceful_finish(t_envlist **env, t_varlist **var);

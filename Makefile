@@ -22,8 +22,8 @@ MINISHELL_SRCS	=	minishell.c \
 					minishell_command.c \
 					minishell_command_utils.c \
 					minishell_expanddollar.c \
-					minishell_command_prep.c 
-					
+					minishell_command_prep.c
+
 MINISHELL_OBJS 	=	$(MINISHELL_SRCS:.c=.o)
 HEADER			= 	minishell.h
 
@@ -45,11 +45,12 @@ LIBFT_LIB		=	$(LIBFT_DIR)/$(LIBFT)
 
 MAKE_LIBR		= 	make --no-print-directory -C
 
+all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
+
 print:
 	@echo	"$(GREEN) libreadline.a directory: $(LIBREAD_DIR)$(DEFAULT)"
 	@echo	"$(GREEN) readline.h directory: $(LIBREAD_INC)$(DEFAULT)"
 
-all: $(LIBFT_LIB) $(PARSE_LIB) $(BUILTINS_LIB) $(EXEC_LIB) $(NAME)
 
 ifeq ($(UNAME), Darwin)
 CFLAGS			= 	-Wall -Wextra -Werror -g -I $(LIBREAD_INC)

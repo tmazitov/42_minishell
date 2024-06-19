@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 14:14:20 by emaravil          #+#    #+#             */
-/*   Updated: 2024/04/17 03:22:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 04:26:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *arg)
 {
 	const char	*s;
 
+	if (!arg)
+		return (0);
 	s = arg;
 	while (*s)
 		s++;

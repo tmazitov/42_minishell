@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:16:53 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 18:12:06 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 05:49:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_printexport(t_envlist **envlist, t_varlist **varlist)
 	{
 		ft_printf("declare	-x	%s", curr_var->varname);
 		if (!(ft_checkvarlist(curr_var->varname, *varlist) && \
-			!*(curr_var->value)))
+			!(curr_var->value)))
 			ft_printf("=\"%s\"", curr_var->value);
 		ft_printf("\n");
 		curr_var = curr_var->next;

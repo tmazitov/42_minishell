@@ -18,13 +18,13 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 	int			index;
 	char		*varname;
 	t_varlist	*var_head;
+	int			exit_status;
 
 	var_head = *varlist;
 	index = 0;
+	exit_status = 0;
 	ft_printf("export str: |%s|\n", str);
-	var = ft_splittoken_setvar(str);
-	var = str_token(var);
-	var = ft_handleexportsplit(str, var);
+	var = ft_exportinput(str);
 	if (ft_strlen_dp(var) == 1)
 		ft_printexport(envlist, varlist);
 	while (var[++index] != NULL)
@@ -34,12 +34,22 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 			varname = ft_splitequalsign(varname, ft_strchr(varname, '='), \
 				envlist, varlist);
 		if (ft_checkexport(varname, var[index], envlist, varlist) == 1)
-			return (free_pointer(var), 1);
+			exit_status = 1;
 		if (ft_strchr(var[index], '=') && (ft_strlen(var[index]) > 1))
 			free(varname);
 	}
 	*varlist = var_head;
-	return (free_pointer(var), 0);
+	return (free_pointer(var), exit_status);
+}
+
+char	**ft_exportinput(char *str)
+{
+	char	**var;
+
+	var = ft_splittoken_setvar(str);
+	var = str_token(var);
+	var = ft_handleexportsplit(str, var);
+	return (var);
 }
 
 int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
@@ -52,9 +62,9 @@ int	ft_checkexport(char *varname, char *str_input, t_envlist **envlist, \
 	{
 		if (!ft_strchr(str_input, '=') && !ft_checkvarlist(str_input, *varlist))
 		{
-			str_input = ft_mergevarval(NULL, ft_strdup(str_input), "=");
+			// str_input = ft_mergevarval(NULL, ft_strdup(str_input), "=");
 			out = ft_setvarname(str_input, envlist, varlist);
-			free(str_input);
+			// free(str_input);
 		}
 		else
 			out = ft_setvarname(str_input, envlist, varlist);

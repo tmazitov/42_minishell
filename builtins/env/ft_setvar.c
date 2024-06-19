@@ -79,9 +79,15 @@ int	ft_setvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 
 	ft_printf("ft_setvarname str: |%s|\n", str);
 	// str = ft_cdcleanvalue(ft_strdup(str));
-	varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
-	varvalue = ft_splitequalsign(ft_strchr(str, '='), \
-		ft_strchr(str, '\0'), envlist, varlist);
+	if (ft_strchr(str, '='))
+		varname = ft_splitequalsign(str, ft_strchr(str, '='), envlist, varlist);
+	else
+		varname = ft_strdup(str);
+	if (ft_strchr(str, '='))
+		varvalue = ft_splitequalsign(ft_strchr(str, '='), \
+			ft_strchr(str, '\0'), envlist, varlist);
+	else
+		varvalue = NULL;
 	if (!varname || !ft_checkvarname(varname))
 		return (ft_doublefree(varname, varvalue), 0);
 	else

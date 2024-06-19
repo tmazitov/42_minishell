@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command_prep.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:59:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/18 17:59:32 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:08:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,21 @@
 char	*prepare_user_input(void)
 {
 	char	*str;
+	char	*str_temp;
+	char	*str_head;
 
+	str_temp = NULL;
 	str = readline("\033[1;32mminishell$\033[0m ");
 	if (!str)
 		return (NULL);
 	str = ft_cleaninput(str);
+	str_head = str;
 	while (ft_isspace(*str) > 0)
 		str++;
-	return (str);
+	if (*str == '\0')
+		return (free(str_head), str_temp);
+	str_temp = ft_strdup(str);
+	return (free(str_head), str_temp);
 }
 
 char	*prepare_single_command(char *user_input)

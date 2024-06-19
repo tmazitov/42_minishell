@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 04:00:35 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 04:25:02 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/19 04:18:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_envlist	*prepare_env(t_envlist **env, char **envp)
+t_envlist	*prepare_env(t_envlist **env, t_varlist **varlist, char **envp)
 {
-	return ((*env = ft_init_env(envp)));
+	*env = ft_init_env(envp);
+	ft_cd(NULL, env, varlist);
+	ft_mergedollar_b(NULL, NULL, *env, *varlist);
+	return (*env);
 }
 
 t_varlist	*prepare_var(t_varlist **var)
