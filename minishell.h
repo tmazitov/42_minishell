@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/19 04:06:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:48:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ char		*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
 			t_varlist *varlist);
 int			ft_selectmode(char c, char mode);
 char		*ft_cleanvalue(char *str);
+char		*return_voidpointer();
 #endif // MINISHELL_H

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/18 18:59:34 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:19:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 	info.var = &varlist;
 	ft_checkdollar(rootnode, &info);
 	*rootnode = out;
-	ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
-	print_ast(*rootnode, 0);
-	ft_printf("-----------------------------------------------------\n");
+	// ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
+	// print_ast(*rootnode, 0);
+	// ft_printf("-----------------------------------------------------\n");
 	return (out);
 }
 

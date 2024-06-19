@@ -1,0 +1,153 @@
+#!/bin/bash
+
+RESET="\033[0m"
+BLACK="\033[30m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+MAGENTA="\033[35m"
+CYAN="\033[36m"
+WHITE="\033[37m"
+
+BOLDBLACK="\033[1m\033[30m"
+BOLDRED="\033[1m\033[31m"
+BOLDGREEN="\033[1m\033[32m"
+BOLDYELLOW="\033[1m\033[33m"
+BOLDBLUE="\033[1m\033[34m"
+BOLDMAGENTA="\033[1m\033[35m"
+BOLDCYAN="\033[1m\033[36m"
+BOLDWHITE="\033[1m\033[37m"
+
+# RE COMPILE MINISHELL "
+make re
+
+printf "$BOLDMAGENTA __  __ _____ _   _ _____  _____ _    _ ______ _      _      \n"
+printf "|  \/  |_   _| \ | |_   _|/ ____| |  | |  ____| |    | |     \n"
+printf "| \  / | | | |  \| | | | | /___ | |__| | |__  | |    | |     \n"
+printf "| |\/| | | | | . \` | | |  \___ \|  __  |  __| | |    | |     \n"
+printf "| |  | |_| |_| |\  |_| |_ ____\ | |  | | |____| |____| |____ \n"
+printf "|_|  |_|_____|_| \_|_____|_____/|_|  |_|______|______|______|\n$RESET"
+echo
+
+function run_test()
+{
+	MINISHELL_OUT=$(echo $@ | ./minishell -c "$@" 2>&-)
+	MINISHELL_EXITSTATUS=$?
+	BASH_OUT=$(echo $@ "; exit" | bash 2>&-)
+	BASH_EXITSTATUS=$?
+	if [ "$MINISHELL_OUT" == "$BASH_OUT" ] && [ "$MINISHELL_EXITSTATUS" == "$BASH_EXITSTATUS" ]; then
+		printf " $BOLDGREEN%s$RESET" "✓ "
+	else
+		printf " $BOLDRED%s$RESET" "✗ "
+	fi
+	printf "$CYAN \"$@\" $RESET"
+	if [ "$MINISHELL_OUT" != "$BASH_OUT" ]; then
+		echo
+		echo
+		printf $BOLDRED"Your output : \n%.20s\n$BOLDRED$MINISHELL_OUT\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
+		printf $BOLDGREEN"Expected output : \n%.20s\n$BOLDGREEN$BASH_OUT\n%.20s$RESET\n" "-----------------------------------------" "-----------------------------------------"
+	fi
+	if [ "$MINISHELL_EXITSTATUS" != "$BASH_EXITSTATUS" ]; then
+		echo
+		echo
+		printf $BOLDRED"Your exit status : $BOLDRED$MINISHELL_EXITSTATUS$RESET\n"
+		printf $BOLDGREEN"Expected exit status : $BOLDGREEN$BASH_EXITSTATUS$RESET\n"
+	fi
+	echo
+	sleep 0.1
+}
+
+# ECHO TESTS
+run_test 'echo test tout'
+run_test 'echo test      tout'
+run_test 'echo -n test tout'
+run_test 'echo -n -n -n test tout'
+
+
+# CD TESTS
+run_test 'cd .. | pwd'
+run_test 'cd /Users | pwd'
+run_test 'cd | pwd'
+run_test 'mkdir test_dir | cd test_dir | rm -rf ../test_dir | cd . | pwd | cd . | pwd | cd .. | pwd'
+
+
+# PIPE TESTS
+run_test 'cat tests/lorem.txt | grep arcu | cat -e'
+run_test 'echo test | cat -e|cat -e'
+run_test 'cat /dev/random | head -c 100 | wc -c'
+run_test 'ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls'
+run_test 'ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls'
+
+# ENV EXPANSIONS + ESCAPE
+run_test 'echo test     \    test'
+run_test 'echo \"test'
+run_test 'echo $TEST'
+run_test 'echo "$TEST"'
+run_test "echo '$TEST'"
+run_test 'echo "$TEST$TEST$TEST"'
+run_test 'echo "$TEST$TEST=lol$TEST"'
+run_test 'echo "   $TEST lol $TEST"'
+run_test 'echo $TEST$TEST$TEST'
+run_test 'echo $TEST$TEST=lol$TEST""lol'
+run_test 'echo    $TEST lol $TEST'
+run_test 'echo test "" test "" test'
+run_test 'echo "\$TEST"'
+run_test 'echo "$=TEST"'
+run_test 'echo "$"'
+run_test 'echo "$?TEST"'
+run_test 'echo $TEST $TEST'
+run_test 'echo "$1TEST"'
+run_test 'echo "$T1TEST"'
+
+# ENV EXPANSIONS
+# ENV_SHOW="env | sort | grep -v SHLVL | grep -v _="
+# EXPORT_SHOW="export | sort | grep -v SHLVL | grep -v _= | grep -v OLDPWD"
+# run_test 'export ='
+# run_test 'export 1TEST= |' $ENV_SHOW
+# run_test 'export TEST |' $EXPORT_SHOW
+# run_test 'export ""="" | ' $ENV_SHOW
+# run_test 'export TES=T="" |' $ENV_SHOW
+# run_test 'export TE+S=T="" |' $ENV_SHOW
+# run_test 'export TEST=LOL | echo $TEST |' $ENV_SHOW
+# run_test 'export TEST=LOL | echo $TEST$TEST$TEST=lol$TEST'
+# run_test 'export TEST=LOL| export TEST+=LOL | echo $TEST |' $ENV_SHOW
+run_test "env | sort | grep -v SHLVL | grep -v _="
+run_test "export | sort | grep -v SHLVL | grep -v _= | grep -v OLDPWD"
+# run_test 'export TEST="ls       -l     - a" | echo $TEST | $LS | ' $ENV_SHOW
+
+# REDIRECTIONS
+run_test 'echo test > ls | cat ls'
+run_test 'echo test > ls >> ls >> ls | echo test >> ls| cat ls'
+run_test '> lol echo test lol| cat lol'
+run_test '>lol echo > test>lol>test>>lol>test mdr >lol test >test| cat test'
+run_test 'cat < ls'
+run_test 'cat < ls > ls'
+
+# MULTI TESTS
+run_test 'echo testing multi | echo "test 1 | | and 2" | cat tests/lorem.txt | grep Lorem'
+
+# SYNTAX ERROR
+run_test '|| test'
+run_test '| test'
+run_test 'echo > <'
+run_test 'echo | |'
+run_test '<'
+
+# EXIT
+run_test "exit 42"
+run_test "exit 42 53 68"
+run_test "exit 259"
+run_test "exit 9223372036854775807"
+run_test "exit -9223372036854775808"
+run_test "exit 9223372036854775808"
+run_test "exit -9223372036854775810"
+run_test "exit -4"
+run_test "exit wrong"
+run_test "exit wrong_command"
+run_test "gdagadgag"
+run_test "ls -Z"
+run_test "cd gdhahahad"
+run_test "ls -la | wtf"
+
+rm lol ls test

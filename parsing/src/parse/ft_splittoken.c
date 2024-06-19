@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splittoken.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 19:42:55 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:59:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,6 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 		return (NULL);
 	}
 	str_temp = ft_assignstring(str, start, *index);
-	ft_printf("ft_handlequotes str_temp: %s\n", str_temp);
 	out = ft_realloc_dp(out, str_temp, token_count + 1);
 	free(str_temp);
 	return (out);

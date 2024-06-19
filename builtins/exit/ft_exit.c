@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 00:08:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 15:26:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	ft_exit(char *str, t_builtin_info *info)
 	ft_printf("exit\n");
 	if (ft_strlen_dp(str_split) > 2)
 		return (ft_printf("bash: exit: too many arguments\n"), 1);
-	exit_status = exit_status_out(str_split);
-	exit_status = check_exitstatus(exit_status);
+	if (ft_strlen_dp(str_split) == 2)
+	{
+		exit_status = exit_status_out(str_split);
+		exit_status = check_exitstatus(exit_status);
+	}
 	free_pointer(str_split);
 	free_queue(info->q);
 	ft_free_env(info->env);
@@ -37,15 +40,15 @@ int	ft_exit(char *str, t_builtin_info *info)
 
 int	exit_status_out(char **c)
 {
-	int	count;
-	int	sign;
-	int result;
+	int		count;
+	int		sign;
+	int64_t result;
+	int64_t temp;
 
 	count = 0;
 	sign = 1;
+	temp = 0;
 	result = 0;
-	if (c[1] == NULL)
-		return (0);
 	if (c[1][count] == '-' || c[1][count] == '+')
 		if (c[1][count++] == '-')
 			sign *= -1;
@@ -54,9 +57,13 @@ int	exit_status_out(char **c)
 		if (ft_isdigit(c[1][count]) == 0)
 			return (ft_printf("bash: exit: %s: numeric argument required\n", \
 				c[1]), 255);
-		result = (result * 10) + (c[1][count++] - '0');
+		temp = (temp * 10) + (sign * (c[1][count++] - '0'));
+		if ((temp > result && (sign < 0)) || (temp < result && (sign > 0)))
+			return (ft_printf("bash: exit: %s: numeric argument required\n", \
+				c[1]), 255);
+		result = temp;
 	}
-	return (result * sign);
+	return (result);
 }
 
 int	check_exitstatus(int n)

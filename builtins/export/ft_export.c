@@ -23,7 +23,6 @@ int	ft_export(char *str, t_envlist **envlist, t_varlist **varlist)
 	var_head = *varlist;
 	index = 0;
 	exit_status = 0;
-	ft_printf("export str: |%s|\n", str);
 	var = ft_exportinput(str);
 	if (ft_strlen_dp(var) == 1)
 		ft_printexport(envlist, varlist);
@@ -91,7 +90,6 @@ char	**ft_handleexportsplit(char *str, char **var)
 	index = -1;
 	while (var[++count] != NULL)
 	{
-		ft_printf("ft_handleexportsplit var[%d] |%s|\n", count, var[count]);
 		if ((count > 0) && ft_checkexportsplit(str, var[count - 1], var[count]))
 			out[index] = ft_mergevarval(str, out[index], var[count]);
 		else
@@ -99,7 +97,6 @@ char	**ft_handleexportsplit(char *str, char **var)
 			index++;
 			out = ft_realloc_dp(out, var[count], ft_strlen_dp(out) + 1);
 		}
-		ft_printf("ft_handleexportsplit out[%d] |%s|\n", index, out[index]);
 	}
 	return (free_pointer(var), out);
 }

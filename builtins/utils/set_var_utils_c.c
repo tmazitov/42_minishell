@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils_c.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:55:00 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 19:43:09 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:01:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	*ft_splitequalsign(char *start, char *end, t_envlist **envlist, \
 		while (start < end && ++count < len - 1)
 			var[count] = start[count];
 	}
-	ft_printf("ft_splitequalsign var: |%s|\n", var);
 	return (var);
 }
 

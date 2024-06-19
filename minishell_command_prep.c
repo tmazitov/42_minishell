@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:59:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/18 23:08:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:50:12 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*prepare_user_input(void)
 	while (ft_isspace(*str) > 0)
 		str++;
 	if (*str == '\0')
-		return (free(str_head), str_temp);
+		return (free(str_head), return_voidpointer());
 	str_temp = ft_strdup(str);
 	return (free(str_head), str_temp);
 }
@@ -45,4 +45,13 @@ char	*prepare_single_command(char *user_input)
 	while (ft_isspace(*user_input) > 0)
 		user_input++;
 	return (user_input);
+}
+
+char	*return_voidpointer()
+{
+	char	*out;
+
+	out = malloc(sizeof(char) * 1);
+	ft_bzero(out, sizeof(char) * 1);
+	return (out);
 }

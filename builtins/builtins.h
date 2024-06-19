@@ -19,6 +19,7 @@
 # include "../execution/pipex/chan/chan.h"
 # include "../execution/signals/includes/signals.h"
 # include "../execution/pipex/src/output/output.h"
+# include <stdint.h>
 
 typedef enum s_input_src
 {

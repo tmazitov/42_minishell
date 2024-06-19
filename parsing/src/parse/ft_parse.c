@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:01 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 17:51:40 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:19:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_astnodes	*parse_input(char *str)
 	if (ft_shellgrammar(token_input) && ft_checksyntax(token_input))
 	{
 		root = ft_parsetokens(&token_input);
-		ft_printf("\n----------------- PARSE ROOTPRINT AST ---------------\n");
-		print_ast(root, 0);
-		ft_printf("-----------------------------------------------------\n");
+		// ft_printf("\n----------------- PARSE ROOTPRINT AST ---------------\n");
+		// print_ast(root, 0);
+		// ft_printf("-----------------------------------------------------\n");
 		if (root == NULL)
 			return (ft_free_tokens(token_input), NULL);
 	}

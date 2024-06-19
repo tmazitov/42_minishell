@@ -19,38 +19,24 @@ void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
 {
 	char	**c;
 	int		len;
-	int		count;
-	int		index;
-	char	*str_temp;
 
-	count = 1;
-	len = 0;
-	str_temp = str;
+	len = 1;
 	c = ft_splittoken_setvar(str);
 	c = str_token(c);
-	while ((c[len + count] != NULL) && ft_compname("-n", c[len + count]))
-		count++;
-	index = 0;
-	while (index < count)
+	while ((c[len] != NULL) && ft_compname("-n", c[len]))
+		len++;
+	while (c[len] != NULL)
 	{
-		len = 0;
-		str = str_temp;
-		while (c[len + count] != NULL)
+		ft_printparams(str, c[len], envlist, varlist);
+		str = ft_strstr(str, c[len]);
+		len++;
+		if ((c[len] != NULL))
 		{
-			ft_printparams(str, c[len + count], envlist, varlist);
-			str = ft_strstr(str, c[len + count]);
-			len++;
-			if ((c[len + count] != NULL))
-			{
-				if ((size_t)(ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]) > \
-					(ft_strstr(str, c[len + count - 1])) + ft_strlen(c[len + count - 1])))
-					ft_printf(" ");
-				str = ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]);
-			}
+			if ((size_t)(ft_strstr(str + ft_strlen(c[len - 1]), c[len]) > \
+				(ft_strstr(str, c[len - 1])) + ft_strlen(c[len - 1])))
+				ft_printf(" ");
+			str = ft_strstr(str + ft_strlen(c[len - 1]), c[len]);
 		}
-		index++;
-		if (index == count - 1)
-			break ;
 	}
 	if (!((c[1] != NULL) && ft_compname("-n", c[1])))
 		ft_printf("\n");
@@ -126,3 +112,45 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 	}
 	return (NULL);
 }
+
+// void	ft_echo(char *str, t_envlist *envlist, t_varlist *varlist)
+// {
+// 	char	**c;
+// 	int		len;
+// 	int		count;
+// 	int		index;
+// 	char	*str_temp;
+
+// 	count = 1;
+// 	len = 0;
+// 	str_temp = str;
+// 	c = ft_splittoken_setvar(str);
+// 	c = str_token(c);
+// 	while ((c[len + count] != NULL) && ft_compname("-n", c[len + count]))
+// 		count++;
+// 	index = 0;
+// 	while (index < count)
+// 	{
+// 		len = 0;
+// 		str = str_temp;
+// 		while (c[len + count] != NULL)
+// 		{
+// 			ft_printparams(str, c[len + count], envlist, varlist);
+// 			str = ft_strstr(str, c[len + count]);
+// 			len++;
+// 			if ((c[len + count] != NULL))
+// 			{
+// 				if ((size_t)(ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]) > 
+// 					(ft_strstr(str, c[len + count - 1])) + ft_strlen(c[len + count - 1])))
+// 					ft_printf(" ");
+// 				str = ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]);
+// 			}
+// 		}
+// 		index++;
+// 		if (index == count - 1)
+// 			break ;
+// 	}
+// 	if (!((c[1] != NULL) && ft_compname("-n", c[1])))
+// 		ft_printf("\n");
+// 	free_pointer(c);
+// }
