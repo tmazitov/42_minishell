@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command_prep.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:59:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/19 13:50:12 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:59:17 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*prepare_single_command(char *user_input)
 	return (user_input);
 }
 
-char	*return_voidpointer()
+char	*return_voidpointer(void)
 {
 	char	*out;
 

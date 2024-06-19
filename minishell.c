@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 04:11:53 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/19 13:42:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 18:24:04 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	run_single_command(char *user_input, t_envlist **envlist, \
 	if (!user_input)
 		return (1);
 	different_execute(user_input, envlist, varlist);
-	return (graceful_finish(envlist, varlist), 0);
+	graceful_finish(envlist, varlist);
+	return (status_code(GET, -1));
 }
 
 int	run_one_command(char *user_input, t_envlist **envlist, t_varlist **varlist)

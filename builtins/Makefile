@@ -41,6 +41,7 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./export/ft_checkexportsplit.c \
 					./exit/ft_exit.c \
 					./builtins_utils.c \
+					./ft_writestring_b.c \
 					./com_queue.c \
 					./input_storage.c
 

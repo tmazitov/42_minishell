@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils_c.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:55:00 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 14:01:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:24:10 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ char	*ft_splitvarvalue(char *start, t_envlist **envlist, t_varlist **varlist)
 	while (cmd_split[len] != NULL)
 	{
 		out = ft_splitvarvalue_b(cmd_split[len], out, envlist, varlist);
-		ft_printf("split out |%s|\n", out);
 		len++;
 	}
 	free_pointer(cmd_split);

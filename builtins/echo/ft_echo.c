@@ -140,10 +140,13 @@ char	*ft_getenv(char *varname, t_envlist *envlist, t_varlist *varlist)
 // 			len++;
 // 			if ((c[len + count] != NULL))
 // 			{
-// 				if ((size_t)(ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]) > 
-// 					(ft_strstr(str, c[len + count - 1])) + ft_strlen(c[len + count - 1])))
+// 				if ((size_t)(ft_strstr(str + ft_strlen(c[len + count - 
+// 1]), c[len + count]) > 
+// 					(ft_strstr(str, c[len + count - 1])) + ft_strlen
+// (c[len + count - 1])))
 // 					ft_printf(" ");
-// 				str = ft_strstr(str + ft_strlen(c[len + count - 1]), c[len + count]);
+// 				str = ft_strstr(str + ft_strlen(c[len + count - 1]), 
+// c[len + count]);
 // 			}
 // 		}
 // 		index++;

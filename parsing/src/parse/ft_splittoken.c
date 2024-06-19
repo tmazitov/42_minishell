@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splittoken.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 13:59:13 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:27:37 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char	**ft_handlequotes(char **in, char *str, int *index, int token_count)
 		*index += 1;
 	else
 	{
-		ft_printf("bash: syntex error, uneven number of %c quotes\n", c);
+		ft_err_p("bash: syntax error, uneven number of ", &c, " quotes\n");
 		free_pointer(out);
 		return (NULL);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:22:28 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/19 13:19:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:36:52 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,19 @@ void	different_execute(char *user_input, t_envlist **envlist, \
 
 	if (is_sh_file(user_input))
 	{
-		ft_printf("Error: sh file not allowed!\n");
+		ft_err_p("Error: sh file not allowed!\n", NULL, NULL);
 		free(user_input);
 	}
 	else
 	{
 		root = parse_input(user_input);
+		if (!root)
+		{
+			status_code(SET, 258);
+			return ;
+		}
 		root = ft_setroot(&root, *envlist, *varlist);
 		free(user_input);
-
 		if (!root)
 			return ;
 		execute(&root, envlist, varlist);
@@ -50,15 +54,27 @@ t_astnodes	*ft_setroot(t_astnodes **rootnode, t_envlist *envlist, \
 {
 	t_astnodes		*out;
 	t_builtin_info	info;
+	char			*str_temp;
 
 	out = *rootnode;
 	info.env = &envlist;
 	info.var = &varlist;
+	str_temp = NULL;
 	ft_checkdollar(rootnode, &info);
+	if (!((*rootnode)->left) && !((*rootnode)->right) && \
+		(ft_strchr((*rootnode)->value, '|') && \
+		ft_strlen((*rootnode)->value) > 0))
+	{
+		str_temp = ft_strdup((*rootnode)->value);
+		ft_free_ast(*rootnode);
+		out = parse_input(str_temp);
+		if (out == NULL)
+		{
+			status_code(SET, 258);
+			return (NULL);
+		}
+	}
 	*rootnode = out;
-	// ft_printf("\n----------------- SET ROOTPRINT AST ---------------\n");
-	// print_ast(*rootnode, 0);
-	// ft_printf("-----------------------------------------------------\n");
 	return (out);
 }
 

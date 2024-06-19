@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:23:02 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/16 01:20:47 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:27:21 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	check_fd(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("bash: %s: No such file or directory\n", str);
+		ft_err_p("bash: ", str, ": No such file or directory\n");
 		close(fd);
 		return (false);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 15:26:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:17:51 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	ft_exit(char *str, t_builtin_info *info)
 
 	exit_status = 0;
 	str_split = ft_split(str, ' ');
-	ft_printf("exit\n");
 	if (ft_strlen_dp(str_split) > 2)
-		return (ft_printf("bash: exit: too many arguments\n"), 1);
-	if (ft_strlen_dp(str_split) == 2)
+		return (write(2, "exit\nbash: exit: too many arguments\n", 36), 1);
+	else if (ft_strlen_dp(str_split) == 2)
 	{
+		write(2, "exit\n", 5);
 		exit_status = exit_status_out(str_split);
 		exit_status = check_exitstatus(exit_status);
 	}
@@ -42,8 +42,8 @@ int	exit_status_out(char **c)
 {
 	int		count;
 	int		sign;
-	int64_t result;
-	int64_t temp;
+	int64_t	result;
+	int64_t	temp;
 
 	count = 0;
 	sign = 1;
@@ -55,12 +55,12 @@ int	exit_status_out(char **c)
 	while (c[1] != NULL && c[1][count])
 	{
 		if (ft_isdigit(c[1][count]) == 0)
-			return (ft_printf("bash: exit: %s: numeric argument required\n", \
-				c[1]), 255);
+			return (ft_err_b("bash: exit: ", c[1], ": numeric argument \
+				required\n"), 255);
 		temp = (temp * 10) + (sign * (c[1][count++] - '0'));
 		if ((temp > result && (sign < 0)) || (temp < result && (sign > 0)))
-			return (ft_printf("bash: exit: %s: numeric argument required\n", \
-				c[1]), 255);
+			return (ft_err_b("bash: exit: ", c[1], ": numeric argument \
+				required\n"), 255);
 		result = temp;
 	}
 	return (result);

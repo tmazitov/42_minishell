@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 22:36:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:24:37 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**ft_handlestring_setvar(char **in, char *str, \
 
 void	ft_splitcond_b(char **out, char **var, char *str)
 {
-	ft_printf("%s: command not found\n", str);
+	ft_err_b(str, ": command not found\n", NULL);
 	free_pointer(out);
 	free_pointer(var);
 }

@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:52:38 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/14 13:44:08 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:12:53 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	ft_checkquotes_grammar(char *str)
 			c = '0';
 	}
 	if (c != '0')
-		return (ft_printf("bash: syntex error, uneven number of %c quotes\n" \
-			, c), 0);
+		return (ft_err_p("bash: syntex error, uneven number of ", &c, \
+			" quotes\n"), 0);
 	else
 		return (1);
 }
@@ -61,7 +61,8 @@ int	ft_checksquotes(char *str)
 	}
 	if (count % 2 != 0)
 	{
-		ft_printf("bash: syntex error, uneven number of single quotes\n");
+		ft_err_p("bash: syntax error, uneven number of single quotes\n", \
+			NULL, NULL);
 		return (0);
 	}
 	else
@@ -83,7 +84,8 @@ int	ft_checkdquotes(char *str)
 	}
 	if (count % 2 != 0)
 	{
-		ft_printf("bash: syntex error, uneven number of double quotes\n");
+		ft_err_p("bash: syntax error, uneven number of double quotes\n", \
+			NULL, NULL);
 		return (0);
 	}
 	else
@@ -105,7 +107,8 @@ bool	ft_checkparenthesis(t_tokens *tokens)
 	}
 	if (count != 0)
 	{
-		ft_printf("bash: syntex error, uneven number of parenthesis\n");
+		ft_err_p("bash: syntex error, uneven number of parenthesis\n", \
+			NULL, NULL);
 		return (false);
 	}
 	else

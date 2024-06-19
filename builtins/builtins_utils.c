@@ -38,7 +38,6 @@ int	ft_builtins(char *str, t_builtin_info *info)
 
 int	ft_builtins_b(char	*str, t_builtin_info *info)
 {
-	// char	*str_temp;
 	int		exit_status;
 
 	exit_status = 0;
@@ -51,11 +50,7 @@ int	ft_builtins_b(char	*str, t_builtin_info *info)
 	else if (ft_compname("varrr", str))
 		ft_printvar(info->var);
 	else if (ft_compname("export", str))
-	{
-		// str_temp = ft_cdcleanvalue(ft_strdup(str));
 		exit_status = ft_export(str, info->env, info->var);
-		// free(str_temp);
-	}
 	return (exit_status);
 }
 

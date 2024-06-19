@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 18:27:59 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/09 00:55:15 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:27:28 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_checkcbrackets(char *str)
 	}
 	if (count != 0)
 	{
-		ft_printf("bash: syntex error, uneven number of brackets\n");
+		ft_err_p("bash: syntex error, uneven number of brackets\n", NULL, NULL);
 		return (0);
 	}
 	else

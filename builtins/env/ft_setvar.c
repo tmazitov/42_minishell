@@ -30,10 +30,9 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 		return (0);
 	while (var[++index] != NULL)
 	{
-		ft_printf("var[%d] |%s|\n", index, var[index]);
 		if (ft_setvarname(var[index], envlist, varlist) == 0)
 		{
-			ft_printf("%s: command not found\n", var[index]);
+			ft_err_b(var[index], ": command not found\n", NULL);
 			exit_status = 127;
 			break ;
 		}

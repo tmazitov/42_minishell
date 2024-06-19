@@ -224,6 +224,7 @@ void				ft_free_sortedenv(t_sorted_envlist **sorted_envlist);
 void				*free_input_storage(t_com_input_storage *st);
 void				*free_file_input(t_com_input *input);
 void				*free_heredoc_input(t_com_input *input);
+void				ft_err_b(char *str1, char *str2, char *str3);
 #endif //BUILTINTS_H
 
 //$0 – The name of the Bash script.

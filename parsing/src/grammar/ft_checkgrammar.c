@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:08 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/08 18:14:51 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:12:41 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ bool	ft_checkpipe(t_tokens *tokens)
 {
 	if (tokens->next == NULL || tokens->next->type == PIPE)
 	{
-		ft_printf("bash: syntax error near unexpected token '%s'\n", \
-			tokens->value);
+		write(2, "bash: syntax error near unexpected token ", 41);
+		write(2, tokens->value, ft_strlen(tokens->value));
+		write(2, "\n", 1);
 		return (false);
 	}
 	return (true);
@@ -85,14 +86,14 @@ bool	ft_ioredir(t_tokens *token_start, t_tokens *token_end)
 		{
 			if (tokens->next == NULL)
 			{
-				ft_printf("bash: syntax error near unexpected a ");
-				ft_printf("token 'newline'\n");
+				ft_err_p("bash: syntax error near unexpected a ", \
+					"token 'newline'\n", NULL);
 				return (false);
 			}
 			else if (tokens->next->type != WORD)
 			{
-				ft_printf("bash: syntax error near unexpected token '%s'\n", \
-					tokens->next->value);
+				ft_err_p("bash: syntax error near unexpected token '", \
+					tokens->next->value, "'\n");
 				return (false);
 			}
 		}
@@ -108,8 +109,8 @@ bool	ft_checkstart(t_tokens *tokens)
 {
 	if ((tokens)->type != WORD && tokens->type != REDIR)
 	{
-		ft_printf("bash: syntex error near unexpected token '%s'\n", \
-			tokens->value);
+		ft_err_p("bash: syntax error near unexpected token '", \
+			tokens->value, "'\n");
 		return (false);
 	}
 	else

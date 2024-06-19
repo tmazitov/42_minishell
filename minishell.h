@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 14:16:05 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/19 13:48:02 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:58:45 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ char		*ft_mergedollar_b(char	*varname, char *out, t_envlist *envlist, \
 			t_varlist *varlist);
 int			ft_selectmode(char c, char mode);
 char		*ft_cleanvalue(char *str);
-char		*return_voidpointer();
+char		*return_voidpointer(void);
 #endif // MINISHELL_H

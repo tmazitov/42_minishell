@@ -108,23 +108,3 @@ char	**cd_split(char *str)
 	psplit = ft_handlecdsplit(str, psplit);
 	return (psplit);
 }
-
-int	cdcheck_path(char *path)
-{
-	int	exit_status;
-
-	exit_status = 0;
-	if (path == NULL)
-		return (ft_printf("bash: cd: OLDPWD not set\n"), 1);
-	if (ft_strlen(path) > NAME_MAX)
-	{
-		ft_printf("bash: cd: %s: File name too long\n", path);
-		return (free(path), 1);
-	}
-	if (chdir(path) != 0)
-	{
-		ft_printf("bash: cd: %s: No such file or directory\n", path);
-		return (free(path), 1);
-	}
-	return (exit_status);
-}

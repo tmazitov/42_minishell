@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:17:37 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 17:25:49 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:12:30 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,4 +147,6 @@ bool		ft_checkparenthesis(t_tokens *tokens);
 int			ft_checksquotes(char *str);
 int			ft_checkdquotes(char *str);
 int			ft_checkquotes_grammar(char *str);
+
+void		ft_err_p(char *str1, char *str2, char *str3);
 #endif

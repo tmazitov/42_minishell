@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:09:07 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/18 20:58:27 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:57:38 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ bool	ft_checkexportsplit(char *str, char *prevvar, char *currvar)
 	}
 	else
 		return (false);
+}
+
+bool	ft_checkvarenv(char *varname, t_envlist *envlist)
+{
+	while (envlist != NULL && envlist->varname != NULL)
+	{
+		if (ft_compname(varname, envlist->varname))
+		{
+			return (true);
+		}
+		else
+			envlist = envlist->next;
+	}
+	return (false);
 }
