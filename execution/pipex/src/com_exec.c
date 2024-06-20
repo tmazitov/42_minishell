@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/16 00:37:57 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:00:00 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	envp = ft_env_converter(info->env);
 	if (!envp)
 		panic(command, info, 1);
+	free_queue_relationship(info->q);
 	status = execve(command->path, command->args, envp);
 	free_split(envp);
 	panic(command, info, status);

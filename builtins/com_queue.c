@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_queue.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:25:57 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/13 14:43:54 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:48:02 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	*free_queue_relationship(t_com_queue *q)
 {
 	t_com_node	*command;
 
+	if (q->chan_closed == 1)
+		return (NULL);
 	q->chan_closed = 1;
 	command = get_first(q);
 	while (command)
