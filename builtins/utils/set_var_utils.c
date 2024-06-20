@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   set_var_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 21:24:37 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/21 01:52:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-/// @brief split input string into tokens. This function does not split spaces 
+/// @brief split input string into tokens. This function does not split spaces
 /// in between single and double quotes
-/// @brief functions included: ft_handlestring, ft_handlequotes, 
+/// @brief functions included: ft_handlestring, ft_handlequotes,
 /// ft_assignstring, ft_realloc_dp
 /// @param str input pointer string
 /// @return double pointer of tokens.

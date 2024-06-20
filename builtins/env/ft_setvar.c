@@ -22,12 +22,11 @@ int	ft_setvar(char *str, t_envlist **envlist, t_varlist **varlist)
 	index = -1;
 	exit_status = 0;
 	var_head = *varlist;
-	exit_status = 0;
 	var = ft_splittoken_setvar(str);
 	var = str_token(var);
 	var = ft_handlesetvarsplit(str, var);
 	if (!var)
-		return (0);
+		return (127);
 	while (var[++index] != NULL)
 	{
 		if (ft_setvarname(var[index], envlist, varlist) == 0)

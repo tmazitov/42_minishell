@@ -1,5 +1,0 @@
-echo -n -n -n $PATH
-
-exit 3
-
-varrr
