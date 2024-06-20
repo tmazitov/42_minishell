@@ -36,7 +36,7 @@ int	ft_unsetvarname(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	if (*varlist == NULL)
 		*varlist = ft_init_var();
-	return (free_pointer(var_split), 1);
+	return (free_pointer(var_split), 0);
 }
 
 int	ft_unsetenv_b(char *varname, t_envlist **envlist, t_varlist **varlist)

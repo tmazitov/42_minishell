@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 18:04:59 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:13 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 		currdir[0] = '\0';
 	}
 	else
+	{
 		getcwd(currdir, sizeof(currdir));
+		if (!*currdir)
+			return (ft_err_b("unanble to get current dir", NULL, NULL), 1);
+	}
 	path = ft_getpath(str, envlist, varlist);
 	if (cdcheck_path(path) == 1)
 		return (1);
-	ft_update_envlist(currdir, envlist);
+	ft_update_envlist(ft_strdup(currdir), envlist);
 	return (free(path), 0);
 }
 
@@ -42,25 +46,21 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 	char	*path;
 
 	psplit = cd_split(str);
-	if (psplit[1])
-		psplit[1] = ft_cdcleanvalue(psplit[1]);
-	if (psplit[1] == NULL || (*psplit[1] == '~' && ft_strlen(psplit[1]) == 1))
-		path = ft_copystring(ft_getenv("HOME", *envlist, *varlist));
-	else if (*psplit[1] == '~' && ft_strlen(psplit[1]) > 1)
-		path = ft_expandhomepath(psplit, *envlist, *varlist);
-	else if (*psplit[1] == '-' && ft_strlen(psplit[1]) == 1)
+	path = NULL;
+	if (psplit[1] && *psplit[1] == '-' && ft_strlen(psplit[1]) == 1)
 	{
-		path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
-		if (!*path)
-			return (free_cd(psplit, path), NULL);
-		if (path == NULL)
-			return (free_pointer(psplit), NULL);
-		ft_printf("%s\n", path);
+		if (ft_checkvarenv("OLDPWD", *envlist))
+		{
+			path = ft_copystring(ft_getenv("OLDPWD", *envlist, *varlist));
+			if (!*path)
+				return (free(path), NULL);
+			ft_printf("%s\n", path);
+		}
+		else
+			return (NULL);
 	}
-	else if (psplit[1][0] == '$')
-		path = ft_cdexpandpath(psplit[1], envlist, varlist);
 	else
-		path = ft_copystring(psplit[1]);
+		path = ft_getpath_a(psplit, envlist, varlist);
 	return (free_pointer(psplit), path);
 }
 
@@ -127,6 +127,5 @@ char	*ft_copystring(char *str)
 		path[count] = str[count + offset];
 		count++;
 	}
-	path[count] = '\0';
 	return (path);
 }

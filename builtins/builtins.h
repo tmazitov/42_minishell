@@ -20,6 +20,8 @@
 # include "../execution/signals/includes/signals.h"
 # include "../execution/pipex/src/output/output.h"
 # include <stdint.h>
+# include <dirent.h>
+# include <errno.h>
 
 typedef enum s_input_src
 {
@@ -198,11 +200,14 @@ bool				ft_compname(char *str1, char *str2);
 void				ft_pwd(char *str);
 
 int					ft_cd(char *path, t_envlist **envlist, t_varlist **varlist);
+char				*ft_cddot(char *path);
 char				**ft_handlecdsplit(char *str, char **var);
 char				*ft_cdexpandpath(char *pathstr, t_envlist **envlist, \
 					t_varlist **varlist);
-int					ft_update_envlist(char *currdir, t_envlist **envlist);
+int					ft_update_envlist(char *oldpwd_value, t_envlist **envlist);
 char				*ft_getpath(char *str, t_envlist **envlist, \
+					t_varlist **varlist);
+char				*ft_getpath_a(char **psplit, t_envlist **envlist, \
 					t_varlist **varlist);
 char				*ft_expandhomepath(char **path_split, \
 					t_envlist *envlist, t_varlist *varlist);
@@ -211,6 +216,7 @@ char				*ft_copystring(char *str);
 void				free_cd(char **str_split, char *path);
 char				**cd_split(char *str);
 int					cdcheck_path(char *path);
+int					ft_checkcderr(char *path);
 
 int					ft_exit(char *str, t_builtin_info *info);
 int					exit_status_out(char **c);

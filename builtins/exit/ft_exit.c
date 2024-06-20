@@ -6,7 +6,7 @@
 /*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 21:17:51 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:04:15 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_exit(char *str, t_builtin_info *info)
 		exit_status = exit_status_out(str_split);
 		exit_status = check_exitstatus(exit_status);
 	}
+	else if (ft_strlen_dp(str_split) == 1)
+		write(2, "exit\n", 5);
 	free_pointer(str_split);
 	free_queue(info->q);
 	ft_free_env(info->env);

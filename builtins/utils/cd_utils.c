@@ -12,15 +12,15 @@
 
 #include "../builtins.h"
 
-int	ft_update_envlist(char *currdir, t_envlist **envlist)
+int	ft_update_envlist(char *oldpwd_value, t_envlist **envlist)
 {
-	int		oldpwd_exist;
-	char	*oldpwd_value;
-	char	cdir[PATH_MAX];
+	int			oldpwd_exist;
+	char		cdir[PATH_MAX];
+	t_envlist	*env_head;
 
 	oldpwd_exist = 0;
-	oldpwd_value = ft_copystring(currdir);
 	getcwd(cdir, sizeof(cdir));
+	env_head = *envlist;
 	while (*envlist != NULL)
 	{
 		if (ft_compname("PWD", (*envlist)->varname))
@@ -37,7 +37,7 @@ int	ft_update_envlist(char *currdir, t_envlist **envlist)
 		(*envlist) = (*envlist)->next;
 	}
 	if (oldpwd_exist == 0)
-		(*envlist) = ft_create_env(NULL, "OLDPWD", oldpwd_value);
+		ft_setenvlist(ft_strdup("OLDPWD"), oldpwd_value, 1, &env_head);
 	return (1);
 }
 
@@ -93,8 +93,10 @@ char	*ft_cdcleanvalue(char *str)
 
 void	free_cd(char **str_split, char *path)
 {
-	free_pointer(str_split);
-	free(path);
+	if (str_split)
+		free_pointer(str_split);
+	if (path)
+		free(path);
 }
 
 char	**cd_split(char *str)
