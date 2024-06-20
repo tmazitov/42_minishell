@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_splittoken.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:18:04 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/19 21:27:37 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:59:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	**ft_splittoken(char *str)
 		return (NULL);
 	spval->index = 0;
 	if (ft_checkquotes_grammar(str) == 0)
-		return (NULL);
+		return (free(spval), NULL);
 	out = safe_dp_malloc(1);
 	if (out == NULL)
-		return (NULL);
+		return (free(spval), NULL);
 	spval->token_count = 0;
 	while (str[spval->index] != '\0')
 	{

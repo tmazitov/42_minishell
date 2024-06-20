@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command_prep.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:59:54 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/20 17:58:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:49:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*prepare_user_input(void)
 		return (free(str_head), return_voidpointer());
 	str_temp = ft_strdup(str);
 	if (!str_temp)
-		return (NULL);
+		return (free(str_head), NULL);
 	return (free(str_head), str_temp);
 }
 

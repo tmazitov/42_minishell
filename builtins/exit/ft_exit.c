@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/20 16:04:15 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/20 20:59:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	ft_exit(char *str, t_builtin_info *info)
 	exit_status = 0;
 	str_split = ft_split(str, ' ');
 	if (ft_strlen_dp(str_split) > 2)
+	{
+		free_pointer(str_split);
 		return (write(2, "exit\nbash: exit: too many arguments\n", 36), 1);
+	}
 	else if (ft_strlen_dp(str_split) == 2)
 	{
 		write(2, "exit\n", 5);
@@ -30,14 +33,18 @@ int	ft_exit(char *str, t_builtin_info *info)
 	else if (ft_strlen_dp(str_split) == 1)
 		write(2, "exit\n", 5);
 	free_pointer(str_split);
+	handle_exitcmd(info);
+	return (exit(exit_status), exit_status);
+}
+
+void	handle_exitcmd(t_builtin_info *info)
+{
 	free_queue(info->q);
 	ft_free_env(info->env);
 	ft_free_var(info->var);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	exit (exit_status);
-	return (exit_status);
 }
 
 int	exit_status_out(char **c)

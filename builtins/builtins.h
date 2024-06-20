@@ -220,6 +220,7 @@ int					ft_checkcderr(char *path);
 
 int					ft_exit(char *str, t_builtin_info *info);
 int					exit_status_out(char **c);
+void				handle_exitcmd(t_builtin_info *info);
 int					check_exitstatus(int n);
 void				*free_queue(t_com_queue *queue);
 t_com_node			*get_first(t_com_queue *q);
