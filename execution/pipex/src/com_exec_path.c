@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_exec_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:16:43 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 16:30:40 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 22:29:14 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static char	*check_absolute_path(char *path)
 char	*command_path(t_com_node *command, t_envlist **envlist)
 {
 	char	*path;
-	char	*current_path;
 
 	if (!command || !envlist)
 		return (NULL);

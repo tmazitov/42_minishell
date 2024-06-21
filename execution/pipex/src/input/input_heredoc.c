@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:29:55 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 18:19:26 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 22:30:33 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static int	write_one_string(char *str, t_builtin_info info)
 static int	heredoc_input(t_com_input *heredoc, char *input, int fd, \
 	t_builtin_info info)
 {
-	char	*exp;
 	char	**tokens;
 	int		temp_out;
 	int		counter;
 
+	(void)heredoc;
 	temp_out = 0;
 	(void)temp_out;
 	tokens = ft_split(input, ' ');

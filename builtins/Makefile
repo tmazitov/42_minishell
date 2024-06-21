@@ -12,12 +12,12 @@
 
 # THIS MAKEFILE IS FOR TESTING
 
+UNAME			=	$(shell uname)
 NAME			= 	builtins.a
-CC				= 	cc
-FLAGS			= 	-Wall -Wextra -Werror
-RM				= 	rm -rf
-LB				= 	ar rcs
-# LDFLAGS			=	-L../libft -lft
+CC				=	cc
+LB				=	ar rcs
+CFLAGS			=	-Wall -Wextra -Werror -I /Users/emaravil/.local/opt/readline/include
+RM				=	rm -rf
 
 BUILTINS_SRCS	=	./echo/ft_echo.c \
 					./utils/cd_utils.c \
@@ -48,34 +48,13 @@ BUILTINS_SRCS	=	./echo/ft_echo.c \
 BUILTINS_OBJS	=	$(BUILTINS_SRCS:.c=.o)
 HEADER			=	./builtins.h
 
-# PARSE			= parse.a
-# PARSE_DIR		= ../parsing
-# PARSE_LIB		= $(PARSE_DIR)/$(PARSE)
-
-# LIBFT			=	libft.a
-# LIBFT_DIR		=	../libft
-# LIBFT_LIB		=	$(LIBFT_DIR)/$(LIBFT)
-
-#COMMANDS
-%.o: %.c $(HEADER) Makefile
-	@${CC} ${FLAGS} -c $< -o $@
-
 MAKE_LIBR = make --no-print-directory -C
 
 all: $(NAME)
 
-# $(NAME): $(BUILTINS_OBJS)
-# 	@$(CC) $(CFLAGS) -o $(NAME) $(BUILTINS_OBJS) $(PARSE_LIB) $(LDFLAGS)
-
 $(NAME): $(BUILTINS_OBJS)
-	@$(LB) $(NAME) $(BUILTINS_OBJS)
+	@$(LB) $(NAME) $(BUILTINS_OBJS) 
 	@echo "$(GREEN) $(NAME) :: LIBRARY CREATED!$(DEFAULT)"
-
-# $(LIBFT_LIB):
-# 	@$(MAKE_LIBR) $(LIBFT_DIR)
-
-# $(PARSE_LIB):
-# 	@$(MAKE_LIBR) $(PARSE_DIR)
 
 clean:
 	@$(RM) $(BUILTINS_OBJS)

@@ -12,7 +12,7 @@
 
 UNAME		=	$(shell uname)
 NAME		=	execution.a
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS			=	-Wall -Wextra -Werror -I /Users/emaravil/.local/opt/readline/include
 CC			= 	cc
 RM			=	rm -rf
 LB			= 	ar rcs

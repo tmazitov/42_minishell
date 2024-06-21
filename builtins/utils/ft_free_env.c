@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:30:23 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/21 21:37:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 22:55:48 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	cdcheck_path(char *path)
 	if (path == NULL)
 		return (ft_err_b("bash: cd: OLDPWD not set\n", NULL, NULL), 1);
 	dir = opendir(path);
-	// ft_printf("errno %d\n", errno);
 	if (dir)
 	{
 		closedir(dir);

@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+         #
+#    By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 21:27:48 by tmazitov          #+#    #+#              #
-#    Updated: 2024/05/24 16:17:10 by tmazitov         ###   ########.fr        #
+#    Updated: 2024/06/21 22:28:55 by emaravil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #SETUP
 NAME		=	pipex.a
-CC			=	cc
-LB			=	ar rcs
-FLAGS		=	-Wall -Wextra -Werror -fsanitize=address
-RM			=	rm -rf
+CC				=	cc
+LB				=	ar rcs
+CFLAGS			=	-Wall -Wextra -Werror -I /Users/emaravil/.local/opt/readline/include
+RM				=	rm -rf
 
 #FILES AND PATH
 CHAN_SRCS	=	chan/chan.c \
@@ -69,8 +69,8 @@ LIBFT		=	../../libft/libft.a
 SIGNAL		=	../../signal/signal.a
 
 #COMMANDS
-%.o: %.c $(HEADER) Makefile
-	@${CC} ${FLAGS} -c $< -o $@
+# %.o: %.c $(HEADER) Makefile
+# 	@${CC} ${FLAGS} -c $< -o $@
 
 # $(NAME): $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)
 # 	@$(LB) $(NAME) $(UTILS_OBJ) $(CHAN_OBJ) $(SRC_OBJ) $(MAND_OBJS)

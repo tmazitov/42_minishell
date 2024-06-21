@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_queue_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:35:47 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 18:17:38 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 22:29:50 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	init_redirection(t_com_node *node, char **input)
 t_com_node	*make_node(char **com)
 {
 	t_com_node	*node;
-	char		**command_parts;
 
 	if (!com || !*com)
 		return (NULL);

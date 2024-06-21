@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   com_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/21 21:09:25 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 22:29:34 by emaravil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 {
 	int			status;
 	char		**envp;
-	t_log_chan	*heredoc;
 
 	if (command->name && !command->builtin)
 		command_path(command, info->env);
