@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:27:45 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/15 21:15:49 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:55:39 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ static int	run_prep(t_com_queue *commands, t_envlist **envlist, \
 	if (status)
 		return (status);
 	status_code(SET, STOP_HEREDOC);
-	status = run_infiles(commands);
-	if (status)
-		return (status);
-	return (status);
+	run_infiles(commands);
+	return (0);
 }
 
 /// @brief Run executable commands one by one

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:28:26 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/20 20:59:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/06/21 19:11:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_exit(char *str, t_builtin_info *info)
 
 void	handle_exitcmd(t_builtin_info *info)
 {
+	rl_clear_history();
 	free_queue(info->q);
 	ft_free_env(info->env);
 	ft_free_var(info->var);
