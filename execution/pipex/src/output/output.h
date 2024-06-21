@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:48:37 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 18:19:15 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:36:53 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <errno.h>
 
 typedef enum dest
 {

@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:26:14 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/21 19:12:04 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:44:51 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "../../../signals/includes/signals.h"
 # include "../../../../builtins/builtins.h"
 # include "../../../../libft/libft.h"
