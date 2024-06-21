@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:33:56 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/10 18:17:10 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:02:57 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,12 @@ t_com_node	*add_builtin_node(t_com_queue *q, char **command_line)
 int	single_builtin(t_com_node *command, t_builtin_info *info)
 {
 	int	status;
-	int	temp_in;
 	int	temp_out;
 
-	temp_in = 0;
-	temp_out = 0;
-	if (command->input && get_last_input(command->input))
-		dup2(get_last_input(command->input)->fd, STDIN_FILENO);
+	temp_out = 1;
 	if (command->output && get_last_output(command->output))
 		dup2(get_last_output(command->output)->fd, STDOUT_FILENO);
 	status = ft_builtins(command->builtin, info);
-	if (command->input && get_last_input(command->input))
-		dup2(temp_in, STDIN_FILENO);
 	if (command->output && get_last_output(command->output))
 		dup2(temp_out, STDOUT_FILENO);
 	return (status);

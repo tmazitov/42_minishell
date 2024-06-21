@@ -19,6 +19,8 @@
 # include "../execution/pipex/chan/chan.h"
 # include "../execution/signals/includes/signals.h"
 # include "../execution/pipex/src/output/output.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdint.h>
 # include <dirent.h>
 # include <errno.h>

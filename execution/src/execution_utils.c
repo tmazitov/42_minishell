@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:00:36 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/09 02:38:52 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:48:40 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 int	run_infiles(t_com_queue *commands)
 {
 	t_com_node	*command;
-	int			status;
 
 	command = get_first(commands);
 	while (command)
 	{
 		if (command->input)
-			status = open_command_infile(command->input);
-		if (command->input && status)
-			return (1);
+			open_command_infile(command->input);
 		command = command->next;
 	}
 	return (0);

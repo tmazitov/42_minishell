@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:48:27 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/04 16:47:11 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:55:56 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ t_com_output	*make_file_output(char *filepath)
 	output->src = OUTFILE;
 	output->filepath = filepath;
 	output->fd = open(output->filepath, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (errno == EPERM || errno == EACCES)
+	{
+		write(2, "minishell: ", 12);
+		write(2, output->filepath, ft_strlen(output->filepath));
+		write(2, ": Permission denied\n", 21);
+		return (output);
+	}
 	if (output->fd <= 0)
 		return (free_file_output(output));
 	return (output);
