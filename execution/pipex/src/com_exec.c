@@ -6,7 +6,7 @@
 /*   By: tmazitov <tmazitov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:44:34 by tmazitov          #+#    #+#             */
-/*   Updated: 2024/06/20 18:00:00 by tmazitov         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:30:24 by tmazitov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ static void	duper(t_com_node *command)
 		dup2(pipe_output->side[1], STDOUT_FILENO);
 }
 
-static void	closer(t_com_node *command)
-{
-	if (command->in_chan)
-	{
-		close_read(command->in_chan);
-		close_write(command->in_chan);
-	}
-	if (command->out_chan)
-	{
-		close_write(command->out_chan);
-		close_read(command->out_chan);
-	}
-}
-
 static void	command_proc(t_com_node *command, t_builtin_info *info)
 {
 	int			status;
@@ -71,14 +57,13 @@ static void	command_proc(t_com_node *command, t_builtin_info *info)
 	if (!command->path && !command->builtin)
 		panic(command, info, 127);
 	duper(command);
-	closer(command);
+	free_queue_relationship(info->q);
 	status = 0;
 	if (command->builtin)
 		panic(command, info, ft_builtins(command->builtin, info));
 	envp = ft_env_converter(info->env);
 	if (!envp)
 		panic(command, info, 1);
-	free_queue_relationship(info->q);
 	status = execve(command->path, command->args, envp);
 	free_split(envp);
 	panic(command, info, status);
