@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:30:23 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/20 19:05:46 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:37:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	cdcheck_path(char *path)
 	if (path == NULL)
 		return (ft_err_b("bash: cd: OLDPWD not set\n", NULL, NULL), 1);
 	dir = opendir(path);
+	// ft_printf("errno %d\n", errno);
 	if (dir)
 	{
 		closedir(dir);
@@ -43,12 +44,12 @@ int	cdcheck_path(char *path)
 	else if (EACCES == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": Permission denied\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else if (ENOTDIR == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": Not a directory\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else
 		exit_status = ft_checkcderr(path);
@@ -88,22 +89,22 @@ int	ft_checkcderr(char *path)
 	if (ENOENT == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": No such file or directory\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else if (ENAMETOOLONG == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": File name too long\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else if (EFAULT == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": path inaccessbile\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else if (EIO == errno)
 	{
 		ft_err_b("bash: cd: ", path, ": I/O error occurred\n");
-		return (free(path), 1);
+		return (1);
 	}
 	else
 		return (0);

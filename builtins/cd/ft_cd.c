@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emaravil <emaravil@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 20:07:42 by emaravil          #+#    #+#             */
-/*   Updated: 2024/06/20 19:04:13 by emaravil         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:43:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_cd(char *str, t_envlist **envlist, t_varlist **varlist)
 	}
 	path = ft_getpath(str, envlist, varlist);
 	if (cdcheck_path(path) == 1)
-		return (1);
+		return (free(path), 1);
 	ft_update_envlist(ft_strdup(currdir), envlist);
 	return (free(path), 0);
 }
@@ -57,7 +57,7 @@ char	*ft_getpath(char *str, t_envlist **envlist, t_varlist **varlist)
 			ft_printf("%s\n", path);
 		}
 		else
-			return (NULL);
+			return (free_pointer(psplit), NULL);
 	}
 	else
 		path = ft_getpath_a(psplit, envlist, varlist);

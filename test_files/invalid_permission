@@ -21,10 +21,8 @@ minishell.h
 minishell_info.c
 minishell_info.o
 minishell.o
-minishell_tester
 parsing
 test
-testcases.txt
 test_dir
 test_files
 test.sh
